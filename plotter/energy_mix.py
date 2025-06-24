@@ -2,15 +2,15 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-import energy_mix.intensities as intensities
+import src.parameters as parameters
 
 # Input
-data_path_historical = "./energy_mix/historical/{}.csv".format
-data_path_forecast = "./energy_mix/forecast/{}.csv".format
+data_path_historical = "./data/energy_mix/historical/{}.csv".format
+data_path_forecast = "./data/energy_mix/forecast/{}.csv".format
 # Output
-plot_out = "./energy_mix/plots/{}.pdf".format
-if not os.path.exists("./energy_mix/plots"):
-    os.makedirs("./energy_mix/plots")
+plot_out = "./data/energy_mix/plots/{}.pdf".format
+if not os.path.exists("./data/energy_mix/plots"):
+    os.makedirs("./data/energy_mix/plots")
 
 """
 

@@ -152,7 +152,7 @@ if __name__ == "__main__":
                         json.dump(profile, f, indent=4)
                     
     for workload in config["workloads"]:
-        traces_path = f"traces/{workload}.csv"
+        traces_path = f"./data/traces/{workload}.csv"
         traces_df = pd.read_csv(traces_path)
         model, x_train, y_train, mae = get_arrival_time_distribution(traces_df)
         print(f"Mean Absolute Error: {mae}")
@@ -178,8 +178,11 @@ if __name__ == "__main__":
                 
                 requests_df.to_csv(workload_file, index=False)
                 for scheduler in config["schedulers"]:
-                    for weights in config["lc_weights"]:
-                        runs += f"python -m src.run --scenario {args.n} --start {period['start']} --end {period['end']} --step {period['step']} --workload {workload} --seed {seed} --scheduler {scheduler} --lcw {weights[0]} {weights[1]} {weights[2]}\n"
+                    if scheduler == "G":
+                        runs += f"python -m src.run --scenario {args.n} --start {period['start']} --end {period['end']} --step {period['step']} --workload {workload} --seed {seed} --scheduler {scheduler}\n"
+                    else:
+                        for weights in config["lc_weights"]:
+                            runs += f"python -m src.run --scenario {args.n} --start {period['start']} --end {period['end']} --step {period['step']} --workload {workload} --seed {seed} --scheduler {scheduler} --lcw {weights[0]} {weights[1]} {weights[2]}\n"
 
     with open(f"./scripts/run_scenario_{args.n}.sh", "w") as f:
         f.write(runs)

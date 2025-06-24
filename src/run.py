@@ -1,4 +1,3 @@
-
 from src.parameters import SimulationTimeRange
 from datetime import datetime, timedelta
 from src.models.orchestrator import Orchestrator
@@ -16,9 +15,8 @@ if __name__ == "__main__":
     ap.add_argument("--step", type=int, default=3600, help="Step duration in seconds (default: 3600)")
     ap.add_argument("--workload", type=str, required=True, help="Workload type (e.g., spark)")
     ap.add_argument("--seed", type=int, required=True, help="Random seed for reproducibility")
-    ap.add_argument("--scheduler", type=str, required=True, help="Scheduler type (e.g., G for greedy)")
-    ap.add_argument("--lcw", nargs="+", type=float, required=True, help="Load balancing weights for the scheduler (e.g., 1 0 0)")
-
+    ap.add_argument("--scheduler", type=str, required=True, choices=["G", "R", "RP"], help="Scheduler type: G, R, or RP")
+    ap.add_argument("--lcw", nargs=3, type=float, default=[1, 0, 0], help="Load balancing weights for the scheduler (default: 1 0 0)")
     args = ap.parse_args()
 
     print(f"Running scenario {args.scenario} with the following parameters:")

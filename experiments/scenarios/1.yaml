@@ -1,4 +1,4 @@
-datacenters: "./providers/aws/homogeneous.csv"
+datacenters: "./data/providers/aws/homogeneous.csv"
 periods: 
   winter: 
    start: "2024-01-15T00:00:00Z"
