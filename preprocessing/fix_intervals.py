@@ -3,7 +3,7 @@ def fix(dataname):
     import os
 
     # Define the path to the data directory
-    data_dir = f"energy_mix/historical/{dataname}.csv" 
+    data_dir = f"./data/energy_mix/historical/{dataname}.csv" 
 
     # Read the CSV file into a DataFrame
     df = pd.read_csv(data_dir)

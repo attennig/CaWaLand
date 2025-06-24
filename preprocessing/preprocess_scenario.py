@@ -1,25 +1,24 @@
 import yaml, csv, json, os
-import energy_mix.intensities as intensities
+import src.parameters as parameters
 import pandas as pd
 import numpy as np
 from numpy.polynomial.polynomial import Polynomial
 
-from src.simulation_env import SimulationTimeRange
 from datetime import datetime, timedelta
 
 #str_to_date = lambda s: datetime.strptime(s, '%Y-%m-%dT%H:%M:%SZ')
 #date_to_str = lambda d: d.strftime('%Y-%m-%dT%H:%M:%S')[:-3] + 'Z'
 
 def _dynamic_data(init_time, final_time, grid_region):
-    grid_path = f"./energy_mix/forecast/{grid_region}.csv"
+    grid_path = f"./data/energy_mix/forecast/{grid_region}.csv"
     out_dynamic = []
     forecast_df = pd.read_csv(grid_path)
     forecast_df = forecast_df[(forecast_df["timestamp"] >= init_time) & (forecast_df["timestamp"] <= final_time)]
 
     sources = forecast_df.columns.to_list()[1:]
-    forecast_df["carbon_intensity"] = sum([intensities.coefficients_normalized["carbon"][source] * forecast_df[source] for source in sources])
-    forecast_df["water_intensity"] = sum([intensities.coefficients_normalized["water"][source] * forecast_df[source] for source in sources])
-    forecast_df["land_use_intensity"] = sum([intensities.coefficients_normalized["land_use"][source] * forecast_df[source] for source in sources])
+    forecast_df["carbon_intensity"] = sum([parameters.coefficients_normalized["carbon"][source] * forecast_df[source] for source in sources])
+    forecast_df["water_intensity"] = sum([parameters.coefficients_normalized["water"][source] * forecast_df[source] for source in sources])
+    forecast_df["land_use_intensity"] = sum([parameters.coefficients_normalized["land_use"][source] * forecast_df[source] for source in sources])
     
     for row in forecast_df.iterrows():  
         #timestamp = datetime.strptime(row[1]["timestamp"], '%Y-%m-%dT%H:%M:%SZ')
@@ -44,7 +43,7 @@ def get_proile(dc, init_time, final_time):
         "PUE": float(dc["PUE"]), #PUE
         "WUE":  float(dc["WUE"]), #WUE
         "LUE": lue, #LUE 
-        "CCLF": intensities.get_CCLF(state)
+        "CCLF": parameters.get_CCLF(state)
     }
     out_dynamic = _dynamic_data(
         init_time=init_time,
@@ -161,7 +160,7 @@ if __name__ == "__main__":
 
         for period in config["periods"].values():
             print(f"Processing period {period['start']} to {period['end']}")
-            sim_times = SimulationTimeRange(
+            sim_times = parameters.SimulationTimeRange(
                 start=datetime.strptime(period["start"], '%Y-%m-%dT%H:%M:%SZ'),
                 end=datetime.strptime(period["end"], '%Y-%m-%dT%H:%M:%SZ'), 
                 step=timedelta(seconds=period["step"])

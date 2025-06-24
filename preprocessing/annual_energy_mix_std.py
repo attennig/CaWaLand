@@ -1,13 +1,12 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 import os
 
 # Input
-data_path_in = "./energy_mix/raw/{}.csv".format
+data_path_in = "./data/energy_mix/raw/{}.csv".format
 # Output
-data_path_out = "./energy_mix/historical/{}.csv".format
-if not os.path.exists("./energy_mix/historical"):
-    os.makedirs("./energy_mix/historical")
+data_path_out = "./data/energy_mix/historical/{}.csv".format
+if not os.path.exists("./data/energy_mix/historical"):
+    os.makedirs("./data/energy_mix/historical")
 
 normalize_df = lambda df: df.div(df.sum(axis=1), axis=0)
 

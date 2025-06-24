@@ -3,11 +3,11 @@ import pandas as pd
 import os 
 
 # Input
-data_path_in = "./energy_mix/historical/{}.csv".format
+data_path_in = "./data/energy_mix/historical/{}.csv".format
 # Output
-data_path_out = "./energy_mix/forecast/{}.csv".format
-if not os.path.exists("./energy_mix/forecast"):
-    os.makedirs("./energy_mix/forecast")
+data_path_out = "./data/energy_mix/forecast/{}.csv".format
+if not os.path.exists("./data/energy_mix/forecast"):
+    os.makedirs("./data/energy_mix/forecast")
 
 def simulate_forecast_row_balanced(row, renewable_sources, non_renewable_sources, target_mae=0.10):
     #Electricity map states that 'forecasts have an average absolute error of less than 30% of the typical carbon intensity and less than 10% of the renewable percentage'
