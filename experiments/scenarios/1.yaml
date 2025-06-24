@@ -1,0 +1,27 @@
+datacenters: "./providers/aws/homogeneous.csv"
+periods: 
+  winter: 
+   start: "2024-01-15T00:00:00Z"
+   end: "2024-01-22T00:00:00Z"
+   step: 3600
+  spring: 
+   start: "2024-04-15T00:00:00Z" 
+   end: "2024-04-22T00:00:00Z" 
+   step: 3600
+  summer: 
+   start: "2024-07-15T00:00:00Z" 
+   end: "2024-07-22T00:00:00Z" 
+   step: 3600
+  autumn: 
+   start: "2024-10-15T00:00:00Z" 
+   end: "2024-10-22T00:00:00Z" 
+   step: 3600
+seeds: [1,2]
+workloads: ["spark"]
+schedulers: ["G", "R", "RP"]
+lc_weights:
+ - [1,0,0]
+ - [0,1,0]
+ - [0,0,1]
+ - [0.3,0.3,0.4]
+

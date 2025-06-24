@@ -1,48 +1,40 @@
 
 
-get_min_carbon_intensity = lambda timestamp, dcs: sorted(dcs, key=lambda dc: dc.profile.carbon_intensity(timestamp))[0]
-get_min_water_intensity = lambda timestamp, dcs: sorted(dcs, key=lambda dc: dc.profile.water_intensity(timestamp))[0]
-get_min_land_use_intensity = lambda timestamp, dcs: sorted(dcs, key=lambda dc: dc.profile.land_use_intensity(timestamp))[0]
-
-
-
-"""
 # carbon greedy
-get_dc_by_min_carbon = lambda timestamp, job, dcs:  sorted(dcs, key=lambda dc: eval_carbon(timestamp, job, dc))[0]
-eval_carbon = lambda timestamp, job, dc: dc.get_carbon_emissions(timestamp, float(job["expected_power_per_hour"]))
+get_dc_by_min_carbon = lambda timestamp, req, dcs, orch:  sorted(dcs, key=lambda dc: eval_carbon(timestamp, req, dc, orch))[0]
+def eval_carbon(timestamp, req, dc, orch): 
+    execution_energy_kWh = req.VM_instance.execution_energy_kWh(time = min(orch.simulation_time_range.step.seconds, req.lifetime))
+    migration_energy_kWh = req.VM_instance.migration_energy_kWh(destination_dc = dc.name)
+    carbon_execution = dc.get_carbon_footprint(timestamp, energy_kWh = execution_energy_kWh) # gCO2/kWh * kWh = gCO2
+    carbon_migration = migration_energy_kWh * orch.global_CI[timestamp]
+    t_idx = orch.simulation_time_range.get_timestamps().index(timestamp)
+    print(f"carbon footprint {id(req)} {req.trace["datacenter"][t_idx]}->{dc.name}: {carbon_execution} + {carbon_migration} = {carbon_execution + carbon_migration}")
+    return carbon_execution + carbon_migration
 
 # water greedy
-get_dc_by_min_water = lambda timestamp, job, dcs: sorted(dcs, key=lambda dc: eval_water(timestamp, job, dc))[0]
-eval_water = lambda timestamp, job, dc: dc.get_water_use(timestamp, float(job["expected_power_per_hour"]))
+get_dc_by_min_water = lambda timestamp, req, dcs, orch: sorted(dcs, key=lambda dc: eval_water(timestamp, req, dc, orch))[0]
+def eval_water(timestamp, req, dc, orch): 
+    execution_energy_kWh = req.VM_instance.execution_energy_kWh(time = min(orch.simulation_time_range.step.seconds, req.lifetime))
+    migration_energy_kWh = req.VM_instance.migration_energy_kWh(destination_dc = dc.name)
+    water_execution = dc.get_water_footprint(timestamp, energy_kWh = execution_energy_kWh) # gCO2/kWh * kWh = gCO2
+    water_migration = migration_energy_kWh * orch.global_EWIF[timestamp]
+    t_idx = orch.simulation_time_range.get_timestamps().index(timestamp)
+    print(f"water footprint {id(req)} {req.trace["datacenter"][t_idx]}->{dc.name}: {water_execution} + {water_migration} = {water_execution + water_migration}")
+    return water_execution + water_migration
+  
 
 # land use greedy
-get_dc_by_min_land_use = lambda timestamp, job, dcs: sorted(dcs, key=lambda dc: eval_land_use(timestamp, job, dc))[0]
-eval_land_use = lambda timestamp, job, dc : dc.get_carbon_capture_loss(timestamp, float(job["expected_power_per_hour"]))
+get_dc_by_min_land_use = lambda timestamp, req, dcs, orch: sorted(dcs, key=lambda dc: eval_land_use(timestamp, req, dc, orch))[0]
+#eval_land_use = lambda timestamp, energy_kWh, dc: dc.get_land_use_footprint(timestamp, energy_kWh) # gCO2/kWh * kWh = gCO2
+def eval_land_use(timestamp, req, dc, orch): 
+    execution_energy_kWh = req.VM_instance.execution_energy_kWh(time = min(orch.simulation_time_range.step.seconds, req.lifetime))
+    migration_energy_kWh = req.VM_instance.migration_energy_kWh(destination_dc = dc.name)
+    land_use_execution = dc.get_land_use_footprint(timestamp, energy_kWh = execution_energy_kWh) # gCO2/kWh * kWh = gCO2
+    land_use_migration = migration_energy_kWh * orch.global_ELIF[timestamp] * orch.global_CCLF
+    t_idx = orch.simulation_time_range.get_timestamps().index(timestamp)
+    print(f"land use footprint {id(req)} {req.trace["datacenter"][t_idx-1]}->{dc.name}: {land_use_execution} + {land_use_migration} = {land_use_execution + land_use_migration}")
+    return land_use_execution + land_use_migration
 
 # preference_based greedy
-get_dc_by_preference = lambda timestamp, job, dcs: sorted(dcs, key=lambda dc: eval_preference(timestamp, job, dc))[0]
-eval_preference = lambda timestamp, job, dc: job["carbon_preference"] * dc.get_carbon_emissions(timestamp, float(job["expected_power_per_hour"])) + job["water_preference"] * dc.get_water_use(timestamp, float(job["expected_power_per_hour"])) + job["land_use_preference"] * dc.get_carbon_capture_loss(timestamp, float(job["expected_power_per_hour"]))
-
-compute_overall_carbon = lambda footprint: sum([footprint[timestamp]["carbon"] for timestamp in footprint.keys()])
-compute_overall_water = lambda footprint: sum([footprint[timestamp]["water"] for timestamp in footprint.keys()])
-compute_overall_land_use = lambda footprint: sum([footprint[timestamp]["land_use"] for timestamp in footprint.keys()])
-
-import src.config as config
-compute_overall_linear = lambda footprint: sum(
-    [
-        config.carbon_weigth * footprint[timestamp]["carbon"] 
-        + config.water_weigth * footprint[timestamp]["water"] 
-        + config.land_use_weigth * footprint[timestamp]["land_use"] 
-        for timestamp in footprint.keys()]
-    )
-
-
-compute_carbon_at_time = lambda timestamp, vm: vm.expected_energy_consumption_VM(config.step.seconds) * vm.datacenter.profile.carbon_intensity(timestamp)
-compute_water_at_time = lambda timestamp, vm: vm.expected_energy_consumption_VM(config.step.seconds) * vm.datacenter.profile.water_intensity(timestamp)
-compute_land_use_at_time = lambda timestamp, vm: vm.expected_energy_consumption_VM(config.step.seconds) * vm.datacenter.profile.land_use_intensity(timestamp)
-compute_linear_at_time = lambda timestamp, vm: vm.expected_energy_consumption_VM(config.step.seconds) *(
-    config.carbon_weigth * vm.datacenter.profile.carbon_intensity(timestamp) + 
-    config.water_weigth * vm.datacenter.profile.water_intensity(timestamp) + 
-    config.land_use_weigth * vm.datacenter.profile.land_use_intensity(timestamp)
-)
-"""
+get_dc_by_linear_combination = lambda timestamp, req, dcs, orch: sorted(dcs, key=lambda dc: eval_linear_combination(timestamp, req, dc, orch))[0]
+eval_linear_combination = lambda timestamp, req, dc, orch: orch.factor_weights["carbon"] * eval_carbon(timestamp, req, dc, orch)+ orch.factor_weights["water"] * eval_water(timestamp, req, dc, orch) + orch.factor_weights["land_use"] * eval_land_use(timestamp, req, dc, orch)

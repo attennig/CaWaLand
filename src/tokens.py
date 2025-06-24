@@ -1,2 +1,0 @@
-ELECTRICITYMAPS_API_TOKEN = "oxXFjh6cXPnPd" # "PasteYourKey" # https://www.electricitymaps.com/pricing
-VISUALCROSSING_API_TOKEN = "HC8KHZDX7BZDRZVMH5GCRXBT8" #"PasteYourKey"  # https://www.visualcrossing.com/weather-api/
