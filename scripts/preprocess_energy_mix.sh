@@ -1,6 +1,6 @@
 #!/bin/bash
 # standardize annual raw historical data 
-python -m preprocessing.annual_energy_mix_std --pjm --aeso --ercot --caiso --italy
+python -m preprocessing.annual_energy_mix_std --uk --germany --pjm --aeso --ercot --caiso 
 python preprocessing/fix_intervals.py --data pjm
 python preprocessing/fix_intervals.py --data aeso
 python preprocessing/fix_intervals.py --data ercot

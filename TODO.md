@@ -10,10 +10,6 @@
 
 
 TODO (Giulio): 
-today:
- -- uk data
- -- german data
+26 june:
  -- land occupation estimates from other articles/sources
  -- add more seed to experiments
-26 june:
- -- 

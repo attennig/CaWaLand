@@ -68,6 +68,8 @@ if __name__ == "__main__":
     ap.add_argument("--pjm", action="store_true", help="Preprocess PJM data")
     ap.add_argument("--aeso", action="store_true", help="Preprocess AESO data")
     ap.add_argument("--ercot", action="store_true", help="Preprocess ERCOT data")
+    ap.add_argument("--germany", action="store_true", help="Preprocess german data")
+    ap.add_argument("--uk", action="store_true", help="Preprocess british data")
     args = ap.parse_args()
     
     if args.caiso:
@@ -78,3 +80,7 @@ if __name__ == "__main__":
         mimic_forecast("aeso")
     if args.ercot:
         mimic_forecast("ercot")
+    if args.germany:
+        mimic_forecast("germany")
+    if args.uk:
+        mimic_forecast("uk")

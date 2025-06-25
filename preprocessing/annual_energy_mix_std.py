@@ -166,7 +166,29 @@ def preprocess_italy():
 
 
 def preprocess_germany():
-    pass
+    df = pd.read_csv(data_path_in("germany"), parse_dates=True, sep=";")
+    df.replace("-", 0, inplace=True)
+    cols_to_convert = [col for col in df.columns if col not in ["Start date", "End date"]]
+    df[cols_to_convert] = df[cols_to_convert].replace(",", "", regex=True).astype(float)
+
+    df["timestamp"] = pd.to_datetime(df["Start date"], format='%b %d, %Y %I:%M %p')
+    df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+    df["wind"] = df["Wind offshore [MWh] Calculated resolutions"] + df["Wind onshore [MWh] Calculated resolutions"]
+    df["unknown"] = df["Other renewable [MWh] Calculated resolutions"] + df["Lignite [MWh] Calculated resolutions"]
+    df["hydro"] = df["Hydro pumped storage [MWh] Calculated resolutions"] + df["Hydropower [MWh] Calculated resolutions"]
+    df.rename(columns={
+            "Nuclear [MWh] Calculated resolutions": "nuclear",
+            "Biomass [MWh] Calculated resolutions": "biomass",
+            "Hard coal [MWh] Calculated resolutions": "coal",
+            "Fossil gas [MWh] Calculated resolutions": "gas",
+            "Photovoltaics [MWh] Calculated resolutions": "solar"
+        }, inplace=True) 
+    df["oil"] = 0
+    df["geothermal"] = 0
+    df.set_index("timestamp", inplace=True)
+    uk_df = normalize_df(df[["nuclear", "geothermal", "biomass", "coal", "wind", "solar", "hydro", "gas", "oil", "unknown"]].clip(lower=0))
+    uk_df.to_csv(data_path_out("germany"), index=True)
+
 def preprocess_uk():
     df = pd.read_csv(data_path_in("uk"), parse_dates=True, sep=";")
     df = df.drop_duplicates()
@@ -177,7 +199,7 @@ def preprocess_uk():
     df.drop(columns=["other", "imports"], inplace=True)
     uk_df = df.set_index("timestamp").resample("1H").mean().reset_index()
     uk_df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
-    uk_df.to_csv(data_path_out("uk"), sep=";", index=False)
+    uk_df.to_csv(data_path_out("uk"), index=False)
 
 
 if __name__ == "__main__":
