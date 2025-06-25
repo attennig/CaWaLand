@@ -168,7 +168,16 @@ def preprocess_italy():
 def preprocess_germany():
     pass
 def preprocess_uk():
-    pass
+    df = pd.read_csv(data_path_in("uk"), parse_dates=True, sep=";")
+    df = df.drop_duplicates()
+    df["timestamp"] = pd.to_datetime(df["timestamp"]) + pd.Timedelta(hours=1)
+    df["unknown"]= df["other"] + df["imports"]
+    df["geothermal"] = 0
+    df["oil"] = 0
+    df.drop(columns=["other", "imports"], inplace=True)
+    uk_df = df.set_index("timestamp").resample("1H").mean().reset_index()
+    uk_df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+    uk_df.to_csv(data_path_out("uk"), sep=";", index=False)
 
 
 if __name__ == "__main__":
