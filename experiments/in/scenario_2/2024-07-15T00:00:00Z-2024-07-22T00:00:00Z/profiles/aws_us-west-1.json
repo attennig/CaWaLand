@@ -1,0 +1,1024 @@
+{
+    "dynamic": [
+        {
+            "timestamp": "2024-07-15T00:00:00Z",
+            "carbon_intensity": 0.26332417505116357,
+            "water_intensity": 0.16195241805578767,
+            "land_use_intensity": 0.18059643381215357
+        },
+        {
+            "timestamp": "2024-07-15T01:00:00Z",
+            "carbon_intensity": 0.2169567405195316,
+            "water_intensity": 0.1361134288295246,
+            "land_use_intensity": 0.17214246135429334
+        },
+        {
+            "timestamp": "2024-07-15T02:00:00Z",
+            "carbon_intensity": 0.20577424952394774,
+            "water_intensity": 0.13492148170779672,
+            "land_use_intensity": 0.17813839535173037
+        },
+        {
+            "timestamp": "2024-07-15T03:00:00Z",
+            "carbon_intensity": 0.17989045011120763,
+            "water_intensity": 0.11067120964068775,
+            "land_use_intensity": 0.18180915450902094
+        },
+        {
+            "timestamp": "2024-07-15T04:00:00Z",
+            "carbon_intensity": 0.19763196695025786,
+            "water_intensity": 0.10952707793131941,
+            "land_use_intensity": 0.17829495278318352
+        },
+        {
+            "timestamp": "2024-07-15T05:00:00Z",
+            "carbon_intensity": 0.21583454121076398,
+            "water_intensity": 0.11167904834116578,
+            "land_use_intensity": 0.15600907741707773
+        },
+        {
+            "timestamp": "2024-07-15T06:00:00Z",
+            "carbon_intensity": 0.21165020559465086,
+            "water_intensity": 0.11485858642557495,
+            "land_use_intensity": 0.16794753634509538
+        },
+        {
+            "timestamp": "2024-07-15T07:00:00Z",
+            "carbon_intensity": 0.185731325837642,
+            "water_intensity": 0.12267245121808364,
+            "land_use_intensity": 0.18522416217861423
+        },
+        {
+            "timestamp": "2024-07-15T08:00:00Z",
+            "carbon_intensity": 0.2462295086375351,
+            "water_intensity": 0.1423867259893872,
+            "land_use_intensity": 0.16946033611164307
+        },
+        {
+            "timestamp": "2024-07-15T09:00:00Z",
+            "carbon_intensity": 0.23534921266338837,
+            "water_intensity": 0.12230854105495931,
+            "land_use_intensity": 0.1941068707425383
+        },
+        {
+            "timestamp": "2024-07-15T10:00:00Z",
+            "carbon_intensity": 0.29181864649352096,
+            "water_intensity": 0.13911810657790583,
+            "land_use_intensity": 0.18243084644724608
+        },
+        {
+            "timestamp": "2024-07-15T11:00:00Z",
+            "carbon_intensity": 0.28486997539833575,
+            "water_intensity": 0.18279629045816498,
+            "land_use_intensity": 0.20914235348098137
+        },
+        {
+            "timestamp": "2024-07-15T12:00:00Z",
+            "carbon_intensity": 0.33810124643223044,
+            "water_intensity": 0.202822770508449,
+            "land_use_intensity": 0.2196883665321728
+        },
+        {
+            "timestamp": "2024-07-15T13:00:00Z",
+            "carbon_intensity": 0.3609862872265798,
+            "water_intensity": 0.22803478418859566,
+            "land_use_intensity": 0.2019802081132839
+        },
+        {
+            "timestamp": "2024-07-15T14:00:00Z",
+            "carbon_intensity": 0.3478102703123417,
+            "water_intensity": 0.1851467895992226,
+            "land_use_intensity": 0.2514453826441346
+        },
+        {
+            "timestamp": "2024-07-15T15:00:00Z",
+            "carbon_intensity": 0.33977807490380674,
+            "water_intensity": 0.20106564075948813,
+            "land_use_intensity": 0.24797354705574884
+        },
+        {
+            "timestamp": "2024-07-15T16:00:00Z",
+            "carbon_intensity": 0.32370541771948613,
+            "water_intensity": 0.19134371243777754,
+            "land_use_intensity": 0.27672883643091184
+        },
+        {
+            "timestamp": "2024-07-15T17:00:00Z",
+            "carbon_intensity": 0.31338332749096975,
+            "water_intensity": 0.20178493874611605,
+            "land_use_intensity": 0.2831460298514328
+        },
+        {
+            "timestamp": "2024-07-15T18:00:00Z",
+            "carbon_intensity": 0.3252985107520441,
+            "water_intensity": 0.19284473263082885,
+            "land_use_intensity": 0.2608289223662246
+        },
+        {
+            "timestamp": "2024-07-15T19:00:00Z",
+            "carbon_intensity": 0.30220237551624796,
+            "water_intensity": 0.21893474658814596,
+            "land_use_intensity": 0.2843998955833713
+        },
+        {
+            "timestamp": "2024-07-15T20:00:00Z",
+            "carbon_intensity": 0.31235782889964364,
+            "water_intensity": 0.20161723947607574,
+            "land_use_intensity": 0.2764067583838537
+        },
+        {
+            "timestamp": "2024-07-15T21:00:00Z",
+            "carbon_intensity": 0.3126789046327998,
+            "water_intensity": 0.22619107103715103,
+            "land_use_intensity": 0.2571043940551085
+        },
+        {
+            "timestamp": "2024-07-15T22:00:00Z",
+            "carbon_intensity": 0.32995327445993516,
+            "water_intensity": 0.23542570080891864,
+            "land_use_intensity": 0.22053245672641827
+        },
+        {
+            "timestamp": "2024-07-15T23:00:00Z",
+            "carbon_intensity": 0.30319790619576187,
+            "water_intensity": 0.2102667192228911,
+            "land_use_intensity": 0.23856131373922557
+        },
+        {
+            "timestamp": "2024-07-16T00:00:00Z",
+            "carbon_intensity": 0.23848394466544645,
+            "water_intensity": 0.19284005375866295,
+            "land_use_intensity": 0.20118235718724933
+        },
+        {
+            "timestamp": "2024-07-16T01:00:00Z",
+            "carbon_intensity": 0.19034850361563987,
+            "water_intensity": 0.16171777822458758,
+            "land_use_intensity": 0.1948613161217541
+        },
+        {
+            "timestamp": "2024-07-16T02:00:00Z",
+            "carbon_intensity": 0.34023222849842233,
+            "water_intensity": 0.16185529964051906,
+            "land_use_intensity": 0.2348745156728551
+        },
+        {
+            "timestamp": "2024-07-16T03:00:00Z",
+            "carbon_intensity": 0.1936451349778191,
+            "water_intensity": 0.13916316215592445,
+            "land_use_intensity": 0.18998822981416033
+        },
+        {
+            "timestamp": "2024-07-16T04:00:00Z",
+            "carbon_intensity": 0.18602203273984727,
+            "water_intensity": 0.13059911405311525,
+            "land_use_intensity": 0.20210282230675888
+        },
+        {
+            "timestamp": "2024-07-16T05:00:00Z",
+            "carbon_intensity": 0.22317011099600587,
+            "water_intensity": 0.13833306998186165,
+            "land_use_intensity": 0.17762472328260773
+        },
+        {
+            "timestamp": "2024-07-16T06:00:00Z",
+            "carbon_intensity": 0.16766033623543236,
+            "water_intensity": 0.12736713878449074,
+            "land_use_intensity": 0.21922588532275536
+        },
+        {
+            "timestamp": "2024-07-16T07:00:00Z",
+            "carbon_intensity": 0.21941831378437202,
+            "water_intensity": 0.11906714306149617,
+            "land_use_intensity": 0.1915612785688113
+        },
+        {
+            "timestamp": "2024-07-16T08:00:00Z",
+            "carbon_intensity": 0.25796300411128387,
+            "water_intensity": 0.11258739244943997,
+            "land_use_intensity": 0.18076620044433697
+        },
+        {
+            "timestamp": "2024-07-16T09:00:00Z",
+            "carbon_intensity": 0.1854284237737699,
+            "water_intensity": 0.14067773626075528,
+            "land_use_intensity": 0.23145182734269137
+        },
+        {
+            "timestamp": "2024-07-16T10:00:00Z",
+            "carbon_intensity": 0.21991629845806998,
+            "water_intensity": 0.15253266843195656,
+            "land_use_intensity": 0.2593065966694956
+        },
+        {
+            "timestamp": "2024-07-16T11:00:00Z",
+            "carbon_intensity": 0.2581636968758889,
+            "water_intensity": 0.1622515380358754,
+            "land_use_intensity": 0.23135530378645908
+        },
+        {
+            "timestamp": "2024-07-16T12:00:00Z",
+            "carbon_intensity": 0.3236252095270229,
+            "water_intensity": 0.20899763131181284,
+            "land_use_intensity": 0.23002803219604973
+        },
+        {
+            "timestamp": "2024-07-16T13:00:00Z",
+            "carbon_intensity": 0.342755989550281,
+            "water_intensity": 0.208656296125583,
+            "land_use_intensity": 0.24521423498898476
+        },
+        {
+            "timestamp": "2024-07-16T14:00:00Z",
+            "carbon_intensity": 0.3418285184559464,
+            "water_intensity": 0.18604267475825326,
+            "land_use_intensity": 0.2592748490499046
+        },
+        {
+            "timestamp": "2024-07-16T15:00:00Z",
+            "carbon_intensity": 0.33774970708543717,
+            "water_intensity": 0.21342137833436128,
+            "land_use_intensity": 0.2434013438684904
+        },
+        {
+            "timestamp": "2024-07-16T16:00:00Z",
+            "carbon_intensity": 0.3344982425377815,
+            "water_intensity": 0.19265654240982744,
+            "land_use_intensity": 0.2521928939360514
+        },
+        {
+            "timestamp": "2024-07-16T17:00:00Z",
+            "carbon_intensity": 0.3005099768727713,
+            "water_intensity": 0.20704240108394328,
+            "land_use_intensity": 0.3015463179500649
+        },
+        {
+            "timestamp": "2024-07-16T18:00:00Z",
+            "carbon_intensity": 0.30712143977975587,
+            "water_intensity": 0.21050588317063715,
+            "land_use_intensity": 0.28155566220658423
+        },
+        {
+            "timestamp": "2024-07-16T19:00:00Z",
+            "carbon_intensity": 0.31933747815357677,
+            "water_intensity": 0.1815007240759118,
+            "land_use_intensity": 0.27544689952062246
+        },
+        {
+            "timestamp": "2024-07-16T20:00:00Z",
+            "carbon_intensity": 0.32881314429406755,
+            "water_intensity": 0.18547316972028494,
+            "land_use_intensity": 0.24933190685376633
+        },
+        {
+            "timestamp": "2024-07-16T21:00:00Z",
+            "carbon_intensity": 0.3004864969841704,
+            "water_intensity": 0.21561926124531003,
+            "land_use_intensity": 0.28555346008758914
+        },
+        {
+            "timestamp": "2024-07-16T22:00:00Z",
+            "carbon_intensity": 0.31943468225052396,
+            "water_intensity": 0.21355869773803168,
+            "land_use_intensity": 0.2563588933293438
+        },
+        {
+            "timestamp": "2024-07-16T23:00:00Z",
+            "carbon_intensity": 0.32378891468039284,
+            "water_intensity": 0.17061938336734533,
+            "land_use_intensity": 0.22334338325018027
+        },
+        {
+            "timestamp": "2024-07-17T00:00:00Z",
+            "carbon_intensity": 0.27842219194056456,
+            "water_intensity": 0.14078777949441734,
+            "land_use_intensity": 0.19217215564516588
+        },
+        {
+            "timestamp": "2024-07-17T01:00:00Z",
+            "carbon_intensity": 0.2463894419163797,
+            "water_intensity": 0.11822516038224015,
+            "land_use_intensity": 0.1854834590951176
+        },
+        {
+            "timestamp": "2024-07-17T02:00:00Z",
+            "carbon_intensity": 0.20310696413197898,
+            "water_intensity": 0.1098285777041663,
+            "land_use_intensity": 0.18037391168672023
+        },
+        {
+            "timestamp": "2024-07-17T03:00:00Z",
+            "carbon_intensity": 0.18711111077505588,
+            "water_intensity": 0.11158038783143988,
+            "land_use_intensity": 0.16795462317586748
+        },
+        {
+            "timestamp": "2024-07-17T04:00:00Z",
+            "carbon_intensity": 0.2212777847245405,
+            "water_intensity": 0.10925396849685447,
+            "land_use_intensity": 0.1517709981035558
+        },
+        {
+            "timestamp": "2024-07-17T05:00:00Z",
+            "carbon_intensity": 0.19058918834627298,
+            "water_intensity": 0.10525577763008409,
+            "land_use_intensity": 0.18419625255270095
+        },
+        {
+            "timestamp": "2024-07-17T06:00:00Z",
+            "carbon_intensity": 0.263149455982627,
+            "water_intensity": 0.10619782157079626,
+            "land_use_intensity": 0.16928946939982908
+        },
+        {
+            "timestamp": "2024-07-17T07:00:00Z",
+            "carbon_intensity": 0.22779552493474037,
+            "water_intensity": 0.1241921600245557,
+            "land_use_intensity": 0.192234301381143
+        },
+        {
+            "timestamp": "2024-07-17T08:00:00Z",
+            "carbon_intensity": 0.23792844637814392,
+            "water_intensity": 0.1171995255018044,
+            "land_use_intensity": 0.18485660620913974
+        },
+        {
+            "timestamp": "2024-07-17T09:00:00Z",
+            "carbon_intensity": 0.2183904317581581,
+            "water_intensity": 0.13898194385305263,
+            "land_use_intensity": 0.2019663073084521
+        },
+        {
+            "timestamp": "2024-07-17T10:00:00Z",
+            "carbon_intensity": 0.24704312348177793,
+            "water_intensity": 0.11899553853517655,
+            "land_use_intensity": 0.20009017925608558
+        },
+        {
+            "timestamp": "2024-07-17T11:00:00Z",
+            "carbon_intensity": 0.2950974104430951,
+            "water_intensity": 0.16667081191485394,
+            "land_use_intensity": 0.21073044980391115
+        },
+        {
+            "timestamp": "2024-07-17T12:00:00Z",
+            "carbon_intensity": 0.33519642969143143,
+            "water_intensity": 0.21209614741409488,
+            "land_use_intensity": 0.22970025941798697
+        },
+        {
+            "timestamp": "2024-07-17T13:00:00Z",
+            "carbon_intensity": 0.3437731559917402,
+            "water_intensity": 0.20829115997706577,
+            "land_use_intensity": 0.24717706544761756
+        },
+        {
+            "timestamp": "2024-07-17T14:00:00Z",
+            "carbon_intensity": 0.35713534144405606,
+            "water_intensity": 0.20513516993493025,
+            "land_use_intensity": 0.21940974350395914
+        },
+        {
+            "timestamp": "2024-07-17T15:00:00Z",
+            "carbon_intensity": 0.3921679741832091,
+            "water_intensity": 0.16357032807229488,
+            "land_use_intensity": 0.18295578793333653
+        },
+        {
+            "timestamp": "2024-07-17T16:00:00Z",
+            "carbon_intensity": 0.3592257844591722,
+            "water_intensity": 0.1865030806599875,
+            "land_use_intensity": 0.21546040153261
+        },
+        {
+            "timestamp": "2024-07-17T17:00:00Z",
+            "carbon_intensity": 0.3505988240871337,
+            "water_intensity": 0.21353737714558751,
+            "land_use_intensity": 0.20898809107560717
+        },
+        {
+            "timestamp": "2024-07-17T18:00:00Z",
+            "carbon_intensity": 0.3558989415357099,
+            "water_intensity": 0.18102980391112625,
+            "land_use_intensity": 0.21633241168919426
+        },
+        {
+            "timestamp": "2024-07-17T19:00:00Z",
+            "carbon_intensity": 0.3315215956805875,
+            "water_intensity": 0.2011896881654018,
+            "land_use_intensity": 0.24736819367599586
+        },
+        {
+            "timestamp": "2024-07-17T20:00:00Z",
+            "carbon_intensity": 0.3481499632042273,
+            "water_intensity": 0.1942123263206288,
+            "land_use_intensity": 0.21438000524713668
+        },
+        {
+            "timestamp": "2024-07-17T21:00:00Z",
+            "carbon_intensity": 0.3550063716643013,
+            "water_intensity": 0.1865045905715771,
+            "land_use_intensity": 0.21363492826862857
+        },
+        {
+            "timestamp": "2024-07-17T22:00:00Z",
+            "carbon_intensity": 0.359244433329717,
+            "water_intensity": 0.21329443125278924,
+            "land_use_intensity": 0.1868980641653716
+        },
+        {
+            "timestamp": "2024-07-17T23:00:00Z",
+            "carbon_intensity": 0.3422109461489619,
+            "water_intensity": 0.20700419770684306,
+            "land_use_intensity": 0.17259154456111084
+        },
+        {
+            "timestamp": "2024-07-18T00:00:00Z",
+            "carbon_intensity": 0.27529568000063576,
+            "water_intensity": 0.18949586991866926,
+            "land_use_intensity": 0.17384616655748025
+        },
+        {
+            "timestamp": "2024-07-18T01:00:00Z",
+            "carbon_intensity": 0.23083367687548384,
+            "water_intensity": 0.1351014003701813,
+            "land_use_intensity": 0.14668072693841486
+        },
+        {
+            "timestamp": "2024-07-18T02:00:00Z",
+            "carbon_intensity": 0.21883982623130016,
+            "water_intensity": 0.12798045174873376,
+            "land_use_intensity": 0.14559772874936322
+        },
+        {
+            "timestamp": "2024-07-18T03:00:00Z",
+            "carbon_intensity": 0.24748434598034413,
+            "water_intensity": 0.13536917770187473,
+            "land_use_intensity": 0.13118026839685018
+        },
+        {
+            "timestamp": "2024-07-18T04:00:00Z",
+            "carbon_intensity": 0.18698031691368636,
+            "water_intensity": 0.13205286654258594,
+            "land_use_intensity": 0.1599256967397269
+        },
+        {
+            "timestamp": "2024-07-18T05:00:00Z",
+            "carbon_intensity": 0.25186884578980884,
+            "water_intensity": 0.1435516691176575,
+            "land_use_intensity": 0.13050262957615744
+        },
+        {
+            "timestamp": "2024-07-18T06:00:00Z",
+            "carbon_intensity": 0.249542155007551,
+            "water_intensity": 0.149907713089055,
+            "land_use_intensity": 0.1423261080444082
+        },
+        {
+            "timestamp": "2024-07-18T07:00:00Z",
+            "carbon_intensity": 0.24073732612159332,
+            "water_intensity": 0.12833047261431557,
+            "land_use_intensity": 0.1512411935317765
+        },
+        {
+            "timestamp": "2024-07-18T08:00:00Z",
+            "carbon_intensity": 0.22860380513603856,
+            "water_intensity": 0.15231924116943393,
+            "land_use_intensity": 0.1728031043989669
+        },
+        {
+            "timestamp": "2024-07-18T09:00:00Z",
+            "carbon_intensity": 0.277853356604268,
+            "water_intensity": 0.1383639751096134,
+            "land_use_intensity": 0.16466884737858975
+        },
+        {
+            "timestamp": "2024-07-18T10:00:00Z",
+            "carbon_intensity": 0.28735994735879944,
+            "water_intensity": 0.1492139850905951,
+            "land_use_intensity": 0.17994552941770764
+        },
+        {
+            "timestamp": "2024-07-18T11:00:00Z",
+            "carbon_intensity": 0.30592188638402823,
+            "water_intensity": 0.17978830125423148,
+            "land_use_intensity": 0.199804123424546
+        },
+        {
+            "timestamp": "2024-07-18T12:00:00Z",
+            "carbon_intensity": 0.3674037118436836,
+            "water_intensity": 0.19089039617514283,
+            "land_use_intensity": 0.17854258906727094
+        },
+        {
+            "timestamp": "2024-07-18T13:00:00Z",
+            "carbon_intensity": 0.37708172347404534,
+            "water_intensity": 0.2000775464653979,
+            "land_use_intensity": 0.1940965464001036
+        },
+        {
+            "timestamp": "2024-07-18T14:00:00Z",
+            "carbon_intensity": 0.373788413985692,
+            "water_intensity": 0.20574547020004416,
+            "land_use_intensity": 0.19222613793331184
+        },
+        {
+            "timestamp": "2024-07-18T15:00:00Z",
+            "carbon_intensity": 0.3557144274544771,
+            "water_intensity": 0.21847778176385366,
+            "land_use_intensity": 0.20872478993077276
+        },
+        {
+            "timestamp": "2024-07-18T16:00:00Z",
+            "carbon_intensity": 0.3571072435640247,
+            "water_intensity": 0.21725470790135654,
+            "land_use_intensity": 0.20290227016485035
+        },
+        {
+            "timestamp": "2024-07-18T17:00:00Z",
+            "carbon_intensity": 0.3550484102107711,
+            "water_intensity": 0.18959438978798826,
+            "land_use_intensity": 0.22407100618671835
+        },
+        {
+            "timestamp": "2024-07-18T18:00:00Z",
+            "carbon_intensity": 0.33061900966038205,
+            "water_intensity": 0.2019921598793618,
+            "land_use_intensity": 0.24983115631320818
+        },
+        {
+            "timestamp": "2024-07-18T19:00:00Z",
+            "carbon_intensity": 0.35873012033945173,
+            "water_intensity": 0.18722211018745027,
+            "land_use_intensity": 0.20880560895275962
+        },
+        {
+            "timestamp": "2024-07-18T20:00:00Z",
+            "carbon_intensity": 0.3468248617927244,
+            "water_intensity": 0.20543315786542096,
+            "land_use_intensity": 0.21555803255068495
+        },
+        {
+            "timestamp": "2024-07-18T21:00:00Z",
+            "carbon_intensity": 0.35786077933079374,
+            "water_intensity": 0.21332120030011043,
+            "land_use_intensity": 0.18731079877273224
+        },
+        {
+            "timestamp": "2024-07-18T22:00:00Z",
+            "carbon_intensity": 0.3688738336236995,
+            "water_intensity": 0.20168133732653618,
+            "land_use_intensity": 0.18674782691114386
+        },
+        {
+            "timestamp": "2024-07-18T23:00:00Z",
+            "carbon_intensity": 0.3721469069545684,
+            "water_intensity": 0.18857637569185187,
+            "land_use_intensity": 0.1500704184547196
+        },
+        {
+            "timestamp": "2024-07-19T00:00:00Z",
+            "carbon_intensity": 0.2739890368382526,
+            "water_intensity": 0.15640987590356947,
+            "land_use_intensity": 0.15542185607467793
+        },
+        {
+            "timestamp": "2024-07-19T01:00:00Z",
+            "carbon_intensity": 0.23110812674561942,
+            "water_intensity": 0.13003661596474134,
+            "land_use_intensity": 0.15212305293434045
+        },
+        {
+            "timestamp": "2024-07-19T02:00:00Z",
+            "carbon_intensity": 0.213739438039452,
+            "water_intensity": 0.11687922016696452,
+            "land_use_intensity": 0.15310845653605876
+        },
+        {
+            "timestamp": "2024-07-19T03:00:00Z",
+            "carbon_intensity": 0.24826816359378823,
+            "water_intensity": 0.10018294836343174,
+            "land_use_intensity": 0.12831598818114603
+        },
+        {
+            "timestamp": "2024-07-19T04:00:00Z",
+            "carbon_intensity": 0.22030890079275522,
+            "water_intensity": 0.1037783071985612,
+            "land_use_intensity": 0.15089476330393858
+        },
+        {
+            "timestamp": "2024-07-19T05:00:00Z",
+            "carbon_intensity": 0.2567054935571411,
+            "water_intensity": 0.10256262697671772,
+            "land_use_intensity": 0.1337474428087371
+        },
+        {
+            "timestamp": "2024-07-19T06:00:00Z",
+            "carbon_intensity": 0.2758408004370149,
+            "water_intensity": 0.11919181679672622,
+            "land_use_intensity": 0.12755570597299662
+        },
+        {
+            "timestamp": "2024-07-19T07:00:00Z",
+            "carbon_intensity": 0.263080192826438,
+            "water_intensity": 0.12311165065625294,
+            "land_use_intensity": 0.14417009694697414
+        },
+        {
+            "timestamp": "2024-07-19T08:00:00Z",
+            "carbon_intensity": 0.299729869127917,
+            "water_intensity": 0.13369868751775182,
+            "land_use_intensity": 0.13591966247965664
+        },
+        {
+            "timestamp": "2024-07-19T09:00:00Z",
+            "carbon_intensity": 0.27566516868481133,
+            "water_intensity": 0.12853748457385977,
+            "land_use_intensity": 0.15080993893079417
+        },
+        {
+            "timestamp": "2024-07-19T10:00:00Z",
+            "carbon_intensity": 0.24940191032732612,
+            "water_intensity": 0.14021748697987022,
+            "land_use_intensity": 0.17366883924505275
+        },
+        {
+            "timestamp": "2024-07-19T11:00:00Z",
+            "carbon_intensity": 0.3495073064829405,
+            "water_intensity": 0.13912568551986626,
+            "land_use_intensity": 0.1492450743855892
+        },
+        {
+            "timestamp": "2024-07-19T12:00:00Z",
+            "carbon_intensity": 0.3803732164809145,
+            "water_intensity": 0.19118862446041124,
+            "land_use_intensity": 0.17107930600269664
+        },
+        {
+            "timestamp": "2024-07-19T13:00:00Z",
+            "carbon_intensity": 0.3953068131486339,
+            "water_intensity": 0.20271867419815912,
+            "land_use_intensity": 0.16671874890805577
+        },
+        {
+            "timestamp": "2024-07-19T14:00:00Z",
+            "carbon_intensity": 0.3888426063991741,
+            "water_intensity": 0.19625337573875307,
+            "land_use_intensity": 0.17979160999510185
+        },
+        {
+            "timestamp": "2024-07-19T15:00:00Z",
+            "carbon_intensity": 0.3722669678874958,
+            "water_intensity": 0.2204803085598648,
+            "land_use_intensity": 0.1847454823365932
+        },
+        {
+            "timestamp": "2024-07-19T16:00:00Z",
+            "carbon_intensity": 0.3820695142382129,
+            "water_intensity": 0.20605937994414025,
+            "land_use_intensity": 0.17047921745156408
+        },
+        {
+            "timestamp": "2024-07-19T17:00:00Z",
+            "carbon_intensity": 0.3797574564071091,
+            "water_intensity": 0.2121657878128717,
+            "land_use_intensity": 0.1657330001561783
+        },
+        {
+            "timestamp": "2024-07-19T18:00:00Z",
+            "carbon_intensity": 0.38528733883803407,
+            "water_intensity": 0.19290421153201875,
+            "land_use_intensity": 0.1629620658071084
+        },
+        {
+            "timestamp": "2024-07-19T19:00:00Z",
+            "carbon_intensity": 0.3780947307647913,
+            "water_intensity": 0.19742087653221221,
+            "land_use_intensity": 0.17067276859933628
+        },
+        {
+            "timestamp": "2024-07-19T20:00:00Z",
+            "carbon_intensity": 0.3958723853980563,
+            "water_intensity": 0.17022641531352306,
+            "land_use_intensity": 0.15281199278574684
+        },
+        {
+            "timestamp": "2024-07-19T21:00:00Z",
+            "carbon_intensity": 0.38313309983944466,
+            "water_intensity": 0.20088115144096114,
+            "land_use_intensity": 0.1497828501563407
+        },
+        {
+            "timestamp": "2024-07-19T22:00:00Z",
+            "carbon_intensity": 0.3649298996939521,
+            "water_intensity": 0.24111187614164897,
+            "land_use_intensity": 0.15014422431095714
+        },
+        {
+            "timestamp": "2024-07-19T23:00:00Z",
+            "carbon_intensity": 0.35109935700002726,
+            "water_intensity": 0.21601318660162472,
+            "land_use_intensity": 0.15414382141890792
+        },
+        {
+            "timestamp": "2024-07-20T00:00:00Z",
+            "carbon_intensity": 0.2499913239837087,
+            "water_intensity": 0.16066947791764455,
+            "land_use_intensity": 0.15469036600630348
+        },
+        {
+            "timestamp": "2024-07-20T01:00:00Z",
+            "carbon_intensity": 0.22264561175825343,
+            "water_intensity": 0.1465410734818487,
+            "land_use_intensity": 0.15802961703582136
+        },
+        {
+            "timestamp": "2024-07-20T02:00:00Z",
+            "carbon_intensity": 0.2215682751769219,
+            "water_intensity": 0.11846775763448937,
+            "land_use_intensity": 0.15200048675906597
+        },
+        {
+            "timestamp": "2024-07-20T03:00:00Z",
+            "carbon_intensity": 0.2297507339993327,
+            "water_intensity": 0.11774199823264944,
+            "land_use_intensity": 0.14451537429376538
+        },
+        {
+            "timestamp": "2024-07-20T04:00:00Z",
+            "carbon_intensity": 0.24476464116606086,
+            "water_intensity": 0.12220123266908965,
+            "land_use_intensity": 0.13865181021723585
+        },
+        {
+            "timestamp": "2024-07-20T05:00:00Z",
+            "carbon_intensity": 0.2075338881690123,
+            "water_intensity": 0.1226592224469418,
+            "land_use_intensity": 0.16639013951052356
+        },
+        {
+            "timestamp": "2024-07-20T06:00:00Z",
+            "carbon_intensity": 0.19928659261656817,
+            "water_intensity": 0.13219459943239514,
+            "land_use_intensity": 0.1822465871696391
+        },
+        {
+            "timestamp": "2024-07-20T07:00:00Z",
+            "carbon_intensity": 0.21782543350076644,
+            "water_intensity": 0.1313647423670215,
+            "land_use_intensity": 0.16715022421781411
+        },
+        {
+            "timestamp": "2024-07-20T08:00:00Z",
+            "carbon_intensity": 0.29165238019689027,
+            "water_intensity": 0.11400730412026308,
+            "land_use_intensity": 0.14964273236719566
+        },
+        {
+            "timestamp": "2024-07-20T09:00:00Z",
+            "carbon_intensity": 0.22454034420879174,
+            "water_intensity": 0.12375977487131541,
+            "land_use_intensity": 0.18384870193713948
+        },
+        {
+            "timestamp": "2024-07-20T10:00:00Z",
+            "carbon_intensity": 0.26315590511735415,
+            "water_intensity": 0.16092514878768927,
+            "land_use_intensity": 0.1624772993348485
+        },
+        {
+            "timestamp": "2024-07-20T11:00:00Z",
+            "carbon_intensity": 0.3059845300676602,
+            "water_intensity": 0.1680356846524352,
+            "land_use_intensity": 0.17736248861942672
+        },
+        {
+            "timestamp": "2024-07-20T12:00:00Z",
+            "carbon_intensity": 0.36116279909010374,
+            "water_intensity": 0.20039398774864553,
+            "land_use_intensity": 0.19171629929463596
+        },
+        {
+            "timestamp": "2024-07-20T13:00:00Z",
+            "carbon_intensity": 0.37521534139669244,
+            "water_intensity": 0.21566181838496573,
+            "land_use_intensity": 0.18831763714844263
+        },
+        {
+            "timestamp": "2024-07-20T14:00:00Z",
+            "carbon_intensity": 0.3783920156938048,
+            "water_intensity": 0.18959733797885248,
+            "land_use_intensity": 0.1954026724853597
+        },
+        {
+            "timestamp": "2024-07-20T15:00:00Z",
+            "carbon_intensity": 0.38929599766829226,
+            "water_intensity": 0.19557069805811778,
+            "land_use_intensity": 0.1669743771160172
+        },
+        {
+            "timestamp": "2024-07-20T16:00:00Z",
+            "carbon_intensity": 0.3857635932504525,
+            "water_intensity": 0.16727651455077852,
+            "land_use_intensity": 0.18343368551018224
+        },
+        {
+            "timestamp": "2024-07-20T17:00:00Z",
+            "carbon_intensity": 0.357768092086106,
+            "water_intensity": 0.20753959191474985,
+            "land_use_intensity": 0.2063707624356113
+        },
+        {
+            "timestamp": "2024-07-20T18:00:00Z",
+            "carbon_intensity": 0.3875237797655472,
+            "water_intensity": 0.19469394913615629,
+            "land_use_intensity": 0.16071075945918253
+        },
+        {
+            "timestamp": "2024-07-20T19:00:00Z",
+            "carbon_intensity": 0.3827809170806235,
+            "water_intensity": 0.1945853236660308,
+            "land_use_intensity": 0.1592300402531443
+        },
+        {
+            "timestamp": "2024-07-20T20:00:00Z",
+            "carbon_intensity": 0.3796667368299579,
+            "water_intensity": 0.20118842548631408,
+            "land_use_intensity": 0.15924297341691218
+        },
+        {
+            "timestamp": "2024-07-20T21:00:00Z",
+            "carbon_intensity": 0.3791045662163208,
+            "water_intensity": 0.18998272150855916,
+            "land_use_intensity": 0.1592694057606087
+        },
+        {
+            "timestamp": "2024-07-20T22:00:00Z",
+            "carbon_intensity": 0.3688888898111464,
+            "water_intensity": 0.20319797039523854,
+            "land_use_intensity": 0.16738628029922928
+        },
+        {
+            "timestamp": "2024-07-20T23:00:00Z",
+            "carbon_intensity": 0.34203880783596613,
+            "water_intensity": 0.2254204178948407,
+            "land_use_intensity": 0.17543556371981162
+        },
+        {
+            "timestamp": "2024-07-21T00:00:00Z",
+            "carbon_intensity": 0.27985125056538374,
+            "water_intensity": 0.15246838819550096,
+            "land_use_intensity": 0.16011164701633643
+        },
+        {
+            "timestamp": "2024-07-21T01:00:00Z",
+            "carbon_intensity": 0.18594932636176792,
+            "water_intensity": 0.14235933515145122,
+            "land_use_intensity": 0.18685720318922186
+        },
+        {
+            "timestamp": "2024-07-21T02:00:00Z",
+            "carbon_intensity": 0.1986842082049906,
+            "water_intensity": 0.12771310643235245,
+            "land_use_intensity": 0.17770740940307148
+        },
+        {
+            "timestamp": "2024-07-21T03:00:00Z",
+            "carbon_intensity": 0.1995616650900403,
+            "water_intensity": 0.11930998138314305,
+            "land_use_intensity": 0.1659503248175832
+        },
+        {
+            "timestamp": "2024-07-21T04:00:00Z",
+            "carbon_intensity": 0.17481056776684012,
+            "water_intensity": 0.1004079863669889,
+            "land_use_intensity": 0.1792357298660503
+        },
+        {
+            "timestamp": "2024-07-21T05:00:00Z",
+            "carbon_intensity": 0.17987094697601108,
+            "water_intensity": 0.1119016575117629,
+            "land_use_intensity": 0.18195312906214187
+        },
+        {
+            "timestamp": "2024-07-21T06:00:00Z",
+            "carbon_intensity": 0.2006743232643029,
+            "water_intensity": 0.11287530345560538,
+            "land_use_intensity": 0.16520792904285253
+        },
+        {
+            "timestamp": "2024-07-21T07:00:00Z",
+            "carbon_intensity": 0.17239226729324764,
+            "water_intensity": 0.13190761781227836,
+            "land_use_intensity": 0.20373475333110375
+        },
+        {
+            "timestamp": "2024-07-21T08:00:00Z",
+            "carbon_intensity": 0.21265627999697118,
+            "water_intensity": 0.11997574476989226,
+            "land_use_intensity": 0.17639364493545567
+        },
+        {
+            "timestamp": "2024-07-21T09:00:00Z",
+            "carbon_intensity": 0.2606872355881058,
+            "water_intensity": 0.13030457832869632,
+            "land_use_intensity": 0.17351589632400413
+        },
+        {
+            "timestamp": "2024-07-21T10:00:00Z",
+            "carbon_intensity": 0.23249865731410532,
+            "water_intensity": 0.18086319006055276,
+            "land_use_intensity": 0.2025759472520677
+        },
+        {
+            "timestamp": "2024-07-21T11:00:00Z",
+            "carbon_intensity": 0.30182792644648315,
+            "water_intensity": 0.150665832345578,
+            "land_use_intensity": 0.19162129704615968
+        },
+        {
+            "timestamp": "2024-07-21T12:00:00Z",
+            "carbon_intensity": 0.359170494887361,
+            "water_intensity": 0.19984659794029236,
+            "land_use_intensity": 0.19364950867699288
+        },
+        {
+            "timestamp": "2024-07-21T13:00:00Z",
+            "carbon_intensity": 0.3792586414721555,
+            "water_intensity": 0.20051601660556134,
+            "land_use_intensity": 0.18571253277795724
+        },
+        {
+            "timestamp": "2024-07-21T14:00:00Z",
+            "carbon_intensity": 0.3605634147660638,
+            "water_intensity": 0.23286250297873667,
+            "land_use_intensity": 0.20035943741455003
+        },
+        {
+            "timestamp": "2024-07-21T15:00:00Z",
+            "carbon_intensity": 0.3735209141860332,
+            "water_intensity": 0.2008730663817131,
+            "land_use_intensity": 0.19215260952419977
+        },
+        {
+            "timestamp": "2024-07-21T16:00:00Z",
+            "carbon_intensity": 0.3779740894362414,
+            "water_intensity": 0.19442706374507018,
+            "land_use_intensity": 0.1760827219741085
+        },
+        {
+            "timestamp": "2024-07-21T17:00:00Z",
+            "carbon_intensity": 0.3700908089139475,
+            "water_intensity": 0.2068462377156785,
+            "land_use_intensity": 0.17888707600734907
+        },
+        {
+            "timestamp": "2024-07-21T18:00:00Z",
+            "carbon_intensity": 0.3804299404573175,
+            "water_intensity": 0.1902102910176477,
+            "land_use_intensity": 0.16958133422172658
+        },
+        {
+            "timestamp": "2024-07-21T19:00:00Z",
+            "carbon_intensity": 0.38179433294730375,
+            "water_intensity": 0.19591864291363134,
+            "land_use_intensity": 0.1576877723581437
+        },
+        {
+            "timestamp": "2024-07-21T20:00:00Z",
+            "carbon_intensity": 0.3846341088484778,
+            "water_intensity": 0.20608335407414904,
+            "land_use_intensity": 0.14509629903947585
+        },
+        {
+            "timestamp": "2024-07-21T21:00:00Z",
+            "carbon_intensity": 0.3889164834238219,
+            "water_intensity": 0.21134358289397695,
+            "land_use_intensity": 0.13420849893972692
+        },
+        {
+            "timestamp": "2024-07-21T22:00:00Z",
+            "carbon_intensity": 0.3996262763325984,
+            "water_intensity": 0.19511680510474388,
+            "land_use_intensity": 0.13648034663853742
+        },
+        {
+            "timestamp": "2024-07-21T23:00:00Z",
+            "carbon_intensity": 0.3876814637212445,
+            "water_intensity": 0.17900777304856427,
+            "land_use_intensity": 0.13565791512471753
+        },
+        {
+            "timestamp": "2024-07-22T00:00:00Z",
+            "carbon_intensity": 0.2775309939063063,
+            "water_intensity": 0.14785057673493138,
+            "land_use_intensity": 0.13960140392085107
+        }
+    ],
+    "static": {
+        "PUE": 1.15,
+        "WUE": 0.16,
+        "LUE": 0.00034246575342465754,
+        "CCLF": 0
+    }
+}
