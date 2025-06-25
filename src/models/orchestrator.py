@@ -44,7 +44,6 @@ class Orchestrator:
             request = Request(
                 simulation_time_range=self.simulation_time_range,
                 arrival_location=row["arrival_location"],
-                platform=row["platform"].lower(),
                 VM_instance=row["VM_instance"],
                 n_nodes=row["n_nodes"],
                 input_size_bytes=row["input_size_bytes"],

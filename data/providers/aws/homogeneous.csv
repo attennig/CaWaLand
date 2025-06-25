@@ -1,10 +1,10 @@
 Region;Grid;Name;State;PUE;WUE;LandOccupatin(sqm);TMZ_offset
 us-east-2;pjm;US East (Ohio);Ohio;1.15;0.16;300000;-4
-us-east-1;pjm;US East (W. Virginia);Virginia;1.15;0.16;300000;-4
 us-west-1;caiso;US West (N. California);California;1.15;0.16;300000;-7
-ca-west-1;aeso;Canada (West);Calgary;1.15;0.16;300000;-6
+eu-central-1;germany;Europe (Frankfurt);Frankfurt;1.15;0.16;300000;2
+eu-west-2;uk;Europe (London);London;1.15;0.16;300000;1
 ca-central-1;unknown;Canada (Central);Montreal;1.15;0.16;300000;-4
 us-west-2;unknown;US West (Oregon);Oregon;1.15;0.16;300000;-7
 eu-south-1;unknown;Europe (Milan);Milan;1.15;0.16;300000;2
-eu-central-1;unknown;Europe (Frankfurt);Frankfurt;1.15;0.16;300000;2
-eu-west-2;unknown;Europe (London);London;1.15;0.16;300000;1
+us-east-1;unknown;US East (W. Virginia);Virginia;1.15;0.16;300000;-4;pjm
+ca-west-1;unknown;Canada (West);Calgary;1.15;0.16;300000;-6;aeso

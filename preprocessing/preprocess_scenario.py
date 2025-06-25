@@ -58,8 +58,28 @@ def get_proile(dc, init_time, final_time):
 
     return out, f"{provider}_{region}"
 
-
 def get_arrival_time_distribution(df: pd.DataFrame) -> (Polynomial, np.ndarray, np.ndarray, float):
+    df['arrival_time'] = pd.to_datetime(df['arrival_time']).dt.tz_localize('UTC')
+    df['hour'] = df['arrival_time'].dt.hour
+    df['day'] = df['arrival_time'].dt.date
+
+    hourly_distribution = df.groupby(['day', 'hour']).size().groupby('hour').mean()
+    # Extract x (hour) and y (average number of jobs) values
+    x = hourly_distribution.index
+    y = hourly_distribution.values
+
+    df.drop(columns=['hour', 'day'], inplace=True)
+
+    # Fit a polynomial curve (e.g., degree 5)
+    coefficients = np.polyfit(x, y, 5)
+    polynomial = np.poly1d(coefficients)
+
+    mae = np.mean(np.abs(y - polynomial(x)))
+   
+   
+    return polynomial, x, y, mae
+
+def get_arrival_time_distribution_24h(df: pd.DataFrame) -> (Polynomial, np.ndarray, np.ndarray, float):
     df['arrival_time'] = pd.to_datetime(df['arrival_time']).dt.tz_localize('UTC')
     df['hour'] = df['arrival_time'].dt.hour
     df['day'] = df['arrival_time'].dt.date
@@ -88,6 +108,39 @@ def sample(model, mae, x_fit) -> np.ndarray:
     return [int(n) for n in s]
 
 def generate_reqeusts(model, x_train, mae, regions, traces_df, sim_times):
+    timestamps = sim_times.get_timestamps()
+    n_hours = len(timestamps)
+    timestamps_map = {i: date for i, date in enumerate(timestamps)}
+    to_concat = []
+
+    for region, tmz_offset in regions:
+        print(f"Generating requests for {region} with timezone offset {tmz_offset}")
+        arrival_time_sample = sample(model, mae, x_train)
+        # Repeat or trim the pattern to match the number of hours in the simulation
+        if len(arrival_time_sample) < n_hours:
+            repeats = (n_hours + len(arrival_time_sample) - 1) // len(arrival_time_sample)
+            arrival_time_sample = (arrival_time_sample * repeats)[:n_hours]
+        else:
+            arrival_time_sample = arrival_time_sample[:n_hours]
+        # Apply timezone offset (circular shift)
+        arrival_time_sample = arrival_time_sample[tmz_offset:] + arrival_time_sample[:tmz_offset]
+
+        for j, n_jobs in enumerate(arrival_time_sample):
+            if n_jobs == 0:
+                continue
+            random_indices = np.random.randint(0, len(traces_df), n_jobs)
+            sample_df = traces_df.iloc[random_indices].copy()
+            sample_df['arrival_time'] = sim_times.date_to_str(timestamps_map[j])
+            sample_df['runtime_sec'] = sample_df['runtime_sec']
+            sample_df['arrival_location'] = region
+            to_concat.append(sample_df)
+
+    if to_concat:
+        return pd.concat(to_concat, axis=0)
+    else:
+        return pd.DataFrame(columns=traces_df.columns)
+
+def generate_reqeusts_24h(model, x_train, mae, regions, traces_df, sim_times):
     timestamps_map = {
                 date.hour : date
                 for date in sim_times.get_timestamps()
@@ -106,8 +159,8 @@ def generate_reqeusts(model, x_train, mae, regions, traces_df, sim_times):
             sample_df['runtime_sec'] = sample_df['runtime_sec']
             sample_df['arrival_location'] = region
             to_concat.append(sample_df)
+    
     return pd.concat(to_concat, axis=0)
-
 
 if __name__ == "__main__":
     import argparse
@@ -179,10 +232,10 @@ if __name__ == "__main__":
                 requests_df.to_csv(workload_file, index=False)
                 for scheduler in config["schedulers"]:
                     if scheduler == "G":
-                        runs += f"python -m src.run --scenario {args.n} --start {period['start']} --end {period['end']} --step {period['step']} --workload {workload} --seed {seed} --scheduler {scheduler}\n"
+                        runs += f"/home/novella/giulio/EnvCon25/.venv/bin/python -m src.run --scenario {args.n} --start {period['start']} --end {period['end']} --step {period['step']} --workload {workload} --seed {seed} --scheduler {scheduler} 1> /dev/null 2> /dev/null &\n"
                     else:
                         for weights in config["lc_weights"]:
-                            runs += f"python -m src.run --scenario {args.n} --start {period['start']} --end {period['end']} --step {period['step']} --workload {workload} --seed {seed} --scheduler {scheduler} --lcw {weights[0]} {weights[1]} {weights[2]}\n"
+                            runs += f"/home/novella/giulio/EnvCon25/.venv/bin/python -m src.run --scenario {args.n} --start {period['start']} --end {period['end']} --step {period['step']} --workload {workload} --seed {seed} --scheduler {scheduler} --lcw {weights[0]} {weights[1]} {weights[2]} 1> /dev/null 2> /dev/null &\n"
 
     with open(f"./scripts/run_scenario_{args.n}.sh", "w") as f:
-        f.write(runs)
+        f.write(runs+"\nwait\n")

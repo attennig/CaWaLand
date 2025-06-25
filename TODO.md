@@ -1,5 +1,19 @@
-- refine missing grid data
-- look at satellite images to estimate land occupation
-- canada, italy, germany, uk cclf
+- 25 july experiments
+  -- regional shifting with spark and functions (2 weeks)
+  -- time shifting + ML workloads (2 weeks)
+- 15 August writing full draft
+- 30 August polishing + cover letter
 
 
+--- make clear in the text that numbers are estimates
+
+
+
+TODO (Giulio): 
+today:
+ -- uk data
+ -- german data
+ -- land occupation estimates from other articles/sources
+ -- add more seed to experiments
+26 june:
+ -- 

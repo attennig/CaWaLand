@@ -18,10 +18,10 @@ periods:
    step: 3600
 seeds: [1,2]
 workloads: ["spark"]
-schedulers: ["G", "R", "RP"]
+schedulers: ["G", "R"]
 lc_weights:
  - [1.0,0.0,0.0]
  - [0.0,1.0,0.0]
  - [0.0,0.0,1.0]
- - [0.3,0.3,0.4]
+ - [0.333,0.333,0.334]
 

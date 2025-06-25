@@ -62,7 +62,6 @@ class Request:
     def __init__(
         self, simulation_time_range,
         arrival_location,
-        platform,
         VM_instance,
         n_nodes,
         input_size_bytes,
@@ -77,8 +76,6 @@ class Request:
 
         self.arrival_time = arrival_time
         self.arrival_location = arrival_location
-        #self.arrival_platform = platform
-        #self.VM_instance = VM_instance
         self.runtime = runtime_sec
         self.lifetime = runtime_sec
         

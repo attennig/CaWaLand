@@ -2,6 +2,8 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-data/traces/container_meta_1k
-data/traces/core_pmu_1k
-data/traces/host_meta_1k
+data/traces/raw
+data/energy_mix
+experiments/in
+experiments/out
+experiments/experiments.zip
