@@ -1,5 +1,5 @@
 NEI = 0.06 # Network Energy Intensity, kWh/GB, SOURCE: https://onlinelibrary.wiley.com/doi/10.1111/jiec.12630
-
+BANDWIDTH = 100 # Bandwidth, Gbps, SOURCE: https://cloud.google.com/network-connectivity/docs/interconnect/concepts/overview
 VM_SPECS = {
     "c3.large": { "n_vCPU":2, "mem_size_GB":4.0265249999999995, "CPU_freq":2.8, "provider": "aws"},
     "c3.xlarge": { "n_vCPU":4, "mem_size_GB":7.516179999999999, "CPU_freq":2.8, "provider": "aws"},

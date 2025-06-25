@@ -7,3 +7,5 @@ data/energy_mix
 experiments/in
 experiments/out
 experiments/experiments.zip
+.DS_Store
+**/.DS_Store
