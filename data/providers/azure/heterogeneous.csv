@@ -1,0 +1,9 @@
+Region;Grid;Name;State;PUE;WUE;LandOccupatin(sqm);TMZ_offset
+Ireland;unknown;Europe (Dublin);Dublin;1.197;0.03;28149;1
+Texas;ercot;US ?(Texsas);SanAntonio;1.307;1.82;43664;-6?
+Iowa;miso;US Central (Iowa);DesMoines;1.16;0.19;37904;-5?
+Virginia;pjm;US East (Virginia);Virginia;1.144;0.17;102193;-5;
+Sweden;unknown;Europe (Gavle);Gavle;1.172;0.16;?;1
+Denmark;unknown;Europe (?);?;1.16;0.01;?;1
+
+

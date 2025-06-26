@@ -10,6 +10,6 @@
 
 
 TODO (Giulio): 
-26 june:
- -- land occupation estimates from other articles/sources
- -- add more seed to experiments
+27 june:
+ -- adapt framework to smaller step (mainly the access to DC dynamic profile and global intensities, cast the timestamp to the related hour)
+ -- 

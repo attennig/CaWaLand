@@ -150,7 +150,7 @@ def generate_reqeusts_24h(model, x_train, mae, regions, traces_df, sim_times):
     for region, tmz_offset in regions:
         print(f"Generating requests for {region} with timezone offset {tmz_offset}")
         arrival_time_sample = sample(model, mae, x_train)
-        arrival_time_sample = arrival_time_sample[tmz_offset:] + arrival_time_sample[:tmz_offset]
+        arrival_time_sample = arrival_time_sample[-tmz_offset:] + arrival_time_sample[:-tmz_offset]
         
         for j, n_jobs in enumerate(arrival_time_sample):
             random_indices = np.random.randint(0, len(traces_df), n_jobs)
