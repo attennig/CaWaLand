@@ -64,27 +64,7 @@ if __name__ == "__main__":
     import argparse
 
     ap = argparse.ArgumentParser(description="Preprocess annual energy mix data for different regions.")
-    ap.add_argument("--caiso", action="store_true", help="Preprocess CAISO data")
-    ap.add_argument("--pjm", action="store_true", help="Preprocess PJM data")
-    ap.add_argument("--aeso", action="store_true", help="Preprocess AESO data")
-    ap.add_argument("--ercot", action="store_true", help="Preprocess ERCOT data")
-    ap.add_argument("--miso", action="store_true", help="Preprocess MISO data")
+    ap.add_argument("--data", type=str, help="Grid name")
 
-    ap.add_argument("--germany", action="store_true", help="Preprocess german data")
-    ap.add_argument("--uk", action="store_true", help="Preprocess british data")
     args = ap.parse_args()
-    
-    if args.caiso:
-        mimic_forecast("caiso")
-    if args.pjm:
-        mimic_forecast("pjm")
-    if args.aeso:
-        mimic_forecast("aeso")
-    if args.ercot:
-        mimic_forecast("ercot")
-    if args.germany:
-        mimic_forecast("germany")
-    if args.uk:
-        mimic_forecast("uk")
-    if args.miso:
-        mimic_forecast("miso")
+    mimic_forecast(args.data)

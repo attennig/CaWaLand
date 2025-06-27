@@ -3,10 +3,10 @@ us-east-2;pjm;US East (Ohio);Ohio;1.15;0.16;122850;-5
 us-west-1;caiso;US West (N. California);California;1.15;0.16;122850;-7
 eu-central-1;germany;Europe (Frankfurt);Frankfurt;1.15;0.16;122850;2
 eu-west-2;uk;Europe (London);London;1.15;0.16;122850;2
-eu-north-1;unknown;Europe (Stockholm);Stockholm;1.15;0.16;122850;1
-eu-west-1;unknown;Europe (Dublin);Dublin;1.15;0.16;122850;1
+eu-north-1;sw;Europe (Stockholm);Stockholm;1.15;0.16;122850;1
+eu-west-1;ie;Europe (Dublin);Dublin;1.15;0.16;122850;1
+eu-south-1;unknown;Europe (Milan);Milan;1.15;0.16;122850;2
 ca-central-1;unknown;Canada (Central);Montreal;1.15;0.16;122850;-4
 us-west-2;unknown;US West (Oregon);Oregon;1.15;0.16;122850;-7
-eu-south-1;unknown;Europe (Milan);Milan;1.15;0.16;122850;2
 us-east-1;unknown;US East (W. Virginia);Virginia;1.15;0.16;122850;-5;pjm
 ca-west-1;unknown;Canada (West);Calgary;1.15;0.16;122850;-6;aeso

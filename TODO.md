@@ -10,6 +10,10 @@
 
 
 TODO (Giulio): 
-27 june:
+Monday:
  -- adapt framework to smaller step (mainly the access to DC dynamic profile and global intensities, cast the timestamp to the related hour)
- -- 
+ -- formalize the two scenarios and write the draft in the paper
+ -- formalize time shifting
+
+
+

@@ -119,7 +119,13 @@ def preprocess_uk():
     df.drop(columns=["other", "imports"], inplace=True)
     uk_df = df.set_index("timestamp").resample("1H").mean().reset_index()
     uk_df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
-    uk_df.to_csv(data_path_out("uk"), index=False)
+    uk_df.to_csv(data_path_out("uk"), index=True)
+
+def preprocess_ie():
+    df = pd.read_csv(data_path_in("ie"), parse_dates=True)
+    df["timestamp"] = pd.to_datetime(df["timestamp"])
+    ie_df = df.set_index("timestamp").resample("1H").mean().reset_index()
+    ie_df.to_csv(data_path_out("ie"), index=True)
 
 
 def preprocess_miso():
@@ -255,24 +261,28 @@ if __name__ == "__main__":
     ap.add_argument("--italy", action="store_true", help="Preprocess italan data")
     ap.add_argument("--germany", action="store_true", help="Preprocess german data")
     ap.add_argument("--uk", action="store_true", help="Preprocess british data")
+    ap.add_argument("--ie", action="store_true", help="Preprocess irish data")
 
     args = ap.parse_args()
     
-    if args.caiso:
-        preprocess_caiso()
-    if args.pjm:
-        preprocess_pjm()
     if args.aeso:
         preprocess_aeso()
-    if args.ercot:
-        preprocess_ercot()
     if  args.italy:
         preprocess_italy()
     if args.germany:
         preprocess_germany()
     if args.uk:
         preprocess_uk()
+    if args.ie:
+        preprocess_ie()
     if args.miso:
         preprocess_miso()
+    if args.caiso:
+        preprocess_caiso()
+    if args.pjm:
+        preprocess_pjm()
+    if args.ercot:
+        preprocess_ercot()
+
     
 
