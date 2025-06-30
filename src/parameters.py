@@ -44,8 +44,9 @@ class SimulationTimeRange:
             t += self.step
         return timestamps
 
-    def str_to_date(self, s): return datetime.strptime(s, '%Y-%m-%dT%H:%M:%SZ')
-    def date_to_str(self, d): return d.strftime('%Y-%m-%dT%H:%M:%S') + 'Z'
+    def str_to_date(self, s: str) -> datetime: return datetime.strptime(s, '%Y-%m-%dT%H:%M:%SZ')
+    def date_to_str(self, d: datetime) -> str: return d.strftime('%Y-%m-%dT%H:%M:%S') + 'Z'
+    def round_to_current_hour(self, dt: datetime) -> datetime: return dt.replace(minute=0, second=0, microsecond=0) 
 import numpy as np
 mean_carbon = np.mean([12, 38, 740+230/2, 820, 11+12/2, 27+41+48/3, 24, 490, 720]) # mean of all sources
 mena_water = np.mean([1.788, 9.741, 1.892, 2.089, 0.0015, 2.001, 36.765, 2.214]) #mean of all sources

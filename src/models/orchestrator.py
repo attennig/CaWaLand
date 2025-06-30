@@ -64,6 +64,8 @@ class Orchestrator:
         for dc_obj in self.datacenters.values():
             self.global_CCLF += dc_obj.profile.CCLF / len(self.datacenters)
             for timestamp in self.simulation_time_range.get_timestamps():
+                if timestamp.minute != 0:
+                    continue
                 #print(f"Setting global intensities for {dc_obj.name} at {timestamp}")
                 self.global_CI[timestamp] += dc_obj.profile.CI[timestamp] / len(self.datacenters)
                 self.global_EWIF[timestamp] += dc_obj.profile.EWIF[timestamp] / len(self.datacenters)

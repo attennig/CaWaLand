@@ -140,12 +140,13 @@ class Request:
         from datetime import timedelta
         t = t_0
         t_idx = self.simulation_time_range.get_timestamps().index(t_0)
+        t_hour = o.simulation_time_range.round_to_current_hour(t_0)
         
         migration_energy_kWh, migration_time = self.VM_instance.migration_energy_kWh(destination_dc=d.name)  
         if migration_energy_kWh > 0:
-            self.trace["carbon_intensity"][t_idx] = o.global_CI[t] * o.factor_weights["carbon"] * migration_energy_kWh
-            self.trace["water_intensity"][t_idx] = o.global_EWIF[t] * o.factor_weights["water"] * migration_energy_kWh
-            self.trace["land_use_intensity"][t_idx] = o.global_ELIF[t] * o.global_CCLF * o.factor_weights["land_use"] * migration_energy_kWh
+            self.trace["carbon_intensity"][t_idx] = o.global_CI[t_hour] * o.factor_weights["carbon"] * migration_energy_kWh # access the hourly global profile
+            self.trace["water_intensity"][t_idx] = o.global_EWIF[t_hour] * o.factor_weights["water"] * migration_energy_kWh
+            self.trace["land_use_intensity"][t_idx] = o.global_ELIF[t_hour] * o.global_CCLF * o.factor_weights["land_use"] * migration_energy_kWh
             self.trace["energy_consumption"][t_idx] = migration_energy_kWh
             self.trace["migration_time"] = (t_idx, migration_time)
         
@@ -159,18 +160,21 @@ class Request:
                 step_len_seconds = o.simulation_time_range.step.seconds
             exec_time = min(step_len_seconds, self.lifetime)
             energy_kWh = self.VM_instance.execution_energy_kWh(time=exec_time)
+            
+            t_idx = self.simulation_time_range.get_timestamps().index(t)
+            t_hour = o.simulation_time_range.round_to_current_hour(t)
+            
             self.trace["execution_time"][t_idx] = exec_time
-            t_idx = self.simulation_time_range.get_timestamps().index(t_0)
-            self.trace["carbon_intensity"][t_idx] = d.profile.carbon_intensity(t)
-            self.trace["water_intensity"][t_idx] = d.profile.water_intensity(t) 
-            self.trace["land_use_intensity"][t_idx] = d.profile.land_use_intensity(t) 
+            self.trace["carbon_intensity"][t_idx] = d.profile.carbon_intensity(t_hour) # access the hourly profile of the datacenter
+            self.trace["water_intensity"][t_idx] = d.profile.water_intensity(t_hour) 
+            self.trace["land_use_intensity"][t_idx] = d.profile.land_use_intensity(t_hour) 
             self.trace["datacenter"][t_idx] = d.name
             self.trace["VM_instance"][t_idx] = self.VM_instance.name
             self.trace["energy_consumption"][t_idx] += energy_kWh
             self.VM_instance.dc_name = d.name
-            self.lifetime -= exec_time
+            #self.lifetime -= exec_time
             t += o.simulation_time_range.step
-            self.lifetime -= step_len_seconds
+            self.lifetime -= exec_time#step_len_seconds
 
 
 
