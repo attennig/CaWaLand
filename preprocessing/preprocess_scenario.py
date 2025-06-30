@@ -130,9 +130,13 @@ def generate_reqeusts(model, x_train, mae, regions, traces_df, sim_times):
                 continue
             random_indices = np.random.randint(0, len(traces_df), n_jobs)
             sample_df = traces_df.iloc[random_indices].copy()
+            sample_df["id"] = random_indices
             sample_df['arrival_time'] = sim_times.date_to_str(timestamps_map[j])
             sample_df['runtime_sec'] = sample_df['runtime_sec']
             sample_df['arrival_location'] = region
+            # Keep only jobs that finish before sim_times.end
+            finish_times = pd.to_datetime(sample_df["arrival_time"]) + pd.to_timedelta(sample_df["runtime_sec"], unit='s')
+            sample_df = sample_df[finish_times < pd.Timestamp(sim_times.end, tz='UTC')]
             to_concat.append(sample_df)
 
     if to_concat:
@@ -158,8 +162,13 @@ def generate_reqeusts_24h(model, x_train, mae, regions, traces_df, sim_times):
             sample_df['arrival_time'] = sim_times.date_to_str(timestamps_map[j]) #datetime.strptime(, '%Y-%m-%dT%H:%M:%SZ'), # sim_times.date_to_str(timestamps_map[j])
             sample_df['runtime_sec'] = sample_df['runtime_sec']
             sample_df['arrival_location'] = region
+            # Keep only jobs that finish before sim_times.end
+            finish_times = pd.to_datetime(sample_df["arrival_time"]) + pd.to_timedelta(sample_df["runtime_sec"] * 1.1, unit='s')
+            sample_df = sample_df[finish_times <= sim_times.end]
+            print(sample_df)
             to_concat.append(sample_df)
-    
+
+
     return pd.concat(to_concat, axis=0)
 
 if __name__ == "__main__":
@@ -169,7 +178,7 @@ if __name__ == "__main__":
 
     args = ap.parse_args()
 
-    config_file = "./experiments/scenarios/1.yaml"
+    config_file = f"./experiments/scenarios/{args.n}.yaml"
     runs = "#!/bin/bash\n"
 
     with open(config_file, "r") as f:
@@ -212,30 +221,31 @@ if __name__ == "__main__":
         y_test = model(x_train)
 
         for period in config["periods"].values():
-            print(f"Processing period {period['start']} to {period['end']}")
-            sim_times = parameters.SimulationTimeRange(
-                start=datetime.strptime(period["start"], '%Y-%m-%dT%H:%M:%SZ'),
-                end=datetime.strptime(period["end"], '%Y-%m-%dT%H:%M:%SZ'), 
-                step=timedelta(seconds=period["step"])
-            )
-            
+            for step in period["step"]:
+                print(f"Processing period {period['start']} to {period['end']} with step {step} for workload {workload}")
+                sim_times = parameters.SimulationTimeRange(
+                    start=datetime.strptime(period["start"], '%Y-%m-%dT%H:%M:%SZ'),
+                    end=datetime.strptime(period["end"], '%Y-%m-%dT%H:%M:%SZ'), 
+                    step=timedelta(seconds=step)
+                )
+                
 
-            for seed in config["seeds"]:
-                # generate requests
-                if not os.path.exists(workload_folder(args.n, period["start"], period["end"], workload)):
-                    os.makedirs(workload_folder(args.n, period["start"], period["end"], workload))
-                workload_file = workload_folder(args.n, period["start"], period["end"], workload) + f"/e_{seed}.csv"
-                np.random.seed(seed)
-                requests_df = generate_reqeusts(model, x_train, mae, regions, traces_df, sim_times)
-                
-                
-                requests_df.to_csv(workload_file, index=False)
-                for scheduler in config["schedulers"]:
-                    if scheduler == "G":
-                        runs += f"/home/novella/giulio/EnvCon25/.venv/bin/python -m src.run --scenario {args.n} --start {period['start']} --end {period['end']} --step {period['step']} --workload {workload} --seed {seed} --scheduler {scheduler} 1> /dev/null 2> /dev/null &\n"
-                    else:
-                        for weights in config["lc_weights"]:
-                            runs += f"/home/novella/giulio/EnvCon25/.venv/bin/python -m src.run --scenario {args.n} --start {period['start']} --end {period['end']} --step {period['step']} --workload {workload} --seed {seed} --scheduler {scheduler} --lcw {weights[0]} {weights[1]} {weights[2]} 1> /dev/null 2> /dev/null &\n"
+                for seed in config["seeds"]:
+                    # generate requests
+                    if not os.path.exists(workload_folder(args.n, period["start"], period["end"], workload)):
+                        os.makedirs(workload_folder(args.n, period["start"], period["end"], workload))
+                    workload_file = workload_folder(args.n, period["start"], period["end"], workload) + f"/e_{seed}_step{step}.csv"
+                    np.random.seed(seed)
+                    requests_df = generate_reqeusts(model, x_train, mae, regions, traces_df, sim_times)
+                    
+                    
+                    requests_df.to_csv(workload_file, index=False)
+                    for scheduler in config["schedulers"]:
+                        if scheduler == "G":
+                            runs += f"/home/novella/giulio/EnvCon25/.venv/bin/python -m src.run --scenario {args.n} --start {period['start']} --end {period['end']} --step {step} --workload {workload} --seed {seed} --scheduler {scheduler} 1> /dev/null 2> /dev/null &\n"
+                        else:
+                            for weights in config["lc_weights"]:
+                                runs += f"/home/novella/giulio/EnvCon25/.venv/bin/python -m src.run --scenario {args.n} --start {period['start']} --end {period['end']} --step {step} --workload {workload} --seed {seed} --scheduler {scheduler} --lcw {weights[0]} {weights[1]} {weights[2]} 1> /dev/null 2> /dev/null &\n"
 
     with open(f"./scripts/run_scenario_{args.n}.sh", "w") as f:
         f.write(runs+"\nwait\n")

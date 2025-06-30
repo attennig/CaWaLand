@@ -1,4 +1,4 @@
-NEI = 0.06 # Network Energy Intensity, kWh/GB, SOURCE: https://onlinelibrary.wiley.com/doi/10.1111/jiec.12630
+NEI = 0.06 # Network Energy Intensity, 0.06kWh/GB, SOURCE: https://onlinelibrary.wiley.com/doi/10.1111/jiec.12630
 BANDWIDTH = 100 # Bandwidth, Gbps, SOURCE: https://cloud.google.com/network-connectivity/docs/interconnect/concepts/overview
 VM_SPECS = {
     "c3.large": { "n_vCPU":2, "mem_size_GB":4.0265249999999995, "CPU_freq":2.8, "provider": "aws"},
@@ -48,6 +48,7 @@ class SimulationTimeRange:
     def date_to_str(self, d: datetime) -> str: return d.strftime('%Y-%m-%dT%H:%M:%S') + 'Z'
     def round_to_current_hour(self, dt: datetime) -> datetime: return dt.replace(minute=0, second=0, microsecond=0) 
 import numpy as np
+from datetime import datetime
 mean_carbon = np.mean([12, 38, 740+230/2, 820, 11+12/2, 27+41+48/3, 24, 490, 720]) # mean of all sources
 mena_water = np.mean([1.788, 9.741, 1.892, 2.089, 0.0015, 2.001, 36.765, 2.214]) #mean of all sources
 mean_land_use = np.mean([0.0003, 0.021, 0.1242, 0.022, 0.033, 0.0013]) # mean of all sources

@@ -32,12 +32,14 @@ if __name__ == "__main__":
 
     # 1) Load problem
     path_in_dc = f"experiments/in/scenario_{args.scenario}/{args.start}-{args.end}/profiles/"
-    path_in_workload = f"experiments/in/scenario_{args.scenario}/{args.start}-{args.end}/workload/{args.workload}/e_{args.seed}.csv"
+    path_in_workload = f"experiments/in/scenario_{args.scenario}/{args.start}-{args.end}/workload/{args.workload}/e_{args.seed}_step{args.step}.csv"
     sim_times = SimulationTimeRange(
         start=datetime.strptime(args.start, '%Y-%m-%dT%H:%M:%SZ'), 
         end=datetime.strptime(args.end, '%Y-%m-%dT%H:%M:%SZ'), 
         step=timedelta(seconds=args.step)
     )
+    print(f"Simulation time range: {sim_times.start} to {sim_times.end} with step {sim_times.step}")
+    print(sim_times.get_timestamps())
     schedulers = {
         "G": algorithms.geo_based,
         "R": algorithms.regional_shifting,

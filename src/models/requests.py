@@ -18,6 +18,9 @@ class VMInstance:
     #def expected_energy_consumption(self, time: float, dc_name: str) -> float:
     #    return self.migration_energy_kWh(destination_dc=dc_name) + self.expected_energy_consumption_execution(time) # kWh
 
+    def add_location(self, location: str):
+        self.locations.append(location)
+
     def migration_energy_kWh(self, destination_dc: str = None) -> float:
         migrate = destination_dc not in self.locations #and self.state == "running" 
         if not migrate:
@@ -76,6 +79,8 @@ class Request:
         
 
         self.arrival_time = arrival_time
+        self.arrival_times = [arrival_time]
+
         self.arrival_location = arrival_location
         self.runtime = runtime_sec
         self.lifetime = runtime_sec
@@ -109,6 +114,14 @@ class Request:
     def __repr__(self):
         return f"Request(arrival_time={self.arrival_time}, arrival_location={self.arrival_location}, VM_instance={self.VM_instance}, runtime={self.runtime}, lifetime={self.lifetime}, n_nodes={self.n_nodes}, input_size_bytes={self.input_size_bytes}, algorithm={self.algorithm})"
     
+    def add_arrival_time(self, arrival_time):
+        self.arrival_times.append(arrival_time)
+    
+    def add_location(self, location):
+        self.VM_instance.add_location(location)
+        if location not in self.VM_instance.locations:
+            self.VM_instance.add_location(location)
+
     def execution_and_tracing_stepwise(self, dc, current_time):
         
         t_idx = self.simulation_time_range.get_timestamps().index(current_time)

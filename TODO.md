@@ -10,10 +10,14 @@
 
 
 TODO (Giulio): 
-Monday:
- -- adapt framework to smaller step (mainly the access to DC dynamic profile and global intensities, cast the timestamp to the related hour)
- -- formalize the two scenarios and write the draft in the paper
+Tue:
+ 
+ -- add actual footprints recording to output traces
  -- formalize time shifting
+ -- add periodicity
+  -- id added
+  -- edit load_requests to consider multiple arrival time, ignore origin location after the first occurence
+ -- explain request generation in paper
 
 
 

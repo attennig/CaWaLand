@@ -1,0 +1,15 @@
+datacenters: "./data/providers/aws/homogeneous.csv"
+periods: 
+  short: 
+   start: "2024-01-15T00:00:00Z"
+   end: "2024-01-15T03:00:00Z"
+   step: [3600,1800,900,600,300]
+seeds: [1]
+workloads: ["spark"]
+schedulers: ["G", "R", "RP"]
+lc_weights:
+ - [1.0,0.0,0.0]
+ - [0.0,1.0,0.0]
+ - [0.0,0.0,1.0]
+ - [0.333,0.333,0.334]
+

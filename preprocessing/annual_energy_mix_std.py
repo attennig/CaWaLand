@@ -118,13 +118,17 @@ def preprocess_uk():
     df["oil"] = 0
     df.drop(columns=["other", "imports"], inplace=True)
     uk_df = df.set_index("timestamp").resample("1H").mean().reset_index()
-    uk_df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+    uk_df["timestamp"] = uk_df["timestamp"].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+    uk_df.set_index("timestamp", inplace=True)
+    uk_df = normalize_df(uk_df[["nuclear", "geothermal", "biomass", "coal", "wind", "solar", "hydro", "gas", "oil", "unknown"]].clip(lower=0))
     uk_df.to_csv(data_path_out("uk"), index=True)
 
 def preprocess_ie():
     df = pd.read_csv(data_path_in("ie"), parse_dates=True)
     df["timestamp"] = pd.to_datetime(df["timestamp"])
     ie_df = df.set_index("timestamp").resample("1H").mean().reset_index()
+    ie_df["timestamp"] = ie_df["timestamp"].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+    ie_df.set_index("timestamp", inplace=True)
     ie_df.to_csv(data_path_out("ie"), index=True)
 
 

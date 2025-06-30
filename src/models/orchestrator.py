@@ -9,8 +9,10 @@ import json
 class Orchestrator:
 
     def __init__(self, datacenters_path, requests_path, simulation_time_range: SimulationTimeRange, scheduling_function, factor_weights):#jobs: list, datacenters: dict,
+        self.scheduling_function = scheduling_function
+        
         self.simulation_time_range = simulation_time_range
-        self.jobs = self.load_jobs(requests_path)#jobs # list of jobs
+        self.jobs, self.jobs_by_id = self.load_jobs(requests_path)#jobs # list of jobs
         self.datacenters = self.load_datacenters(datacenters_path)
         print(f"Datacenters: {self.datacenters}")
         self.running_jobs = []  # list of jobs
@@ -22,7 +24,6 @@ class Orchestrator:
         self.global_ELIF = {timestamp: 0 for timestamp in simulation_time_range.get_timestamps()}
         self.global_CCLF = 0
         self.set_global_intensities()
-        self.scheduling_function = scheduling_function
         self.factor_weights = factor_weights
 
     def load_datacenters(self, datacenters_path):
@@ -38,9 +39,15 @@ class Orchestrator:
     
     def load_jobs(self, requests_path):
         jobs = []
+        jobs_by_id = {}
         df = pd.read_csv(requests_path)
         for index, row in df.iterrows():
             # platform,VM_instance,CPU_freq,n_vCPU,mem_size_GB,datasize,input_size_bytes,algorithm,arrival_time,runtime_sec,avg_kbmemused,avg_%memused,avg_%usr
+            if int(row["id"]) in jobs_by_id:
+                #print(f"Job with id {row['id']} already exists, adding arrival time.")
+                if self.scheduling_function.__name__ == "regional_shifting_periodic_jobs":
+                    jobs_by_id[int(row["id"])].add_arrival_time(datetime.strptime(row["arrival_time"], '%Y-%m-%dT%H:%M:%SZ'))
+                continue
             request = Request(
                 simulation_time_range=self.simulation_time_range,
                 arrival_location=row["arrival_location"],
@@ -56,7 +63,8 @@ class Orchestrator:
 
             )
             jobs.append(request)
-        return jobs
+            jobs_by_id[int(row["id"])] = request
+        return jobs, jobs_by_id
 
 
 
@@ -73,7 +81,7 @@ class Orchestrator:
 
     def get_job_queue_at_time(self, current_time: datetime):
         #return {idx: job for idx, job in self.jobs.items() if job.release_time == current_time}
-        return [job for job in self.jobs if job.arrival_time == current_time]
+        return [job for job in self.jobs if current_time in job.arrival_times]
     
 
     def step(self, current_time: datetime):
@@ -91,6 +99,7 @@ class Orchestrator:
         
         for job in terminated_jobs:
             self.running_jobs.remove(job)
+            #job.lifetime = job.runtime # reset lifetime
         
     
     def run_simulation(self, ):    
