@@ -4,6 +4,7 @@ __pycache__/
 *.pyd
 data/traces/raw
 data/energy_mix
+data/dump
 experiments/in
 experiments/out
 experiments/experiments.zip

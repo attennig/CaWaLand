@@ -5,11 +5,11 @@ import os
 # Input
 data_path_in = "./data/energy_mix/historical/{}.csv".format
 # Output
-data_path_out = "./data/energy_mix/forecast/{}.csv".format
+data_path_out = "./data/energy_mix/forecast/{}/".format
 if not os.path.exists("./data/energy_mix/forecast"):
     os.makedirs("./data/energy_mix/forecast")
 
-def simulate_forecast_row_balanced(row, renewable_sources, non_renewable_sources, target_mae=0.10):
+def simulate_forecast_row_balanced(row, renewable_sources, non_renewable_sources, target_mae):
     #Electricity map states that 'forecasts have an average absolute error of less than 30% of the typical carbon intensity and less than 10% of the renewable percentage'
     #https://ww2.electricitymaps.com/blog/why-build-an-engine-to-predict-the-future-of-electricity-grid
     
@@ -48,16 +48,19 @@ def simulate_forecast_row_balanced(row, renewable_sources, non_renewable_sources
 
 
 
-def mimic_forecast(region):
+def mimic_forecast(region, target_mae):
     df = pd.read_csv(data_path_in(region), index_col=0)
     renewable_sources = ['wind', 'solar', 'hydro', 'geothermal', 'biomass']
     non_renewable_sources = ['nuclear', 'coal', 'gas', 'oil', 'unknown']
 
     forecast_df = df.apply(
-        lambda row: simulate_forecast_row_balanced(row, renewable_sources, non_renewable_sources, target_mae=0.1),
+        lambda row: simulate_forecast_row_balanced(row, renewable_sources, non_renewable_sources, target_mae),
         axis=1
     )
-    forecast_df.to_csv(data_path_out(region))
+
+    if not os.path.exists(data_path_out(f"mae_{target_mae}")):
+        os.makedirs(data_path_out(f"mae_{target_mae}"))
+    forecast_df.to_csv(data_path_out(f"mae_{target_mae}") + f"{region}.csv")
 
 
 if __name__ == "__main__":
@@ -65,6 +68,8 @@ if __name__ == "__main__":
 
     ap = argparse.ArgumentParser(description="Preprocess annual energy mix data for different regions.")
     ap.add_argument("--data", type=str, help="Grid name")
+    ap.add_argument("--target_mae", type=float, help="Target Mean Absolute Error for the forecast", default=0.10)
 
     args = ap.parse_args()
-    mimic_forecast(args.data)
+    mimic_forecast(args.data, args.target_mae)
+

@@ -1,23 +1,27 @@
 - 25 july experiments
-  -- regional shifting with spark and functions (2 weeks)
+  -- regional shifting with spark and functions (2 weeks) +1 week
   -- time shifting + ML workloads (2 weeks)
 - 15 August writing full draft
 - 30 August polishing + cover letter
 
-
 --- make clear in the text that numbers are estimates
 
-
-
 TODO (Giulio): 
-Tue:
- 
- -- add actual footprints recording to output traces
+ ----- EXPERIMENTS TO BE LUNCHED BY FRIDAY
+ -- add aggregated plots
  -- formalize time shifting
- -- add periodicity
-  -- id added
-  -- edit load_requests to consider multiple arrival time, ignore origin location after the first occurence
- -- explain request generation in paper
+
+ -- read in details water wise paper and check their implementation
+ -- check ipcc document and ccf and electricity map metodology
+
+Future:
+
+ -- add functions
+ -- lunch experiemnts
+
+
+ 
+
 
 
 

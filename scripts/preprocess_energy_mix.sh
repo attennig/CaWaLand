@@ -1,17 +1,12 @@
 #!/bin/bash
 # standardize annual raw historical data 
-python -m preprocessing.annual_energy_mix_std --ie --uk --germany --pjm --aeso --ercot --caiso --miso
-python preprocessing/fix_intervals.py --data pjm
-python preprocessing/fix_intervals.py --data ercot
-python preprocessing/fix_intervals.py --data miso
-python preprocessing/fix_intervals.py --data caiso
-python preprocessing/fix_intervals.py --data aeso
-python preprocessing/fix_intervals.py --data uk
-python preprocessing/fix_intervals.py --data germany
-python preprocessing/fix_intervals.py --data ie
-
-
-
+#python -m preprocessing.annual_energy_mix_std --ie --uk --de --pjm --aeso --ercot --caiso --miso
 
 # mimic annual energy mix forecast
-python -m preprocessing.mimic_forecast --data ie --sw --uk --germany --pjm --aeso --ercot --caiso --miso
+regions=("sw") #"ie" "uk" "de" "pjm" "ercot" "caiso" "miso")
+mae_values=(0.05 0.10 0.15 0.20)
+for region in "${regions[@]}"; do
+    for mae in "${mae_values[@]}"; do
+        python -m preprocessing.mimic_forecast --data "$region" --target_mae "$mae"
+    done
+done

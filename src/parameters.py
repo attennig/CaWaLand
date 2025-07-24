@@ -24,8 +24,8 @@ VM_SPECS = {
     "n2_highmem-8": { "n_vCPU":8, "mem_size_GB":64, "CPU_freq":2.8, "provider": "gcp"},
     "n2_highmem-4": { "n_vCPU":4, "mem_size_GB":32, "CPU_freq":2.8, "provider": "gcp"},
     "n2_highcpu-32": { "n_vCPU":32, "mem_size_GB":32, "CPU_freq":2.8, "provider": "gcp"},
-    "n2-standard-4": { "n_vCPU":4, "mem_size_GB":16, "CPU_freq":2.8, "provider": "gcp"}
-
+    "n2-standard-4": { "n_vCPU":4, "mem_size_GB":16, "CPU_freq":2.8, "provider": "gcp"},
+    "azure": { "n_vCPU":2, "mem_size_GB":4, "provider": "azure"}
 }
 
 from dataclasses import dataclass
@@ -44,8 +44,19 @@ class SimulationTimeRange:
             t += self.step
         return timestamps
 
-    def str_to_date(self, s: str) -> datetime: return datetime.strptime(s, '%Y-%m-%dT%H:%M:%SZ')
-    def date_to_str(self, d: datetime) -> str: return d.strftime('%Y-%m-%dT%H:%M:%S') + 'Z'
+    def str_to_date(self, s: str) -> datetime: 
+        if s:
+            return datetime.strptime(s, '%Y-%m-%dT%H:%M:%SZ')
+        return s
+    def date_to_str(self, d: datetime) -> str: 
+        #print(f"Converting datetime {d} to string")
+        if d is None: return None
+        assert isinstance(d, datetime), "Input must be a datetime object"
+        return d.strftime('%Y-%m-%dT%H:%M:%S') + 'Z'
+    
+    def get_timestamp(self, day: int = 0, minute: int = 0) -> datetime:
+        return self.start + timedelta(days=day, minutes=minute)
+        
     def round_to_current_hour(self, dt: datetime) -> datetime: return dt.replace(minute=0, second=0, microsecond=0) 
 import numpy as np
 from datetime import datetime
@@ -100,7 +111,7 @@ coefficients_normalized = {
     for key, mix_coef in coefficients_raw.items()
 }
 
-tonsha2kgsqm = lambda x: x * 100
+tonsha2gsqm = lambda x: x * 100
 acre2sqm = lambda x: x * 4046.86
 
 us_carbon_sequestration_factor = {
@@ -112,7 +123,7 @@ us_carbon_sequestration_factor = {
     "R6": 7.63*10**12/acre2sqm(22.7*10**6),  # Pacific Northwest Region https://www.fs.usda.gov/sites/default/files/pacific-northwest-region-carbon-assessment.pdf 7.63 Tg carbon/year (page 19) 22.7 million acres (page 10) 
     "R8": 9.22*10**12/acre2sqm(13.8*10**6),  # Southern Region https://www.fs.usda.gov/sites/default/files/southern-region-carbon-assessment.pdf 9.22 Tg carbon/year (page 19) 13.8 million acres (page 10) 
     "R9": 8.44*10**12/acre2sqm(12*10**6),  # Eastern Region https://www.fs.usda.gov/sites/default/files/eastern-region-carbon-assessment.pdf 8.44 Tg carbon/year (page 19)  12 million acres (page 10)
-    "R10": 0.71*10**12/acre2sqm(10*4**6)  # Alaska Region https://www.fs.usda.gov/sites/default/files/alaska-region-carbon-assessment.pdf  0.71 Tg carbon/year (page 19) 10.4 million acres (page 10)
+    "R10": 0.71*10**12/acre2sqm(10.4*10**6)  # Alaska Region https://www.fs.usda.gov/sites/default/files/alaska-region-carbon-assessment.pdf  0.71 Tg carbon/year (page 19) 10.4 million acres (page 10)
     # Note: There is no active R7. It was merged into others.
 } # gCO2/m^2/year
 
@@ -203,14 +214,18 @@ us_forest_service_regions = {
 
 
 loss_factors = {
-    "Australia": tonsha2kgsqm(3.9), #tons/ha/year
+    "Australia": tonsha2gsqm(3.9), #tons/ha/year
     # Australia https://www.uwa.edu.au/news/Article/2022/March/In-20-years-of-studying-how-ecosystems-absorb-carbon-heres-why-were-worried-about-a-tipping-point-of-collapse every hectare of Australia’s temperate forests absorbs 3.9 tonnes of carbon in a year, according to OzFlux data
-    "Denmark": tonsha2kgsqm(2.2*10**6/640835), 
+    "Denmark": tonsha2gsqm((2.2*10**6)/640835), 
     # Denmark https://tracker.carbongap.org/regional-analysis/national/denmark/?printThis=true&nonce=89c5214e15 Annual Removals: 2.2 Mt CO2 per year from forests https://en.lbst.dk/nature-and-forestry/forestry#:~:text=Facts%20on%20the%20Danish%20forests,Forest%20area There are officially 640,835 ha of forest in Denmark
-    "Sweden": tonsha2kgsqm(2), # tons/ha/year
+    "Sweden": tonsha2gsqm(2), # tons/ha/year
     # Sweden https://pub.norden.org/us2024-428/annex-4-carbon-stock-and-sink-data-of-trees-in-urban-areas-in-the-context-of-building-climate-reporting.html " For example, in the Stockholm municipality, the carbon sink in forests and soil was estimated to be -35 kt CO2e per year, corresponding to slightly below 2 t CO2e per hectare per year (Lindahl & Lundblad, 2022)"
-    "Ireland": tonsha2kgsqm(3.36), # tons/ha/year
+    "Ireland": tonsha2gsqm(3.36), # tons/ha/year
     # Ireland https://www.woodenergy.ie/media/coford/content/publications/projectreports/cofordconnects/CarbonSequestration.pdf
+    "Germany": tonsha2gsqm((52.5*10**6)/(11.5*10**6)), # tons/year,  hectares
+    # Germany https://www.cleanenergywire.org/news/german-forests-absorbed-six-percent-countrys-emissions-2021-statistical-office 52.5 million tonnes of carbon dioxide in 2021;  https://www.bundeswaldinventur.de/vierte-bundeswaldinventur-2022/waldland-deutschland 11.5 million hectares
+    "United Kingdom": tonsha2gsqm((18*10**6)/(3.28*10**6)), # tons/year, hectares
+    # United Kingdom https://www.forestresearch.gov.uk/tools-and-resources/statistics/publications/forestry-statistics/forestry-statistics-2023/2023-4-carbon 18 million tonnes CO2 in total in 2020, https://www.forestresearch.gov.uk/news/140923-forestry-facts-and-figures-2024-published-today/ 3.28 million hectares of woodland in the UK (as of March 2024)
     "Iowa": us_carbon_sequestration_factor[us_forest_service_regions["Iowa"]], 
     "Illinois": us_carbon_sequestration_factor[us_forest_service_regions["Illinois"]],
     "Utah": us_carbon_sequestration_factor[us_forest_service_regions["Utah"]],
@@ -225,7 +240,7 @@ loss_factors = {
     "Nebraska": us_carbon_sequestration_factor[us_forest_service_regions["Nebraska"]],
     "Georgia": us_carbon_sequestration_factor[us_forest_service_regions["Georgia"]],
     "California": us_carbon_sequestration_factor[us_forest_service_regions["California"]]
-} # kgCO2/m^2/year
+} # gCO2/m^2/year
 
 
 def get_CCLF(state: str) -> float:

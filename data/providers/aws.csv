@@ -1,0 +1,7 @@
+Region;Grid;Name;State;PUE;WUE;LandOccupatin(sqm);TMZ_offset
+eu-central-1;de;Europe (Frankfurt);Germany;1.35;0.01;116550;2
+eu-west-2;uk;Europe (London);United Kingdom;1.11;0.04;116550;1
+eu-north-1;sw;Europe (Stockholm);Sweden;1.10;0.02;116550;1
+us-east-1;pjm;US East (W. Virginia);Virginia;1.15;0.12;233101;-5
+us-west-1;caiso;US West (N. California);California;1.17;0.51;116550;-7
+

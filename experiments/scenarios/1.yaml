@@ -1,31 +1,38 @@
-datacenters: "./data/providers/aws/homogeneous.csv"
 periods: 
-  short: 
-   start: "2024-01-15T00:00:00Z"
-   end: "2024-01-15T03:00:00Z"
-   step: [3600,1800,900,600,300]
-  winter: 
-   start: "2024-01-15T00:00:00Z"
-   end: "2024-01-22T00:00:00Z"
-   step: [3600]
-  spring: 
-   start: "2024-04-15T00:00:00Z" 
-   end: "2024-04-22T00:00:00Z" 
-   step: [3600]
+  #winter: # DONE
+  # start: "2024-01-15T00:00:00Z"
+  # end: "2024-01-22T00:00:00Z"
+  #spring: 
+  # start: "2024-04-15T00:00:00Z" 
+  # end: "2024-04-22T00:00:00Z" 
   summer: 
    start: "2024-07-15T00:00:00Z" 
    end: "2024-07-22T00:00:00Z" 
-   step: [3600]
-  autumn: 
-   start: "2024-10-15T00:00:00Z" 
-   end: "2024-10-22T00:00:00Z" 
-   step: [3600]
-seeds: [1,2]
-workloads: ["spark"]
-schedulers: ["G", "R", "RP"]
+  #autumn: 
+  # start: "2024-10-15T00:00:00Z" 
+  # end: "2024-10-22T00:00:00Z" 
+
+step: 60
+
+mae_forecast: [0.05, 0.1, 0.15, 0.2]
+seeds: [1,2,3,4,5,6]
+
+schedulers: ["L","RP", "TP", "TRP"]
 lc_weights:
  - [1.0,0.0,0.0]
  - [0.0,1.0,0.0]
  - [0.0,0.0,1.0]
  - [0.333,0.333,0.334]
 
+provider: aws
+workloads: ["spark"]
+# only for spark
+periodic_ratio: 0.5
+target: 10000
+periodicity: 
+# - [2]
+# - [4]
+# - [8] 
+# - [12]
+ - [2, 4, 8, 12]
+delay_tolerance: [4, 12, 24, 48]
