@@ -23,14 +23,14 @@ if __name__ == "__main__":
     ap.add_argument("--lcw", nargs=3, type=float, default=[1, 0, 0], help="Load balancing weights for the scheduler (default: 1 0 0)")
     args = ap.parse_args()
 
-    print(f"Running scenario {args.scenario} with the following parameters:")
-    print(f"Start date: {args.start}")
-    print(f"End date: {args.end}")
-    print(f"Step duration: {args.step}")
-    print(f"Workload: {args.workload}")
-    print(f"Seed: {args.seed}")
-    print(f"Scheduler: {args.scheduler}")
-    if args.scheduler != "G": print(f"Load balancing weights: {args.lcw}")
+    #print(f"Running scenario {args.scenario} with the following parameters:")
+    #print(f"Start date: {args.start}")
+    #print(f"End date: {args.end}")
+    #print(f"Step duration: {args.step}")
+    #print(f"Seed: {args.seed}")
+    #print(f"Scheduler: {args.scheduler}")
+    #print(f"Workload: {args.workload}")
+    #if args.scheduler != "L": print(f"Factor balancing weights: {args.lcw}")
 
 
 
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     #path_in_grids = "./experiments/in/profiles/{}/dynamic/{}/{}-{}-{}.csv".format # provider, grid, mae, start, end
     path_in_grids = (f"./experiments/in/profiles/{args.provider}/dynamic/{args.mae}/{args.start}-{args.end}/"+"{}.json").format # provider, grid, mae, start, end
 
-    path_in_workload = f"./experiments/in/workloads/spark/e{args.seed}/" 
+    path_in_workload = f"./experiments/in/workloads/{args.workload}/e{args.seed}/" 
     sim_times = SimulationTimeRange(
         start=datetime.strptime(args.start, '%Y-%m-%dT%H:%M:%SZ'), 
         end=datetime.strptime(args.end, '%Y-%m-%dT%H:%M:%SZ'), 
@@ -69,7 +69,8 @@ if __name__ == "__main__":
         simulation_time_range=sim_times,
         scheduling_function=schedulers[args.scheduler],
         factor_weights=lwc, 
-        delay_tolerance=timedelta(hours=args.delay_tolerance)
+        delay_tolerance=timedelta(hours=args.delay_tolerance),
+        sim_name=f"{args.provider}_{args.mae}_{args.start.replace(':', '-')}_{args.end.replace(':', '-')}_seed{args.seed}_{args.scheduler}{'_'.join(map(str, args.lcw))}"
     )
 
     # 2) Scheduling
@@ -79,7 +80,7 @@ if __name__ == "__main__":
     e = time.process_time() # end time
 
     # 3) Save results
-    lcw_str = f"_{args.lcw}" if args.scheduler != "G" else ""
+    lcw_str = f"_{args.lcw}" if args.scheduler != "L" else ""
     delay_str = f"_dt{args.delay_tolerance}" if args.delay_tolerance > 0 else ""
     homogeneous_str = "_mean" if args.mean else ""
     #path_out_exp = f"experiments/out/scenario_{args.scenario}/{args.start}-{args.end}/workload/{args.workload}/{args.step}/e_{args.seed}_{args.scheduler}{lcw_str}.json"
@@ -97,13 +98,19 @@ if __name__ == "__main__":
             "simulation_processing_time_seconds": e - s
             }, f, indent=4)"""
     
+    #print(f"{orchestrator.count_traces} traces generated / {orchestrator.count_jobs_queue} jobs in queue")
     with open(path_out_exp.replace(".json", ".csv"), "w") as f:
         # Write header
         f.write("timestamp,energy_kwh,carbon_actual,carbon_forecast,water_actual,water_forecast,land_use_actual,land_use_forecast,region,job_id\n")
         # Write each job's trace
         for job in orchestrator.jobs:
             f.write(job.trace.get_csv_lines(orchestrator))
-        f.write(f"simulation_processing_time_seconds,{e - s}\n")
+    with open(path_out_exp, "w") as f:  
+        json.dump({
+            "step_scheduling_time": orchestrator.step_scheduling_time,
+            "simulation_processing_time_seconds": e - s
+            }, f, indent=4)
+    print(f"Simulation completed in {e - s} seconds.\nResults saved to {path_out_exp}")
 
 
 

@@ -10,4 +10,5 @@ eu-west-1;ie;Europe (Dublin);Ireland;1.11;0.03;116550;1
 #azure
 ?;unknown;Europe (Denmark);?;1.16;0.01;?;1
 uksouth;uk;????
-swedencentral;sw;Sweden Central;Sweden,Gavle;1.172;0.16;?;1
+
+northeurope;ie;North Europe;Ireland,Dublin;1.197;0.03;28149;1

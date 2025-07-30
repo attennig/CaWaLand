@@ -2,5 +2,4 @@ Region;Grid;Name;State;PUE;WUE;LandOccupatin(sqm);TMZ_offset
 southcentralus;ercot;South Central US;Texas,SanAntonio;1.307;1.82;43664;-6
 centralus;miso;Central US;Iowa,DesMoines;1.16;0.19;37904;-6
 eastus2;pjm;US East 2;Virginia,Boydton;1.144;0.17;102193;-5
-northeurope;ie;North Europe;Ireland,Dublin;1.197;0.03;28149;1
-
+swedencentral;sw;Sweden Central;Sweden,Gavle;1.172;0.16;1300000;1

@@ -91,7 +91,7 @@ class Request:
         
         self.arrival_location = arrival_location
         self.runtime = runtime_sec
-        self.lifetime = runtime_sec
+        self.lifetime = runtime_sec.total_seconds() # float, seconds
     
         self.n_nodes = n_nodes
         self.input_size_bytes = input_size_bytes
@@ -118,27 +118,13 @@ class Request:
         self.VM_instance.add_location(location)
         if location not in self.VM_instance.locations:
             self.VM_instance.add_location(location)
-
-    """def execution_and_tracing_stepwise(self, dc, current_time):
-        t_idx = self.simulation_time_range.get_timestamps().index(current_time)
-        self.trace["datacenter"][t_idx] = dc.name
-        self.trace["VM_instance"][t_idx] = self.VM_instance.name
-        self.trace["carbon_intensity"][t_idx] = dc.profile.carbon_intensity(current_time)
-        self.trace["water_intensity"][t_idx] = dc.profile.water_intensity(current_time)
-        self.trace["land_use_intensity"][t_idx] = dc.profile.land_use_intensity(current_time)
-        exec_time = min(self.lifetime, self.simulation_time_range.step.seconds)
-        self.trace["execution_time"][t_idx] = exec_time
-        migration_kWh, migration_seconds= self.VM_instance.migration_energy_kWh(destination_dc=dc.name)
-        energy_kWh= self.VM_instance.execution_energy_kWh(time = min(self.simulation_time_range.step.seconds, self.lifetime)) + migration_kWh  # kWh
-        self.trace["energy_consumption"][t_idx] = energy_kWh # include migration energy
-        self.VM_instance.dc_name = dc.name
-        self.lifetime -= exec_time"""
-
     
 
     def execution_and_tracing(self, d, t_0, o): 
+        o.count_traces += 1
         t = t_0
         self.trace.datacenter = d.name
+        assert self.VM_instance.dc_name != None
         self.VM_instance.dc_name = d.name
         self.trace.VM_instance = self.VM_instance.name
         # Migration
@@ -155,13 +141,10 @@ class Request:
                     if req_instance.arrival_time >= t_0 + self.trace.migration_latency: ## 
                         req_instance.add_location(d.name) # add the new location to all succeding instances of the request
 
-        lifetime = self.runtime.seconds
         migration_steps_seconds = timedelta(seconds=floor(migration_time.seconds / o.simulation_time_range.step.seconds)*o.simulation_time_range.step.seconds) # seconds
         remaining_seconds = migration_time.seconds % o.simulation_time_range.step.seconds
         # Execution
-        while lifetime > 0:
-            #print(lifetime)
-       
+        while self.lifetime > 0.000001:
             if t==t_0: 
                 step_len_seconds = o.simulation_time_range.step - timedelta(seconds = remaining_seconds)
                 t = t_0 + migration_steps_seconds
@@ -169,17 +152,14 @@ class Request:
             else: 
                 step_len_seconds = o.simulation_time_range.step
             #print(step_len_seconds)
-            exec_time = min(step_len_seconds, self.lifetime) 
+            exec_time = min(step_len_seconds, timedelta(seconds=self.lifetime)) 
             energy_kWh = self.VM_instance.execution_energy_kWh(time=exec_time.seconds, util=self.avg_cpu_usr_util) # kWh
             self.trace.execution_time_seconds.append(exec_time)
             self.trace.execution_energy_kWh.append(energy_kWh)
             t += o.simulation_time_range.step
-            lifetime -= exec_time.seconds#step_len_seconds
-
+            self.lifetime -= exec_time.total_seconds()#step_len_seconds
         self.trace.execution_time_end = t#o.simulation_time_range.date_to_str(t)
-        #self.trace_compressed["execution_time_end"] = o.simulation_time_range.date_to_str(t + timedelta(seconds=self.lifetime))
-        self.lifetime= timedelta(seconds=0) # reset lifetime
-    
+
 class Trace:
 
     def __init__(self, simulation_time_range, id): 
@@ -213,6 +193,7 @@ class Trace:
 
     def get_csv_lines(self, o):
         #head = f"timestamp,energy_kwh,carbon_actual,carbon_forecast,water_actual,water_forecast,land_use_actual,land_use_forecast,region"
+        #print(f"Trace {self.id}")
         csv_out = ""
         timestamps = self.simulation_time_range.get_timestamps()
         d = o.datacenters[self.datacenter]
@@ -220,102 +201,39 @@ class Trace:
         if self.migration_time_start:
             assert self.migration_energy_kWh is not None, "Migration energy is not set"
             dt_migr = self.migration_time_start
+
             #self.simulation_time_range.str_to_date()
-            dt_migs_str = self.simulation_time_range.date_to_str(dt_migr)
+            #dt_migs_str = self.simulation_time_range.date_to_str(dt_migr)
             #t_migr = timestamps.index(dt_migr)
             t_migr_hour = self.simulation_time_range.round_to_current_hour(dt_migr)
+            t_migr_hour_str = self.simulation_time_range.date_to_str(t_migr_hour)
 
             #print(f"{t_migr_hour} -> {o.global_PGIs[t_migr_hour].CI_actual}")
-            csv_out += f"{dt_migs_str},{self.migration_energy_kWh}," #{1},
+            csv_out += f"{t_migr_hour_str},{self.migration_energy_kWh}," #{1},
             csv_out += f"{o.global_PGIs[t_migr_hour].CI_actual},{o.global_PGIs[t_migr_hour].CI_forecast},"
             csv_out += f"{o.global_PGIs[t_migr_hour].EWIF_actual},{o.global_PGIs[t_migr_hour].EWIF_forecast},"
             csv_out += f"{o.global_PGIs[t_migr_hour].ELIF_actual},{o.global_PGIs[t_migr_hour].ELIF_forecast},"
             csv_out += f"migration,{self.id}\n"
             
-        dt_exec_i = self.execution_time_start#self.simulation_time_range.str_to_date()
-        dt_exec_f = self.execution_time_end#self.simulation_time_range.str_to_date()
+        dt_exec_i = self.execution_time_start
+        dt_exec_f = self.execution_time_end
         t_exec_i = timestamps.index(dt_exec_i)
         t_exec_f = timestamps.index(dt_exec_f)
-        for t_idx in range(t_exec_i,t_exec_f):
-            dt = timestamps[t_idx]
-            dt_str = self.simulation_time_range.date_to_str(dt)
+
+        # Aggregate execution energy by t_hour
+        energy_by_hour = {}
+        for t_idx in range(t_exec_i, t_exec_f):
             t_hour = self.simulation_time_range.round_to_current_hour(timestamps[t_idx])
-            csv_out += f"{dt_str},{self.execution_energy_kWh[t_idx - t_exec_i]}," # {self.execution_time_seconds[t_idx - t_exec_i]},
+            if t_hour not in energy_by_hour:
+                energy_by_hour[t_hour] = 0.0
+            energy_by_hour[t_hour] += self.execution_energy_kWh[t_idx - t_exec_i]
+
+        for t_hour, energy_sum in energy_by_hour.items():
+            dt_str = self.simulation_time_range.date_to_str(t_hour)
+            csv_out += f"{dt_str},{energy_sum},"
             csv_out += f"{d.profile.carbon_intensity_actual(t_hour)},{d.profile.carbon_intensity_forecast(t_hour)},"
-            csv_out += f"{d.profile.water_intensity_actual(t_hour) },{d.profile.water_intensity_forecast(t_hour)},"
+            csv_out += f"{d.profile.water_intensity_actual(t_hour)},{d.profile.water_intensity_forecast(t_hour)},"
             csv_out += f"{d.profile.land_use_intensity_actual(t_hour)},{d.profile.land_use_intensity_forecast(t_hour)},"
             csv_out += f"{d.name},{self.id}\n"
             
         return csv_out
-
-
-
-    """def reload_compressed_trace(self, trace_compressed):
-        self.migration_time_start = self.simulation_time_range.str_to_date(trace_compressed["migration_time_start"])
-        self.migration_latency = trace_compressed["migration_latency"]
-        self.migration_energy_kWh = trace_compressed["migration_energy_kWh"]
-        self.execution_time_start = self.simulation_time_range.str_to_date(trace_compressed["execution_time_start"])
-        self.execution_time_end = self.simulation_time_range.str_to_date(trace_compressed["execution_time_end"])
-        self.execution_energy_kWh = trace_compressed["execution_energy_kWh"]
-        self.execution_time_seconds = trace_compressed["execution_time_seconds"]
-        self.datacenter = trace_compressed["datacenter"]
-        self.VM_instance = trace_compressed["VM_instance"]
-        #print(f"Trace reloaded: {self.execution_time_start} - {self.execution_time_end}")
-
-    def get_uncompressed_trace(self, o):
-        timestamps = self.simulation_time_range.get_timestamps()
-        trace = {
-            "datacenter": [None for t in timestamps],
-            "VM_instance":[None for t in timestamps], 
-            "carbon_intensity_forecast": [.0 for t in timestamps],
-            "water_intensity_forecast": [.0 for t in timestamps],
-            "land_use_intensity_forecast": [.0 for t in timestamps],
-            "carbon_intensity_actual": [.0 for t in timestamps],
-            "water_intensity_actual": [.0 for t in timestamps],
-            "land_use_intensity_actual": [.0 for t in timestamps],
-            "carbon_intensity_forecast_raw": [.0 for t in timestamps],
-            "water_intensity_forecast_raw": [.0 for t in timestamps],
-            "land_use_intensity_forecast_raw": [.0 for t in timestamps],
-            "carbon_intensity_actual_raw": [.0 for t in timestamps],
-            "water_intensity_actual_raw": [.0 for t in timestamps],
-            "land_use_intensity_actual_raw": [.0 for t in timestamps],
-            "execution_time_seconds": [.0 for t in timestamps],
-            "execution_energy_kWh": [.0 for t in timestamps],
-        }
-        d = o.datacenters[self.datacenter]
-        if self.migration_time_start:
-            assert self.migration_energy_kWh is not None, "Migration energy is not set"
-            df_migr = self.migration_time_start#self.simulation_time_range.str_to_date()
-            t_migr = timestamps.index(df_migr)
-            t_migr_hour = self.simulation_time_range.round_to_current_hour(df_migr)
-            trace["carbon_intensity_forecast"][t_migr] = o.global_CI[t_migr_hour]  * self.migration_energy_kWh # access the hourly global profile
-            trace["water_intensity_forecast"][t_migr] = o.global_EWIF[t_migr_hour] * self.migration_energy_kWh
-            trace["land_use_intensity_forecast"][t_migr] = o.global_ELIF[t_migr_hour] * o.global_CCLF * self.migration_energy_kWh
-            trace["carbon_intensity_actual"][t_migr] = o.global_CI_actual[t_migr_hour]  * self.migration_energy_kWh # access the hourly global profile
-            trace["water_intensity_actual"][t_migr] = o.global_EWIF_actual[t_migr_hour] * self.migration_energy_kWh
-            trace["land_use_intensity_actual"][t_migr] = o.global_ELIF_actual[t_migr_hour] * o.global_CCLF * self.migration_energy_kWh
-
-        dt_exec_i = self.execution_time_start#self.simulation_time_range.str_to_date()
-        dt_exec_f = self.execution_time_end#self.simulation_time_range.str_to_date()
-        t_exec_i = timestamps.index(dt_exec_i)
-        t_exec_f = timestamps.index(dt_exec_f)
-        for t_idx in range(t_exec_i,t_exec_f):
-            trace["datacenter"][t_idx] = self.datacenter
-            trace["VM_instance"][t_idx] = self.VM_instance
-            t_hour = self.simulation_time_range.round_to_current_hour(timestamps[t_idx])
-            trace["carbon_intensity_forecast"][t_idx] += d.profile.carbon_intensity_forecast(t_hour) # access the hourly profile of the datacenter
-            trace["water_intensity_forecast"][t_idx] += d.profile.water_intensity_forecast(t_hour) 
-            trace["land_use_intensity_forecast"][t_idx] += d.profile.land_use_intensity_forecast(t_hour) 
-            trace["carbon_intensity_actual"][t_idx] += d.profile.carbon_intensity_actual_forecast(t_hour) # access the hourly profile of the datacenter
-            trace["water_intensity_actual"][t_idx] += d.profile.water_intensity_actual(t_hour) 
-            trace["land_use_intensity_actual"][t_idx] += d.profile.land_use_intensity_actual(t_hour) 
-
-            trace["datacenter"][t_idx] = d.name
-            trace["VM_instance"][t_idx] = self.VM_instance
-            trace["execution_energy_kWh"][t_idx] += self.execution_energy_kWh[t_idx - t_exec_i] 
-            assert self.execution_energy_kWh[t_idx - t_exec_i]  != None, "Execution energy is None"
-            assert trace["execution_energy_kWh"][t_idx] != None, "Execution energy in trace is None"
-            trace["execution_time_seconds"][t_idx] += self.execution_time_seconds[t_idx - t_exec_i] 
-                
-        
-        return trace"""

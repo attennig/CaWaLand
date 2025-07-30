@@ -2,9 +2,11 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.tar.gz
 data/traces/raw
 data/energy_mix
 data/dump
+experiments_2/
 experiments/in
 experiments/out
 experiments/experiments.zip

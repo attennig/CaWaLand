@@ -179,8 +179,9 @@ def preprocess_miso():
     }, inplace=True) 
 
     miso_df = normalize_df(df[["nuclear", "geothermal", "biomass", "coal", "wind", "solar", "hydro", "gas", "oil", "unknown"]].clip(lower=0))
-    
+   
     miso_df.index = miso_df.index.strftime("%Y-%m-%dT%H:%M:%SZ")
+    miso_df.rename_axis("timestamp", inplace=True)
     miso_df.to_csv(data_path_out("miso"), index=True)
 
 def preprocess_ercot():

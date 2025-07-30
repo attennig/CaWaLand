@@ -57,12 +57,12 @@ def evaluate_footprint(t_0, r, d, o):
     water_impact = o.get_global_intensity_forecast_normalized("water", t_0_hour) * o.factor_weights["water"] * migration_energy_kWh
     land_use_impact = o.get_global_intensity_forecast_normalized("land_use", t_0_hour) * o.factor_weights["land_use"] * migration_energy_kWh    
     t = t_0
-    lifetime = r.runtime.seconds
+    lifetime = r.lifetime
     # migration_steps_seconds = timedelta(seconds=floor(migration_time / o.simulation_time_range.step.seconds)*o.simulation_time_range.step.seconds) # seconds
     migration_steps_seconds = timedelta(seconds=floor(migration_time.seconds / o.simulation_time_range.step.seconds)*o.simulation_time_range.step.seconds) # seconds
     remaining_seconds = migration_time.seconds % o.simulation_time_range.step.seconds
 
-    while lifetime > 0:
+    while lifetime > 0.000001:
         if t==t_0: 
             step_len_seconds = o.simulation_time_range.step - timedelta(seconds = remaining_seconds)
             t = t_0 + migration_steps_seconds
@@ -80,6 +80,6 @@ def evaluate_footprint(t_0, r, d, o):
         #print(f"at time {t_hour} carbon forecast: {d.profile.carbon_intensity_forecast(t_hour)}")
         #print(f"at time {t_hour} carbon actual: {d.profile.carbon_intensity_actual(t_hour)}")
         t += o.simulation_time_range.step
-        lifetime -= step_len_seconds.seconds
+        lifetime -= step_len_seconds.total_seconds()
 
     return carbon_impact, water_impact, land_use_impact

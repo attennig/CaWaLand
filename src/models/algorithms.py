@@ -31,7 +31,6 @@ def temporal_shifting(current_time: datetime, requests_queue: list, orchestrator
 
 def temporal_shifting_periodic_jobs(current_time: datetime, requests_queue: list, orchestrator=None): 
     from src.models.objectives import get_start_time_by_min_impact
-    #print("using temporal shifting periodic jobs")
     for request in requests_queue:
         dc = orchestrator.datacenters[request.VM_instance.dc_name]
         start_time = get_start_time_by_min_impact(current_time, request, orchestrator)

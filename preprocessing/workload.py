@@ -7,8 +7,9 @@ path_workload = "./experiments/in/workloads/{}/e{}/".format # workload name, see
 
 
 
-def get_workload(workload_name: str, seed: int, provider: str, periodic_ratio: float, target_requests: int, periodicity: list) -> None:
+def get_spark(workload_name: str, seed: int, provider: str, periodic_ratio: float, target_requests: int, periodicity: list) -> None:
     days, minutes_per_day = 7, 24 * 60
+    print(f"Target: {target_requests}")
     #min_p, max_p = 20, 12*60 # Min Maximum periodicity in minutes : 20 minutes, 12 hours
     target_requests_periodic = target_requests * periodic_ratio
     target_requests_non_periodic = target_requests * (1 - periodic_ratio)
@@ -96,15 +97,20 @@ def get_workload(workload_name: str, seed: int, provider: str, periodic_ratio: f
         else:
             print(f"No requests for day {day}")
         
-def fass_workload():
-    path = "../data/traces/azure_skewed/"
-    import shutil
+def get_faas():
+    path = "./data/traces/azure_skewed/"
     for file_name in os.listdir(path):
         if file_name.endswith(".csv"):
             if file_name.startswith("function"): continue
             _,_,day,_,seed = file_name.split(".")[0].split("_")
             print((day[1], seed))
-            path = f"../experiments/in/workloads/faas/e{day[1]}/"
+            path = f"./experiments/in/workloads/faas/e{int(seed)}/"
             if not os.path.exists(path):
                 os.makedirs(path)
-            shutil.copy(os.path.join("../data/traces/azure_skewed/", file_name), os.path.join(path, f"{seed}.csv"))
+            # Read the CSV, change the header, and save to the destination
+            src_file = os.path.join("./data/traces/azure_skewed/", file_name)
+            df = pd.read_csv(src_file)
+            # Change the header as needed, for example:
+            df.columns = ["id", "runtime", "region", "minute"]
+            dest_file = os.path.join(path, f"{int(day[1])-1}.csv")
+            df.to_csv(dest_file, index=False)
