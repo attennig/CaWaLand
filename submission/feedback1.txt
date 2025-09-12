@@ -1,0 +1,64 @@
+- Title: I think the title should include specifically "carbon, water, and land use impact" (or similar), and I'd drop the second part ("FaaS and Big Data Case Studies")
+
+- IEEE T-SuSC is not double blind, so we can include our names on the first page, no?
+
+- Intro:
+    - I don't think we need to start with an overview, right after the abstract summarizes the paper (and before getting to the motivation) 
+    - It's uncommon to break down the intro into named paragraphs (Overview, Motivation, ...)
+    - Motivation: We should refer to 2-3 recent papers on the emissions of ICT, including papers that link the emissions to data-intensive applications and services, and relate the IAA's 945 TWh globally by 2030 to the current use; I'd cut the Agenda 2030 and SDGs (as they not feel very new/timely)
+    - We should explicitly mention carbon-aware computing and refer to a couple of papers for this (see e.g. how we do that in https://arxiv.org/pdf/2508.14625). Similarly, we should also discuss the state of the art on water (and water plus carbon) aware computing. There has been work on this, so we need to (a) demonstrate that we are aware of those and (b) explain that there is a limitation with those, which we address. 
+    - I think we should have a paragraph that starts with "In this paper, ..." and that explains in 3-4 sentences what we did and how that addresses the gap with the state of the art, before coming to the contributions
+    - We should make clear this is an extended article based on the LOCO workshop paper
+    - I would present three contributions: 1. the _approach/idea_ to jointly optimise the carbon emissions, water consumption, and land use in temporal and spatial cloud workload shifting; 2. the systematic evaluation, simulating public cloud data centres and workloads etc.; 3. sharing all code and data from the implementation of the approach and evaluation
+
+- Background:
+    - "table VI" -> "_T_able VI" (since it is a name)
+    - "Introduced by The Green Grid [9], ...": just a footnote, not text, does the job here
+    - "Cooling systems ...": this paragraph reads more like intro/motivation than background
+    - if Land Usage Effectiveness (LUE) has not been introduced before, we should highlight this already in the introduction, such as when explaining what we've done in this paper
+    - Construction and Dismantling: we need to mention embodied carbon and other material use, but we should not give it this much room, if we then not consider all of this in our methodology
+    - "B. Workload flexibility": this comes too short in comparison to the first subsection. i suggest we drop this and focus on the environmental impacts here.
+
+- Problem Formulation:
+    - I've read over this quickly as I didn't have more time (and formalising problems is not my strong suit) – @Youssef: Can you have a closer look?
+    - Can we rename this to "Problem Statement"? – Or shall we perhaps even consider restructuring the content so we have a clear "Methodology" or even "Approach"? Note, please, how the next section starts by saying "To evaluate our approach, we conduct two case studies". However, we've only presented a problem, no new idea/approach, not even a "study/experimental methodology" before jumping into the experimental setup
+
+- Simulation:
+    - let's rename this to "Evaluation" and then clearly say "simulation" right away in the text
+    - i think we should right away explain that we have chosen a user-facing, latency-sensitive workload (-> FaaS) and a delay-tolerant batch processing workload (-> big data) – could even be something to say as part of a methodology section
+    - Pseudo-code: this would need some text explaining it; also, wouldn't this be better placed in a methodology section than as part of the setup?
+    - the GitHub link should be on Page 1, as a footnote to the contribution
+    - would it be possible to use a subsection each for both scenarios (to have more visible structure)?
+    - i wonder if we cannot give a structured overview over the various data sources informing our experiments in an appendix? would that count against the page limit for this journal?
+
+- Results and discussion:
+    - A. Energy Intensity Factors: i think we shouldn't present this first, but later, as part of the discussion
+    - include scalable graphics for the results and preserve any text as text, e.g. by including plots as PDFs
+    - we have a lot of plots that are small and similar and variants of each other, so lots of redundancies around axes descriptions and captions etc.: it would be great if some them can be aggregated to larger plots or tables, which will also help to have these results not quickly feel like just "more of the same"
+    - several of the figures now are also just too tiny
+    - the captions are too criptic (e.g. "Grid intensities - Azure - Winter week, mae = 0.1")
+    - section B isn't structured well: a) is very long, while b) and c) are quite short
+    - i think we should end this section with a discussion subsection that is labeled as such and longer; see also the comment on moving threats to validity here
+    - "the zero migration cost of FaaS workloads": well, we don't model any, but there's actually no real workload without any migration cost right? we should at least say "negligible"
+    - "as already observed in previous studies [3]": this is something for the discussion, not the first neutral description of results
+    - we can be briefer in describing the results first: see e.g. where all the %s are reiterated on Page 7, left column, after the reference [3]... that's not needed
+    - "This is likely due to migration overhead, which is negligible for Faas workloads, but not for big data workloads, thus it limits the number of migrations leading to a more balanced distribution": this is also something for a discussion, but not the first description of results
+    - "b) Temporal shifting: Temporal shifting allows...": we shouldn't need to explain the experiment here. it needs to be explained before – the technique in general in the background, and the specific experiment in the methodology/setup part
+
+- Related work:
+    - Radovanovi´ c et al. [41] only indirectly delay flexible workloads: essentially, they just set capacity constraints, leaving the delays/scheduling to (internal) users, and they've only used this for internal workloads, so it's not available to customers.
+    - I think https://dl.acm.org/doi/abs/10.1145/3575813.3595197 (for regional shifting) and https://dl.acm.org/doi/abs/10.1145/3575693.3575709 or https://dl.acm.org/doi/abs/10.1145/3626788 (for temporal shifting) are seminal works that we should cite
+    - Is there nothing that we can criticise with WaterWise? – It's not the strongest look that all we do is add another factor... also given that there are more factors 
+    - This should clarify how this new paper – our _extended_ article – is different to the previous one – your LOCO workshop paper; see https://www.sciencedirect.com/science/article/pii/S0167739X23003229#sec3 for an example how this can be done in the Related Work and https://arxiv.org/pdf/2508.14625 for how this can be done in the intro. we need to do this at least once in this paper.
+
+- Conclusion: 
+    - I wouldn't structure this visibly using named paragraphs
+    - Our conclusion stress more that you can optimise all three impacts at the same time (or not), as that's the novelity here
+    - I think we should add to the discussion of the results that temporal shifting has less savings, but does not require to move data between regions, which sometimes will not be possible due to security/privacy concerns, and for the combination of both should give a number/range again.
+    - I think threats to validity should not be presented in the conclusion but as part of a discussion at the end of the evaluation section. Each point here should become a named bullet point there. See https://arxiv.org/pdf/2508.14625 for an example.
+    - One threat to validity I am missing here around the spatial/temporal shifting is the assumption that there will always be resources available (though I think it is fair assumption for public clouds).
+    - "... (e.g. ...) ...": that's not good writing style; let's say this without so many parentheses. I think cross-region dependability and load balancing requirements failure tolerance and low-latency delivery for customers around the world – are a good idea for future work. I also think looking at embodied carbon (and water?) makes sense and is an obvious criticism to our work. I'd drop the last point (around cost and sustainability).
+
+- Footnotes vs. references: I'd generally use references for (peer-reviewed) paper publications and footnotes for online sources (websites, white papers, datasets, repositories – anything with mainly a link)
+
+- Acknowledgements: From our side, it would be "This work was supported by the Engineering and Physical Sciences Research Council under grant number UKRI154 (“Casper: Carbon-Aware Scalable Processing in Elastic Clusters”).

@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import os 
+import src.parameters as parameters
 
 # Input
 data_path_in = "./data/energy_mix/historical/{}.csv".format
@@ -45,22 +46,76 @@ def simulate_forecast_row_balanced(row, renewable_sources, non_renewable_sources
 
     return forecast_row
 
+def _apply_error(factor, error, seed):
+    if error is None:
+        return factor
+    rng = np.random.default_rng(seed)
+    # loc is the mean of the normal distribution, scale is the standard deviation
+    return factor + rng.normal(loc=0, scale=error * factor.mean(), size=len(factor))
 
 
+def mimic_forecast_intensities(region, error):
+
+    mix_df = pd.read_csv(data_path_in(region), index_col="timestamp")
+    intensity_df = pd.DataFrame(index=mix_df.index)
+    sources = parameters.renewable_sources + parameters.non_renewable_sources
+
+    intensity_df["carbon_intensity_actual"] = sum([parameters.coefficients_raw["carbon"][source] * mix_df[source] for source in sources])
+    intensity_df["water_intensity_actual"] = sum([parameters.coefficients_raw["water"][source] * mix_df[source] for source in sources])
+    intensity_df["land_use_intensity_actual"] = sum([parameters.coefficients_raw["land_use"][source] * mix_df[source] for source in sources])
+
+    for factor in ["carbon_intensity", "water_intensity", "land_use_intensity"]:
+        intensity_df[f"{factor}_forecast"] = _apply_error(intensity_df[f"{factor}_actual"], error, seed=0)
+
+    if not os.path.exists(data_path_out(f"dev_{error}")):
+        os.makedirs(data_path_out(f"dev_{error}"))
+
+    intensity_df.to_csv(data_path_out(f"dev_{error}") + f"{region}.csv")
 
 def mimic_forecast(region, target_mae):
-    df = pd.read_csv(data_path_in(region), index_col=0)
-    renewable_sources = ['wind', 'solar', 'hydro', 'geothermal', 'biomass']
-    non_renewable_sources = ['nuclear', 'coal', 'gas', 'oil', 'unknown']
+    df = pd.read_csv(data_path_in(region))
+    print(df.columns)
+    renewable_sources = parameters.renewable_sources #['wind', 'solar', 'hydro', 'geothermal', 'biomass']
+    non_renewable_sources = parameters.non_renewable_sources #['nuclear', 'coal', 'gas', 'oil', 'unknown']
+    df_forecast = pd.DataFrame()
+    df_forecast["timestamp"] = df["timestamp"]
+    std_dev = target_mae * (1/np.sqrt(2/np.pi))
+    df["ren_share"] = df[renewable_sources].sum(axis=1)
 
-    forecast_df = df.apply(
-        lambda row: simulate_forecast_row_balanced(row, renewable_sources, non_renewable_sources, target_mae),
-        axis=1
-    )
+    noise = np.random.normal(loc=0, scale=std_dev, size=len(df["ren_share"])) # normal distribution centered in 0. 
+    
+    #ren_shares = np.random.normal(loc=df["ren_share"], scale=target_mae, size=len(df["ren_share"]))
+    
+    ren_weights = {
+        "solar": 0.45,
+        "wind": 0.3,
+        "hydro": 0.1,
+        "geothermal": 0.1,
+        "biomass": 0.05
+    }
+    non_ren_weights = {
+        "nuclear": 0.2,  
+        "coal": 0.2,
+        "gas": 0.2,
+        "oil": 0.2,
+        "unknown": 0.2
+    }
+    
+    df_forecast["ren_share"] = np.clip( df["ren_share"] + noise, 0, 1)         # renewable share must be in [0,1].  
+    #df_forecast["ren_share"] = ren_shares
+    diff = df_forecast["ren_share"] - df["ren_share"]
+    for source in renewable_sources:
+        noise = diff * ren_weights[source] #( df[source] / df[renewable_sources].sum(axis=1) )
+        df_forecast[source] = np.clip( np.round(df[source] + noise, 10)  , 0, 1)              # add noise proportionally
+    for source in non_renewable_sources:
+        noise = diff * non_ren_weights[source] #( df[source] / df[non_renewable_sources].sum(axis=1) )
+        df_forecast[source] = np.clip( np.round(df[source] - noise, 10) , 0, 1) 
+
+    df_forecast = df_forecast.drop(columns=["ren_share"])
 
     if not os.path.exists(data_path_out(f"mae_{target_mae}")):
         os.makedirs(data_path_out(f"mae_{target_mae}"))
-    forecast_df.to_csv(data_path_out(f"mae_{target_mae}") + f"{region}.csv")
+    df_forecast.to_csv(data_path_out(f"mae_{target_mae}") + f"{region}.csv", index=False)
 
 
 if __name__ == "__main__":

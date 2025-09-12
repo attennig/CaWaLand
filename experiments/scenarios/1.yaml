@@ -1,24 +1,23 @@
 periods: 
-  #winter: 
-  # start: "2024-01-15T00:00:00Z"
-  # end: "2024-01-22T00:00:00Z"
-  #spring: 
-  # start: "2024-04-15T00:00:00Z" 
-  # end: "2024-04-22T00:00:00Z" 
+  winter: 
+   start: "2024-01-15T00:00:00Z"
+   end: "2024-01-22T00:00:00Z"
+  spring: 
+   start: "2024-04-15T00:00:00Z" 
+   end: "2024-04-22T00:00:00Z" 
   summer: 
    start: "2024-07-15T00:00:00Z" 
    end: "2024-07-22T00:00:00Z" 
-  #autumn: 
-  # start: "2024-10-15T00:00:00Z" 
-  # end: "2024-10-22T00:00:00Z" 
+  autumn: 
+   start: "2024-10-15T00:00:00Z" 
+   end: "2024-10-22T00:00:00Z" 
 
 step: 60
 
-mae_forecast: [0.05, 0.1, 0.15, 0.2]
+mae_forecast: [0.05, 0.1, 0.15, 0.2] 
 seeds: [0,1,2,3,4,5]
 
-schedulers: ["TRP"]
-#"L","RP", "TP", "TRP"]
+schedulers: ["RP", "R" , "TRP",] #"L", , "R" , "TRP", "TP"
 lc_weights:
  - [1.0,0.0,0.0]
  - [0.0,1.0,0.0]
@@ -36,6 +35,6 @@ periodicity:
 # - [8] 
 # - [12]
  - [2, 4, 8, 12]
-delay_tolerance: [4] # 4, 12, 24 , 48
+delay_tolerance: [4] #4,  12, 24, 48
 
 

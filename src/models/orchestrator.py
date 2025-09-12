@@ -16,7 +16,7 @@ class Orchestrator:
         self.delay_tolerance = delay_tolerance # hours 
         if requests_path: 
             self.jobs, self.jobs_by_id = self.load_jobs(requests_path)
-            self.running_jobs = []  # list of jobs
+            #self.running_jobs = []  # list of jobs
             # reset lifetime of jobs
             # for job in self.jobs:
             #    job.lifetime = job.runtime
@@ -117,7 +117,7 @@ class Orchestrator:
                 
                 self.global_PGIs[timestamp].CI_actual += dc_obj.profile.PGIs[timestamp].CI_actual / len(self.datacenters)
                 self.global_PGIs[timestamp].EWIF_actual += dc_obj.profile.PGIs[timestamp].EWIF_actual / len(self.datacenters)
-                self.global_PGIs[timestamp].ELIF_actual += (dc_obj.profile.PGIs[timestamp].ELIF_actual * dc_obj.profile.CCLF) / len(self.datacenters)
+                self.global_PGIs[timestamp].ELIF_actual += (dc_obj.profile.PGIs[timestamp].ELIF_actual ) / len(self.datacenters) # * dc_obj.profile.CCLF
 
         self.max_global_EWIF_forecast =  max(self.global_PGIs[timestamp].EWIF_forecast for timestamp in self.simulation_time_range.get_timestamps())
         self.max_global_CI_forecast =  max(self.global_PGIs[timestamp].CI_forecast for timestamp in self.simulation_time_range.get_timestamps())
@@ -169,20 +169,19 @@ class Orchestrator:
         #print(f"Jobs in queue: {len(jobs_queue)}")
         self.count_jobs_queue += len(jobs_queue) 
         # scheudule jobs + execution and tracing 
-        import time
-        s = time.process_time() 
-        self.running_jobs = self.scheduling_function(current_time, jobs_queue, self) 
-        e = time.process_time()
-        #print(f"Scheduling took {e - s} seconds")
-        self.step_scheduling_time.append(e - s)
-        # advence time
-        terminated_jobs = []
-        for job in self.running_jobs:
-            if job.lifetime <= 0: 
-                terminated_jobs.append(job)
         
-        for job in terminated_jobs:
-            self.running_jobs.remove(job)
+        mean_scheduling_time = self.scheduling_function(current_time, jobs_queue, self) 
+        #self.running_jobs = 
+
+        self.step_scheduling_time.append(mean_scheduling_time)
+        # advence time
+        #terminated_jobs = []
+        #for job in self.running_jobs:
+        #    if job.lifetime <= 0: 
+        #        terminated_jobs.append(job)
+
+        #for job in terminated_jobs:
+        #    self.running_jobs.remove(job)
 
         
     

@@ -9,7 +9,11 @@ path_profiles_dyn = "./experiments/in/profiles/{}/dynamic/{}/{}-{}/".format # pr
 path_profiles_static = "./experiments/in/profiles/{}/static/".format # provider
 #grid_path = (f"./experiments/in/profiles/{provider}/dynamic/{mae}/{start}-{end}"+"/{}.csv").format # provider, grid, mae, start, end
 
-
+def _dynamic_data_intensities(grid_region, mae, init_time, final_time):
+    grid_path = f"./data/energy_mix/forecast/dev_{mae}/{grid_region}.csv"
+    df = pd.read_csv(grid_path)
+    df = df[(df["timestamp"] >= init_time) & (df["timestamp"] <= final_time)]
+    return df.to_dict(orient="records")
 
 def _dynamic_data(grid_region, mae, init_time, final_time):
     #= sim_times.date_to_str(sim_times.start), sim_times.date_to_str(sim_times.end)
@@ -22,6 +26,8 @@ def _dynamic_data(grid_region, mae, init_time, final_time):
     forecast_df["carbon_intensity"] = sum([parameters.coefficients_raw["carbon"][source] * forecast_df[source] for source in sources])
     forecast_df["water_intensity"] = sum([parameters.coefficients_raw["water"][source] * forecast_df[source] for source in sources])
     forecast_df["land_use_intensity"] = sum([parameters.coefficients_raw["land_use"][source] * forecast_df[source] for source in sources])
+    forecast_df["renewable_share"] = forecast_df[parameters.renewable_sources].sum(axis=1)
+
     forecast_df.set_index("timestamp", inplace=True)
     
     actual_df = pd.read_csv(grid_path_actual)
@@ -30,6 +36,7 @@ def _dynamic_data(grid_region, mae, init_time, final_time):
     actual_df["carbon_intensity"] = sum([parameters.coefficients_raw["carbon"][source] * actual_df[source] for source in sources])
     actual_df["water_intensity"] = sum([parameters.coefficients_raw["water"][source] * actual_df[source] for source in sources])
     actual_df["land_use_intensity"] = sum([parameters.coefficients_raw["land_use"][source] * actual_df[source] for source in sources])
+    actual_df["renewable_share"] = actual_df[parameters.renewable_sources].sum(axis=1)
     actual_df.set_index("timestamp", inplace=True)
    
     out_dynamic = []
@@ -39,9 +46,12 @@ def _dynamic_data(grid_region, mae, init_time, final_time):
             "carbon_intensity_forecast": forecast_row.carbon_intensity,
             "water_intensity_forecast": forecast_row.water_intensity,
             "land_use_intensity_forecast": forecast_row.land_use_intensity,
+            "renewable_share_forecast": forecast_row.renewable_share,
             "carbon_intensity_actual": actual_row.carbon_intensity,
             "water_intensity_actual": actual_row.water_intensity,
-            "land_use_intensity_actual": actual_row.land_use_intensity
+            "land_use_intensity_actual": actual_row.land_use_intensity,
+            "renewable_share_actual": actual_row.renewable_share,
+
         })
             
     return out_dynamic
@@ -78,7 +88,6 @@ def get_profiles(provider, mae, start, end):
         mean_cclf += stat_out["CCLF"]/ len(regions)
 
         # Save dynamic data
-        
         dyn_json_path = path_profiles_dyn(provider, mae, start, end)
         if not os.path.exists(dyn_json_path):
             os.makedirs(dyn_json_path)

@@ -37,7 +37,7 @@ class Profile:
     def water_intensity_forecast(self, timestamp):
         return self.WUE + self.PGIs[timestamp].EWIF_forecast * self.PUE # l/kWh
     def land_use_intensity_forecast(self, timestamp):
-        return (self.LUE + self.PGIs[timestamp].ELIF_forecast * self.PUE) * self.CCLF # gCO2/kWh = gCO2/m^2 * m^2/kWh = gCO2/kWh
+        return (self.LUE + self.PGIs[timestamp].ELIF_forecast * self.PUE)# * self.CCLF # gCO2/kWh = gCO2/m^2 * m^2/kWh = gCO2/kWh
 
     def get_intensity_forecast_normalized(self, factor, timestamp: datetime) -> float:
         if factor == "carbon":
@@ -60,7 +60,7 @@ class Profile:
     def water_intensity_actual(self, timestamp):
         return self.WUE + self.PGIs[timestamp].EWIF_actual * self.PUE # l/kWh
     def land_use_intensity_actual(self, timestamp):
-        return (self.LUE + self.PGIs[timestamp].ELIF_actual * self.PUE) * self.CCLF # gCO2/kWh
+        return (self.LUE + self.PGIs[timestamp].ELIF_actual * self.PUE)# * self.CCLF # gCO2/kWh
     
 
 class Datacenter:

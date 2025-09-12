@@ -6,291 +6,371 @@ style = {
         "alpha": 1,
         "marker": "o",
         "linestyle": "-",
+        "hatch": "",
+
     },
     "R_[1.0, 0.0, 0.0]": {
-        "name": "R - carbon",
+        "name": "S - carbon-only",
         "color": colors.color_blind_palette[6],
         "alpha": 1,
-
         "marker": "s",
         "linestyle": "-",
+        "hatch": "",
+
     },
     "R_[0.0, 1.0, 0.0]": {
-        "name": "R - water",
+        "name": "S - water-only",
         "color": colors.color_blind_palette[4],
         "alpha": 1,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "",
+
     },
     "R_[0.0, 0.0, 1.0]": {
-        "name": "R - land",
+        "name": "S - land-only",
         "color": colors.color_blind_palette[3],
         "alpha": 1,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "",
+
     },
     "R_[0.333, 0.333, 0.334]": {
-        "name": "R - mix",
+        "name": "S - mix",
         "color": colors.color_blind_palette[2],
         "alpha": 1,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "",
+
     },
     "RP_[1.0, 0.0, 0.0]": {
-        "name": "R - carbon",
+        "name": "SP - carbon-only",
         "color": colors.color_blind_palette[6],
         "alpha": 1,
 
         "marker": "s",
         "linestyle": "-",
+        "hatch": "\\",
+
     },
     "RP_[0.0, 1.0, 0.0]": {
-        "name": "R - water",
+        "name": "SP - water-only",
         "color": colors.color_blind_palette[4],
         "alpha": 1,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "\\",
+
     },
     "RP_[0.0, 0.0, 1.0]": {
-        "name": "R - land",
+        "name": "SP - land-only",
         "color": colors.color_blind_palette[3],
         "alpha": 1,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "\\",
+
     },
     "RP_[0.333, 0.333, 0.334]": {
-        "name": "R - mix",
+        "name": "SP - mix",
         "color": colors.color_blind_palette[2],
         "alpha": 1,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "\\",
+
     },
+
     "TP_[1.0, 0.0, 0.0]_dt4": {
-        "name": "T (dt4) - carbon",
+        "name": "T (dt4) - carbon-only",
         "color": colors.color_blind_palette[6],
-        "alpha": 0.4,
+        "alpha": 1,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "/",
+
     },
     "TP_[0.0, 1.0, 0.0]_dt4": {
-        "name": "T (dt4) - water",
+        "name": "T (dt4) - water-only",
         "color": colors.color_blind_palette[4],
-        "alpha": 0.4,
+        "alpha": 1,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "/",
+
     },
     "TP_[0.0, 0.0, 1.0]_dt4": {
-        "name": "T (dt4)- land",
+        "name": "T (dt4) - land-only",
         "color": colors.color_blind_palette[3],
-        "alpha": 0.4,
+        "alpha": 1,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "/",
+
     },
     "TP_[0.333, 0.333, 0.334]_dt4": {
         "name": "T (dt4) - mix",
         "color": colors.color_blind_palette[2],
-        "alpha": 0.4,
+        "alpha": 1,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "/",
+
     },
     "TP_[1.0, 0.0, 0.0]_dt12": {
-        "name": "T (dt12) - carbon",
+        "name": "T (dt12) - carbon-only",
         "color": colors.color_blind_palette[6],
-        "alpha": 0.6,
+        "alpha": 0.8,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "/",
+
     },
     "TP_[0.0, 1.0, 0.0]_dt12": {
-        "name": "T (dt12) - water",
+        "name": "T (dt12) - water-only",
         "color": colors.color_blind_palette[4],
-        "alpha": 0.6,
+        "alpha": 0.8,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "/",
+
     },
     "TP_[0.0, 0.0, 1.0]_dt12": {
-        "name": "T (dt12) - land",
+        "name": "T (dt12) - land-only",
         "color": colors.color_blind_palette[3],
-        "alpha": 0.6,
+        "alpha": 0.8,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "/",
+
     },
     "TP_[0.333, 0.333, 0.334]_dt12": {
         "name": "T (dt12) - mix",
         "color": colors.color_blind_palette[2],
+        "alpha": 0.8,
+        "marker": "s",
+        "linestyle": "-",
+        "hatch": "/",
+
+    },
+    "TP_[1.0, 0.0, 0.0]_dt24": {
+        "name": "T (dt24) - carbon-only",
+        "color": colors.color_blind_palette[6],
         "alpha": 0.6,
         "marker": "s",
         "linestyle": "-",
-    },
-    "TP_[1.0, 0.0, 0.0]_dt24": {
-        "name": "T (dt24) - carbon",
-        "color": colors.color_blind_palette[6],
-        "alpha": 0.8,
-        "marker": "s",
-        "linestyle": "-",
+        "hatch": "/",
+
     },
     "TP_[0.0, 1.0, 0.0]_dt24": {
-        "name": "T (dt24) - water",
+        "name": "T (dt24) - water-only",
         "color": colors.color_blind_palette[4],
-        "alpha": 0.8,
+        "alpha": 0.6,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "/",
+
     },
     "TP_[0.0, 0.0, 1.0]_dt24": {
-        "name": "T (dt24) - land",
+        "name": "T (dt24) - land-only",
         "color": colors.color_blind_palette[3],
-        "alpha": 0.8,
+        "alpha": 0.6,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "/",
+
     },
     "TP_[0.333, 0.333, 0.334]_dt24": {
         "name": "T (dt24) - mix",
         "color": colors.color_blind_palette[2],
-        "alpha": 0.8,
+        "alpha": 0.6,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "/",
+
     },
     "TP_[1.0, 0.0, 0.0]_dt48": {
-        "name": "T (dt48) - carbon",
+        "name": "T (dt48) - carbon-only",
         "color": colors.color_blind_palette[6],
-        "alpha": 1,
+        "alpha": 0.4,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "/",
+
     },
     "TP_[0.0, 1.0, 0.0]_dt48": {
-        "name": "T (dt48) - water",
+        "name": "T (dt48) - water-only",
         "color": colors.color_blind_palette[4],
-        "alpha": 1,
+        "alpha": 0.4,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "/",
+
     },
     "TP_[0.0, 0.0, 1.0]_dt48": {
-        "name": "T (dt48) - land",
+        "name": "T (dt48) - land-only",
         "color": colors.color_blind_palette[3],
-        "alpha": 1,
+        "alpha": 0.4,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "/",
+
     },
     "TP_[0.333, 0.333, 0.334]_dt48": {
         "name": "T (dt48) - mix",
         "color": colors.color_blind_palette[2],
-        "alpha": 1,
+        "alpha": 0.4,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "/",
+
     },
     "TRP_[1.0, 0.0, 0.0]_dt4": {
-        "name": "TR (dt4) - carbon",
+        "name": "STP (dt4) - carbon-only",
         "color": colors.color_blind_palette[6],
-        "alpha": 0.4,
+        "alpha": 1,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "x",
+
     },
     "TRP_[0.0, 1.0, 0.0]_dt4": {
-        "name": "TR (dt4) - water",
+        "name": "STP (dt4) - water-only",
         "color": colors.color_blind_palette[4],
-        "alpha": 0.4,
+        "alpha": 1,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "x",
+
     },
     "TRP_[0.0, 0.0, 1.0]_dt4": {
-        "name": "TR (dt4)- land",
+        "name": "STP (dt4) - land-only",
         "color": colors.color_blind_palette[3],
-        "alpha": 0.4,
+        "alpha": 1,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "x",
+
     },
     "TRP_[0.333, 0.333, 0.334]_dt4": {
-        "name": "TR (dt4) - mix",
+        "name": "STP (dt4) - mix",
+        "color": colors.color_blind_palette[2],
+        "alpha": 1,
+        "marker": "s",
+        "linestyle": "-",
+        "hatch": "x",
+
+    },
+    "TRP_[1.0, 0.0, 0.0]_dt12": {
+        "name": "STP (dt12) - carbon-only",
+        "color": colors.color_blind_palette[6],
+        "alpha": 0.8,
+        "marker": "s",
+        "linestyle": "-",
+        "hatch": "x",
+
+    },
+    "TRP_[0.0, 1.0, 0.0]_dt12": {
+        "name": "STP (dt12) - water-only",
+        "color": colors.color_blind_palette[4],
+        "alpha": 0.8,
+        "marker": "s",
+        "linestyle": "-",
+        "hatch": "x",
+
+    },
+    "TRP_[0.0, 0.0, 1.0]_dt12": {
+        "name": "STP (dt12) - land-only",
+        "color": colors.color_blind_palette[3],
+        "alpha": 0.8,
+        "marker": "s",
+        "linestyle": "-",
+        "hatch": "x",
+
+    },
+    "TRP_[0.333, 0.333, 0.334]_dt12": {
+        "name": "STP (dt12) - mix",
+        "color": colors.color_blind_palette[2],
+        "alpha": 0.8,
+        "marker": "s",
+        "linestyle": "-",
+        "hatch": "x",
+
+    },
+    "TRP_[1.0, 0.0, 0.0]_dt24": {
+        "name": "STP (dt24) - carbon-only",
+        "color": colors.color_blind_palette[6],
+        "alpha": 0.6,
+        "marker": "s",
+        "linestyle": "-",
+        "hatch": "x",
+
+    },
+    "TRP_[0.0, 1.0, 0.0]_dt24": {
+        "name": "STP (dt24) - water-only",
+        "color": colors.color_blind_palette[4],
+        "alpha": 0.6,
+        "marker": "s",
+        "linestyle": "-",
+        "hatch": "x",
+
+    },
+    "TRP_[0.0, 0.0, 1.0]_dt24": {
+        "name": "STP (dt24) - land-only",
+        "color": colors.color_blind_palette[3],
+        "alpha": 0.6,
+        "marker": "s",
+        "linestyle": "-",
+        "hatch": "x",
+
+    },
+    "TRP_[0.333, 0.333, 0.334]_dt24": {
+        "name": "STP (dt24) - mix",
+        "color": colors.color_blind_palette[2],
+        "alpha": 0.6,
+        "marker": "s",
+        "linestyle": "-",
+        "hatch": "x",
+
+    },
+    "TRP_[1.0, 0.0, 0.0]_dt48": {
+        "name": "STP (dt48) - carbon-only",
+        "color": colors.color_blind_palette[6],
+        "alpha": 0.4,
+        "marker": "s",
+        "linestyle": "-",
+        "hatch": "x",
+
+    },
+    "TRP_[0.0, 1.0, 0.0]_dt48": {
+        "name": "STP (dt48) - water-only",
+        "color": colors.color_blind_palette[4],
+        "alpha": 0.4,
+        "marker": "s",
+        "linestyle": "-",
+        "hatch": "x",
+
+    },
+    "TRP_[0.0, 0.0, 1.0]_dt48": {
+        "name": "STP (dt48) - land-only",
+        "color": colors.color_blind_palette[3],
+        "alpha": 0.4,
+        "marker": "s",
+        "linestyle": "-",
+        "hatch": "x",
+
+    },
+    "TRP_[0.333, 0.333, 0.334]_dt48": {
+        "name": "STP (dt48) - mix",
         "color": colors.color_blind_palette[2],
         "alpha": 0.4,
         "marker": "s",
         "linestyle": "-",
+        "hatch": "x",
+
     },
-    "TRP_[1.0, 0.0, 0.0]_dt12": {
-        "name": "TR (dt12) - carbon",
-        "color": colors.color_blind_palette[6],
-        "alpha": 0.6,
-        "marker": "s",
-        "linestyle": "-",
-    },
-    "TRP_[0.0, 1.0, 0.0]_dt12": {
-        "name": "TR (dt12) - water",
-        "color": colors.color_blind_palette[4],
-        "alpha": 0.6,
-        "marker": "s",
-        "linestyle": "-",
-    },
-    "TRP_[0.0, 0.0, 1.0]_dt12": {
-        "name": "TR (dt12) - land",
-        "color": colors.color_blind_palette[3],
-        "alpha": 0.6,
-        "marker": "s",
-        "linestyle": "-",
-    },
-    "TRP_[0.333, 0.333, 0.334]_dt12": {
-        "name": "TR (dt12) - mix",
-        "color": colors.color_blind_palette[2],
-        "alpha": 0.6,
-        "marker": "s",
-        "linestyle": "-",
-    },
-    "TRP_[1.0, 0.0, 0.0]_dt24": {
-        "name": "TR (dt24) - carbon",
-        "color": colors.color_blind_palette[6],
-        "alpha": 0.8,
-        "marker": "s",
-        "linestyle": "-",
-    },
-    "TRP_[0.0, 1.0, 0.0]_dt24": {
-        "name": "TR (dt24) - water",
-        "color": colors.color_blind_palette[4],
-        "alpha": 0.8,
-        "marker": "s",
-        "linestyle": "-",
-    },
-    "TRP_[0.0, 0.0, 1.0]_dt24": {
-        "name": "TR (dt24) - land",
-        "color": colors.color_blind_palette[3],
-        "alpha": 0.8,
-        "marker": "s",
-        "linestyle": "-",
-    },
-    "TRP_[0.333, 0.333, 0.334]_dt24": {
-        "name": "TR (dt24) - mix",
-        "color": colors.color_blind_palette[2],
-        "alpha": 0.8,
-        "marker": "s",
-        "linestyle": "-",
-    },
-    "TRP_[1.0, 0.0, 0.0]_dt48": {
-        "name": "TR (dt48) - carbon",
-        "color": colors.color_blind_palette[6],
-        "alpha": 1,
-        "marker": "s",
-        "linestyle": "-",
-    },
-    "TRP_[0.0, 1.0, 0.0]_dt48": {
-        "name": "TR (dt48) - water",
-        "color": colors.color_blind_palette[4],
-        "alpha": 1,
-        "marker": "s",
-        "linestyle": "-",
-    },
-    "TRP_[0.0, 0.0, 1.0]_dt48": {
-        "name": "TR (dt48) - land",
-        "color": colors.color_blind_palette[3],
-        "alpha": 1,
-        "marker": "s",
-        "linestyle": "-",
-    },
-    "TRP_[0.333, 0.333, 0.334]_dt48": {
-        "name": "TR (dt48) - mix",
-        "color": colors.color_blind_palette[2],
-        "alpha": 1,
-        "marker": "s",
-        "linestyle": "-",
-    },
-    
-    
 
 
 

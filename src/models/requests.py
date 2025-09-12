@@ -31,13 +31,9 @@ class VMInstance:
     def migration_energy_kWh(self, destination_dc: str = None) -> float:
         
         if self.data_available(destination_dc):
-            #print(f"VM {self.name} -> {destination_dc}, no data migration needed.")
             return 0.0, timedelta(seconds=0) # kWh, seconds 
         migration_energy = self.data_size_bytes * 10**-9 * parameters.NEI 
-        migration_time = self.data_size_bytes * 10**-9 * parameters.BANDWIDTH # seconds
-        #print(f"VM {self.name} -> {destination_dc}, data migration needed. Requires {migration_energy} kWh and {migration_time} seconds")
-
-        #print(f"possible migration energy for {self.name} from {self.dc_name} to {destination_dc}: {migration_energy} kWh")
+        migration_time = (8 * self.data_size_bytes * 10**-9) / (parameters.VM_SPECS[self.name]["bandwidth"]) # seconds == 8*GB / Gbps -> seconds
         return migration_energy, timedelta(seconds = migration_time) # kWh, timedelta 
     
     def average_power(self, provider: str, min_watts: float = None, max_watts: float = None, util: float = 0.5):

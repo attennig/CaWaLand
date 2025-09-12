@@ -17,6 +17,10 @@ color_blind_palette = [
     "#117733", #6 carbon
     "#332288"] #7  
 
+provider_colors = {
+    "aws": color_blind_palette[3],
+    "azure": color_blind_palette[4]
+        }
 IBM_color_blind_palette_RGB = [
     (100/255, 144/255, 255/255), # blue
     (121/255, 94/255, 240/255), # purple

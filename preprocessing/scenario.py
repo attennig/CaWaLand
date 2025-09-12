@@ -46,7 +46,7 @@ if __name__ == "__main__":
             for mae in config["mae_forecast"]:
                 for seed in config["seeds"]:
                     for workload_name in config["workloads"]:
-                        if args.n == 1:
+                        if args.n == 1 or args.n == 0:
                             for periodicity in config["periodicity"]:
                                 if len(periodicity) == 1:
                                     periodicity_str = "--periodicity "+str(periodicity[0])
@@ -59,14 +59,17 @@ if __name__ == "__main__":
                                             lwc = "--lcw "+" ".join(map(str, lcw))
                                             if "T" in scheduler:
                                                 for delay_tolerance in config["delay_tolerance"]:
-                                                    runs += f"python -m src.run --scenario {args.n} --provider {config['provider']} --start {period['start']} --end {period['end']} --mae {mae} --workload {workload_name} {periodicity_str} --seed {seed} --scheduler {scheduler} --delay_tolerance {delay_tolerance} {lwc}& \n"
+                                                    #runs += f"python -m src.run --scenario {args.n} --provider {config['provider']} --start {period['start']} --end {period['end']} --mae {mae} --workload {workload_name} {periodicity_str} --seed {seed} --scheduler {scheduler} --delay_tolerance {delay_tolerance} {lwc}& \n"
+                                                    runs += f"python -m src.fix_migration_cost --scenario {args.n} --provider {config['provider']} --start {period['start']} --end {period['end']} --mae {mae} --workload {workload_name} {periodicity_str} --seed {seed} --scheduler {scheduler} --delay_tolerance {delay_tolerance} {lwc} \n"
                                                     #runs += f"python -m src.run --scenario {args.n} --provider {config['provider']} --mean --start {period['start']} --end {period['end']} --mae {mae} --workload {workload_name} {periodicity_str} --seed {seed} --scheduler {scheduler} --delay_tolerance {delay_tolerance} {lwc}& \n"
                                             else:
 
-                                                runs += f"python -m src.run --scenario {args.n} --provider {config['provider']} --start {period['start']} --end {period['end']} --mae {mae} --workload {workload_name} {periodicity_str} --seed {seed} --scheduler {scheduler} {lwc}& \n"
+                                                #runs += f"python -m src.run --scenario {args.n} --provider {config['provider']} --start {period['start']} --end {period['end']} --mae {mae} --workload {workload_name} {periodicity_str} --seed {seed} --scheduler {scheduler} {lwc}& \n"
+                                                runs += f"python -m src.fix_migration_cost --scenario {args.n} --provider {config['provider']} --start {period['start']} --end {period['end']} --mae {mae} --workload {workload_name} {periodicity_str} --seed {seed} --scheduler {scheduler} {lwc} \n"
                                                 #runs += f"python -m src.run --scenario {args.n} --provider {config['provider']} --mean --start {period['start']} --end {period['end']} --mae {mae} --workload {workload_name} {periodicity_str} --seed {seed} --scheduler {scheduler} {lwc}& \n"
                                     else:
-                                        runs += f"python -m src.run --scenario {args.n} --provider {config['provider']} --start {period['start']} --end {period['end']} --mae {mae} --workload {workload_name} {periodicity_str} --seed {seed} --scheduler {scheduler}& \n"
+                                        #runs += f"python -m src.run --scenario {args.n} --provider {config['provider']} --start {period['start']} --end {period['end']} --mae {mae} --workload {workload_name} {periodicity_str} --seed {seed} --scheduler {scheduler}& \n"
+                                        runs += f"python -m src.fix_migration_cost --scenario {args.n} --provider {config['provider']} --start {period['start']} --end {period['end']} --mae {mae} --workload {workload_name} {periodicity_str} --seed {seed} --scheduler {scheduler} \n"
                                         #runs += f"python -m src.run --scenario {args.n} --provider {config['provider']} --mean --start {period['start']} --end {period['end']} --mae {mae} --workload {workload_name} {periodicity_str} --seed {seed} --scheduler {scheduler}& \n"
                         elif args.n == 2:
                             for scheduler in config["schedulers"]:

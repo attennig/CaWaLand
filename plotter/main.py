@@ -1,7 +1,7 @@
 import yaml, argparse
 import pandas as pd
 import os
-import plotter.plotter as plotter
+import plotter.plotter_old as plotter_old
 
 
 
@@ -57,7 +57,7 @@ TR_algorithms = [
 ]   
 plots_T = [
     {
-        "function" : plotter.plot_footprint_improvement,
+        "function" : plotter_old.plot_footprint_improvement,
         "args": {
 
             "algorithms": T_algorithms,
@@ -68,7 +68,7 @@ plots_T = [
         }
     }, 
     {
-        "function" : plotter.plot_footprint_improvement,
+        "function" : plotter_old.plot_footprint_improvement,
         "args": {
 
             "algorithms": T_algorithms,
@@ -79,7 +79,7 @@ plots_T = [
         }
     },
     {
-        "function" :plotter.plot_footprint_improvement,
+        "function" :plotter_old.plot_footprint_improvement,
         "args": {
 
             "algorithms": T_algorithms,
@@ -93,7 +93,7 @@ plots_T = [
 
 plots_TR = [
     {
-        "function" : plotter.plot_footprint_improvement,
+        "function" : plotter_old.plot_footprint_improvement,
         "args": {
 
             "algorithms": TR_algorithms,
@@ -104,7 +104,7 @@ plots_TR = [
         }
     }, 
     {
-        "function" : plotter.plot_footprint_improvement,
+        "function" : plotter_old.plot_footprint_improvement,
         "args": {
 
             "algorithms": TR_algorithms,
@@ -115,7 +115,7 @@ plots_TR = [
         }
     },
     {
-        "function" : plotter.plot_footprint_improvement,
+        "function" : plotter_old.plot_footprint_improvement,
         "args": {
 
             "algorithms": TR_algorithms,
@@ -129,7 +129,7 @@ plots_TR = [
 
 plots_RP = [
     {
-        "function" : plotter.plot_footprint_comparison,
+        "function" : plotter_old.plot_footprint_comparison,
         "args": {
 
             "algorithms": RP_algorithms + [reference],
@@ -140,7 +140,7 @@ plots_RP = [
         }
     },
     {
-        "function" : plotter.plot_footprint_comparison,
+        "function" : plotter_old.plot_footprint_comparison,
         "args": {
 
             "algorithms": RP_algorithms + [reference],
@@ -151,7 +151,7 @@ plots_RP = [
         }
     },
     {
-        "function" : plotter.plot_footprint_comparison,
+        "function" : plotter_old.plot_footprint_comparison,
         "args": {
 
             "algorithms": RP_algorithms + [reference],
@@ -164,7 +164,7 @@ plots_RP = [
 
 plots_R = [
      {
-        "function" : plotter.plot_footprint_comparison,
+        "function" : plotter_old.plot_footprint_comparison,
         "args": {
 
             "algorithms": R_algorithms + [reference],
@@ -175,7 +175,7 @@ plots_R = [
         }
     },
     {
-        "function" : plotter.plot_footprint_comparison,
+        "function" : plotter_old.plot_footprint_comparison,
         "args": {
 
             "algorithms": R_algorithms + [reference],
@@ -186,7 +186,7 @@ plots_R = [
         }
     },
     {
-        "function" : plotter.plot_footprint_comparison,
+        "function" : plotter_old.plot_footprint_comparison,
         "args": {
 
             "algorithms": R_algorithms + [reference],
@@ -196,7 +196,7 @@ plots_R = [
         }
     },
     {
-        "function" : plotter.plot_footprint_comparison,
+        "function" : plotter_old.plot_footprint_comparison,
         "args": {
 
             "algorithms": R_algorithms + [reference],
@@ -207,7 +207,7 @@ plots_R = [
         }
     },
     {
-        "function" : plotter.plot_footprint_comparison,
+        "function" : plotter_old.plot_footprint_comparison,
         "args": {
 
             "algorithms": R_algorithms + [reference],
@@ -218,7 +218,7 @@ plots_R = [
         }
     },
     {
-        "function" : plotter.plot_footprint_comparison,
+        "function" : plotter_old.plot_footprint_comparison,
         "args": {
 
             "algorithms": R_algorithms + [reference],
@@ -228,7 +228,7 @@ plots_R = [
         }
     },
     {
-        "function" : plotter.plot_footprint_improvement,
+        "function" : plotter_old.plot_footprint_improvement,
         "args": {
 
             "reference": reference,
@@ -240,7 +240,7 @@ plots_R = [
         }
     },
     {
-        "function" : plotter.plot_footprint_improvement,
+        "function" : plotter_old.plot_footprint_improvement,
         "args": {
 
             "reference": reference,
@@ -252,7 +252,7 @@ plots_R = [
         }
     },
     {
-        "function" : plotter.plot_footprint_improvement,
+        "function" : plotter_old.plot_footprint_improvement,
         "args": {
 
             "reference": reference,
@@ -268,14 +268,24 @@ plots_R = [
 plots = {
     "azure": [
         {
-            "function": plotter.plot_all_footprints,
+            "function": plotter_old.plot_all_footprints,
             "args": {
                 "algorithms": R_algorithms + [reference], #  + 
                 "provider": "azure",
             }
         },
 
-    ]
+    ],
+    "aws": [
+        {
+            "function": plotter_old.plot_all_footprints,
+            "args": {
+                "algorithms": RP_algorithms + T_algorithms + TR_algorithms + [reference], #  + 
+                "provider": "aws",
+            }
+        },
+
+    ],
 }
 
 

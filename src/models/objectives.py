@@ -3,6 +3,8 @@ from datetime import datetime, timedelta
 def get_dc_by_min_impact(timestamp, req,  orch):
     dcs = orch.datacenters.values()
     #print("Evaluating datacenters for request:", req.id, "at time:", timestamp)
+    footprints = [evaluate_footprint(timestamp, req, dc, orch) for dc in dcs]
+    #print(f"Footprints for request {req.id} at {timestamp}: {[f for f in footprints]}")
     return min(
         dcs,
         key=lambda dc: evaluate_footprint(timestamp, req, dc, orch)
@@ -45,20 +47,20 @@ def get_dc_and_start_time_by_min_impact(timestamp, req, orch):
 
 from math import floor
 def evaluate_footprint(t_0, r, d, o):
+    #print(f"Evaluating {r}-({t_0})->{d}")
     t_0_hour = o.simulation_time_range.round_to_current_hour(t_0)
     migration_energy_kWh, migration_time = r.VM_instance.migration_energy_kWh(destination_dc=d.name)
     expected_end_time = t_0 + migration_time + r.runtime
     if expected_end_time > o.simulation_time_range.end:
         # this request cannot be scheduled at this time in this datacenter (exceeds simulation time)
-        return float('inf'), float('inf'), float('inf')
-    
+        return float('inf')
+        #return float('inf'), float('inf'), float('inf')
     
     carbon_impact = o.get_global_intensity_forecast_normalized("carbon", t_0_hour) * o.factor_weights["carbon"] * migration_energy_kWh # access the hourly global profile 
     water_impact = o.get_global_intensity_forecast_normalized("water", t_0_hour) * o.factor_weights["water"] * migration_energy_kWh
     land_use_impact = o.get_global_intensity_forecast_normalized("land_use", t_0_hour) * o.factor_weights["land_use"] * migration_energy_kWh    
     t = t_0
     lifetime = r.lifetime
-    # migration_steps_seconds = timedelta(seconds=floor(migration_time / o.simulation_time_range.step.seconds)*o.simulation_time_range.step.seconds) # seconds
     migration_steps_seconds = timedelta(seconds=floor(migration_time.seconds / o.simulation_time_range.step.seconds)*o.simulation_time_range.step.seconds) # seconds
     remaining_seconds = migration_time.seconds % o.simulation_time_range.step.seconds
 
@@ -75,11 +77,9 @@ def evaluate_footprint(t_0, r, d, o):
         carbon_impact += d.profile.get_intensity_forecast_normalized("carbon", t_hour)* o.factor_weights["carbon"] * energy_kWh # access the hourly profile of the datacenter
         water_impact += d.profile.get_intensity_forecast_normalized("water", t_hour) * o.factor_weights["water"] * energy_kWh
         land_use_impact += d.profile.get_intensity_forecast_normalized("land_use", t_hour) * o.factor_weights["land_use"] * energy_kWh
-
-        #print(f"at time {t_hour} carbon normalized: {d.profile.get_intensity_forecast_normalized("carbon", t_hour)}")
-        #print(f"at time {t_hour} carbon forecast: {d.profile.carbon_intensity_forecast(t_hour)}")
-        #print(f"at time {t_hour} carbon actual: {d.profile.carbon_intensity_actual(t_hour)}")
+        
         t += o.simulation_time_range.step
         lifetime -= step_len_seconds.total_seconds()
 
-    return carbon_impact, water_impact, land_use_impact
+    #print(f"carbon: {carbon_impact}, water: {water_impact}, land: {land_use_impact}")
+    return carbon_impact + water_impact + land_use_impact
