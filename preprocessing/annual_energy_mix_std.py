@@ -117,20 +117,11 @@ def preprocess_uk():
     df["timestamp"] = df.index - pd.Timedelta(hours=1)
 
     df = fix_missing_hourly_timestamps(df)
-
-
     df["unknown"]= df["other"] + df["imports"]
     df["geothermal"] = 0
     df["oil"] = 0
-
-    #uk_df = df.set_index("timestamp").resample("1H").mean().reset_index()
-
-    #uk_df["timestamp"] = uk_df["timestamp"].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
-    #uk_df.set_index("timestamp", inplace=True)
     uk_df = normalize_df(df[["nuclear", "geothermal", "biomass", "coal", "wind", "solar", "hydro", "gas", "oil", "unknown"]].clip(lower=0))
-    
     uk_df.index = uk_df.index.strftime("%Y-%m-%dT%H:%M:%SZ")
-    
     uk_df.to_csv(data_path_out("uk"), index=True)
 
 def preprocess_ie():
@@ -222,7 +213,6 @@ def preprocess_caiso():
     df["timestamp"] = df.index - pd.Timedelta(hours=1)
 
     df = fix_missing_hourly_timestamps(df)
-
     df["oil"] = 0
     df["hydro"] = df["Large Hydro Generation (MW)"]+ df["Small Hydro Generation (MW)"]
     df["gas"] = df["Biogas Generation (MW)"] + df["Natural Gas Generation (MW)"]
@@ -237,12 +227,6 @@ def preprocess_caiso():
     }, inplace=True) 
 
     caiso_df = normalize_df(df[["nuclear", "geothermal", "biomass", "coal", "wind", "solar", "hydro", "gas", "oil", "unknown"]].clip(lower=0))
-    #caiso_df.reset_index(inplace=True)
-    # caiso_df.rename(columns={"UTC Timestamp (Interval Ending)": "timestamp"}, inplace=True)
-    #caiso_df["timestamp"] = pd.to_datetime(caiso_df["timestamp"]) - pd.Timedelta(hours=1)
-    #caiso_df["timestamp"] = caiso_df["timestamp"].dt.strftime("%Y-%m-%dT%H:%M:%SZ")
-    #caiso_df.to_csv(data_path_out("caiso"), index=False)
-    # Save with timestamp as ISO string in index
     caiso_df.index = caiso_df.index.strftime("%Y-%m-%dT%H:%M:%SZ")
     caiso_df.to_csv(data_path_out("caiso"), index=True)
 
@@ -265,7 +249,6 @@ def fix_missing_hourly_timestamps(df):
     # Add all at once, then sort
     if rows_to_add:
         df = pd.concat([df, pd.DataFrame(rows_to_add)], ignore_index=True)
-        #df = df.sort_values("timestamp").reset_index(drop=True)
     df.set_index("timestamp", inplace=True)
 
     df = df.sort_index()  # Ensure order

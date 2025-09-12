@@ -9,15 +9,10 @@ class VMInstance:
         self.dc_name = origin
         self.locations = [origin] #  names aws_region
 
-
     def __repr__(self):
-        #return f"VMInstance(name={self.name}, specs={config.VM_SPECS[self.name]})"
         return self.name
     def __dict__(self):
         return self.name
-    
-    #def expected_energy_consumption(self, time: float, dc_name: str) -> float:
-    #    return self.migration_energy_kWh(destination_dc=dc_name) + self.expected_energy_consumption_execution(time) # kWh
 
     def add_location(self, location: str):
         self.locations.append(location)
@@ -188,8 +183,6 @@ class Trace:
         return str(self.to_json())
 
     def get_csv_lines(self, o):
-        #head = f"timestamp,energy_kwh,carbon_actual,carbon_forecast,water_actual,water_forecast,land_use_actual,land_use_forecast,region"
-        #print(f"Trace {self.id}")
         csv_out = ""
         timestamps = self.simulation_time_range.get_timestamps()
         d = o.datacenters[self.datacenter]
@@ -197,14 +190,8 @@ class Trace:
         if self.migration_time_start:
             assert self.migration_energy_kWh is not None, "Migration energy is not set"
             dt_migr = self.migration_time_start
-
-            #self.simulation_time_range.str_to_date()
-            #dt_migs_str = self.simulation_time_range.date_to_str(dt_migr)
-            #t_migr = timestamps.index(dt_migr)
             t_migr_hour = self.simulation_time_range.round_to_current_hour(dt_migr)
             t_migr_hour_str = self.simulation_time_range.date_to_str(t_migr_hour)
-
-            #print(f"{t_migr_hour} -> {o.global_PGIs[t_migr_hour].CI_actual}")
             csv_out += f"{t_migr_hour_str},{self.migration_energy_kWh}," #{1},
             csv_out += f"{o.global_PGIs[t_migr_hour].CI_actual},{o.global_PGIs[t_migr_hour].CI_forecast},"
             csv_out += f"{o.global_PGIs[t_migr_hour].EWIF_actual},{o.global_PGIs[t_migr_hour].EWIF_forecast},"

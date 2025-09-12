@@ -16,10 +16,6 @@ class Orchestrator:
         self.delay_tolerance = delay_tolerance # hours 
         if requests_path: 
             self.jobs, self.jobs_by_id = self.load_jobs(requests_path)
-            #self.running_jobs = []  # list of jobs
-            # reset lifetime of jobs
-            # for job in self.jobs:
-            #    job.lifetime = job.runtime
         if datacenters_path: self.datacenters = self.load_datacenters(datacenters_path, grid_path, homogeneous)
         self.global_PGIs = {
             timestamp: PowerGridIndicator(
@@ -171,20 +167,9 @@ class Orchestrator:
         # scheudule jobs + execution and tracing 
         
         mean_scheduling_time = self.scheduling_function(current_time, jobs_queue, self) 
-        #self.running_jobs = 
-
         self.step_scheduling_time.append(mean_scheduling_time)
-        # advence time
-        #terminated_jobs = []
-        #for job in self.running_jobs:
-        #    if job.lifetime <= 0: 
-        #        terminated_jobs.append(job)
 
-        #for job in terminated_jobs:
-        #    self.running_jobs.remove(job)
 
-        
-    
     def run_simulation(self):
         from tqdm import tqdm
         timestamps = self.simulation_time_range.get_timestamps()

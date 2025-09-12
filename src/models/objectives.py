@@ -54,7 +54,7 @@ def evaluate_footprint(t_0, r, d, o):
     if expected_end_time > o.simulation_time_range.end:
         # this request cannot be scheduled at this time in this datacenter (exceeds simulation time)
         return float('inf')
-        #return float('inf'), float('inf'), float('inf')
+
     
     carbon_impact = o.get_global_intensity_forecast_normalized("carbon", t_0_hour) * o.factor_weights["carbon"] * migration_energy_kWh # access the hourly global profile 
     water_impact = o.get_global_intensity_forecast_normalized("water", t_0_hour) * o.factor_weights["water"] * migration_energy_kWh

@@ -13,7 +13,6 @@ class Profile:
     def __init__(self, data):
         self.PUE = float(data["static"]["PUE"]) # Power Usage Effectiveness,  kWh/kWh
         self.WUE = float(data["static"]["WUE"]) # Water Usage Effectiveness,  l/kWh
-        # self.WSF = float(data["static"]["WSF"]) # Water Scarcity Factor, %
         self.LUE = float(data["static"]["LUE"]) # Land Usage Effectiveness, m2/kWh
         self.CCLF = float(data["static"]["CCLF"]) # Carbon Capture Loss Factor, gCO2/m^2
         self.PGIs = {
@@ -41,16 +40,11 @@ class Profile:
 
     def get_intensity_forecast_normalized(self, factor, timestamp: datetime) -> float:
         if factor == "carbon":
-            #return 0.0 if self.max_intensity["carbon_forecast"] == 0 else self.carbon_intensity_forecast(timestamp) / self.max_intensity["carbon_forecast"]
-            #print(f"Using get_intensity_forecast_normalized {factor} {timestamp} {self.carbon_intensity_forecast(timestamp)} {self.max_intensity['carbon_forecast']} {self.min_intensity['carbon_forecast']}")
             return (self.carbon_intensity_forecast(timestamp) - self.min_intensity["carbon_forecast"]) / (self.max_intensity["carbon_forecast"] - self.min_intensity["carbon_forecast"])
         elif factor == "water":
-            #return 0.0 if self.max_intensity["water_forecast"] == 0 else self.water_intensity_forecast(timestamp) / self.max_intensity["water_forecast"]
             return (self.water_intensity_forecast(timestamp) - self.min_intensity["water_forecast"]) / (self.max_intensity["water_forecast"] - self.min_intensity["water_forecast"])
         elif factor == "land_use":
-            #return 0.0 if self.max_intensity["land_use_forecast"] == 0 else self.land_use_intensity_forecast(timestamp) / self.max_intensity["land_use_forecast"]
             return (self.land_use_intensity_forecast(timestamp) - self.min_intensity["land_use_forecast"]) / (self.max_intensity["land_use_forecast"] - self.min_intensity["land_use_forecast"])
-
         else:
             raise ValueError(f"Unknown factor: {factor}")
         
@@ -68,18 +62,8 @@ class Datacenter:
         self.provider = provider
         self.name = region
         self.profile = Profile(data)
-        #self.vm_instances = []
 
         
     def __repr__(self):
         return f"Datacenter(provider={self.provider}, name={self.name}, profile={self.profile})"
     
-    """
-    def get_carbon_footprint(self, timestamp, energy_kWh):
-        return self.profile.carbon_intensity(timestamp) * energy_kWh # gCO2/kWh * kWh = gCO2
-    def get_water_footprint(self, timestamp, energy_kWh):
-        return self.profile.water_intensity(timestamp) * energy_kWh # l/kWh * kWh = l
-    def get_land_use_footprint(self, timestamp, energy_kWh):
-        return self.profile.land_use_intensity(timestamp) * energy_kWh # gCO2/kWh * kWh = gCO2
-
-    """

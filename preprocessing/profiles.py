@@ -7,7 +7,6 @@ import json
 file_regions = "./data/providers/{}.csv".format # provider
 path_profiles_dyn = "./experiments/in/profiles/{}/dynamic/{}/{}-{}/".format # provider, mae, start, end
 path_profiles_static = "./experiments/in/profiles/{}/static/".format # provider
-#grid_path = (f"./experiments/in/profiles/{provider}/dynamic/{mae}/{start}-{end}"+"/{}.csv").format # provider, grid, mae, start, end
 
 def _dynamic_data_intensities(grid_region, mae, init_time, final_time):
     grid_path = f"./data/energy_mix/forecast/dev_{mae}/{grid_region}.csv"
@@ -16,7 +15,6 @@ def _dynamic_data_intensities(grid_region, mae, init_time, final_time):
     return df.to_dict(orient="records")
 
 def _dynamic_data(grid_region, mae, init_time, final_time):
-    #= sim_times.date_to_str(sim_times.start), sim_times.date_to_str(sim_times.end)
     grid_path_forecast = f"./data/energy_mix/forecast/mae_{mae}/{grid_region}.csv"
     grid_path_actual = f"./data/energy_mix/historical/{grid_region}.csv"
 

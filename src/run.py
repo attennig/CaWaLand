@@ -35,10 +35,7 @@ if __name__ == "__main__":
 
 
     # 1) Load problem
-    #path_in_dc = f"./experiments/in/scenario_{args.scenario}/{args.start}-{args.end}/profiles/"
     path_in_dc = f"./experiments/in/profiles/{args.provider}/static/" # provider
-    
-    #path_in_grids = "./experiments/in/profiles/{}/dynamic/{}/{}-{}-{}.csv".format # provider, grid, mae, start, end
     path_in_grids = (f"./experiments/in/profiles/{args.provider}/dynamic/{args.mae}/{args.start}-{args.end}/"+"{}.json").format # provider, grid, mae, start, end
 
     path_in_workload = f"./experiments/in/workloads/{args.workload}/e{args.seed}/" 
@@ -83,22 +80,12 @@ if __name__ == "__main__":
     lcw_str = f"_{args.lcw}" if args.scheduler != "L" else ""
     delay_str = f"_dt{args.delay_tolerance}" if args.delay_tolerance > 0 else ""
     homogeneous_str = "_mean" if args.mean else ""
-    #path_out_exp = f"experiments/out/scenario_{args.scenario}/{args.start}-{args.end}/workload/{args.workload}/{args.step}/e_{args.seed}_{args.scheduler}{lcw_str}.json"
-    #path_out_exp_ = f"experiments/out/scenario_{args.scenario}/{args.start}-{args.end}/workload/{args.workload}/{args.step}/e_{args.seed}_{args.scheduler}{lcw_str}_nc.json"
-    #print([(str(job), job.trace.to_json()) for job in orchestrator.jobs])
     path_out_exp = f"experiments/out/{args.provider}/{args.mae}/{args.start}-{args.end}/e_{args.seed}_{args.scheduler}{lcw_str}{delay_str}{homogeneous_str}.json"
     
     import os 
     if not os.path.exists(os.path.dirname(path_out_exp)):
         os.makedirs(os.path.dirname(path_out_exp))
     
-    """with open(path_out_exp, "w") as f:  
-        json.dump({
-            "traces": [(str(job), job.trace.to_json()) for job in orchestrator.jobs],
-            "simulation_processing_time_seconds": e - s
-            }, f, indent=4)"""
-    
-    #print(f"{orchestrator.count_traces} traces generated / {orchestrator.count_jobs_queue} jobs in queue")
     with open(path_out_exp.replace(".json", ".csv"), "w") as f:
         # Write header
         f.write("timestamp,energy_kwh,carbon_actual,carbon_forecast,water_actual,water_forecast,land_use_actual,land_use_forecast,region,job_id\n")
