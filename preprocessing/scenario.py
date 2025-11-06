@@ -29,8 +29,6 @@ if __name__ == "__main__":
             
 
 
-
-
     if args.workloads:
         for workload_name in config["workloads"]:
             for seed in config["seeds"]:
