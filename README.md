@@ -62,7 +62,7 @@ The dataset used in this study is available at:
 
 ## 🧪 Reproducing the Experiments
 
-Execute the "Ecpleriments Reproducibility.ipynb" Jupyter notebook in the `notebooks/` folder sequentially. 
+Execute the "Ecpleriments Reproducibility.ipynb" Jupyter notebook in the `notebooks/` folder. 
 
 ---
 
