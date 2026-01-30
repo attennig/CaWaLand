@@ -60,7 +60,7 @@ def _staic_data(dc):
         "PUE": float(dc["PUE"]), #PUE
         "WUE":  float(dc["WUE"]), #WUE
         "LUE": lue, #LUE 
-        "CCLF": parameters.get_CCLF(dc["State"])
+        #"CCLF": parameters.get_CCLF(dc["State"])
     }
 
 
@@ -74,7 +74,8 @@ def get_profiles(provider, mae, start, end):
         end (str): End date and time in YYYY-MM-DDTHH:MM:SSZ format.
     """
     regions = pd.read_csv(file_regions(provider), sep=";")
-    mean_pue, mean_wue, mean_lue, mean_cclf = 0, 0, 0, 0
+    mean_pue, mean_wue, mean_lue = 0, 0, 0
+    #mean_cclf = 0
     for (index, region) in regions.iterrows():
         print(region)
         grid = region["Grid"]
@@ -83,7 +84,7 @@ def get_profiles(provider, mae, start, end):
         mean_pue += stat_out["PUE"]/ len(regions)
         mean_wue += stat_out["WUE"]/ len(regions)
         mean_lue += stat_out["LUE"]/ len(regions)
-        mean_cclf += stat_out["CCLF"]/ len(regions)
+        #mean_cclf += stat_out["CCLF"]/ len(regions)
 
         # Save dynamic data
         dyn_json_path = path_profiles_dyn(provider, mae, start, end)
@@ -107,7 +108,7 @@ def get_profiles(provider, mae, start, end):
                 "PUE": mean_pue,
                 "WUE": mean_wue,
                 "LUE": mean_lue,
-                "CCLF": mean_cclf
+                #"CCLF": mean_cclf
             }, f, indent=4)
 
 
