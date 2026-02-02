@@ -14,7 +14,7 @@ class Profile:
         self.PUE = float(data["static"]["PUE"]) # Power Usage Effectiveness,  kWh/kWh
         self.WUE = float(data["static"]["WUE"]) # Water Usage Effectiveness,  l/kWh
         self.LUE = float(data["static"]["LUE"]) # Land Usage Effectiveness, m2/kWh
-        self.CCLF = float(data["static"]["CCLF"]) # Carbon Capture Loss Factor, gCO2/m^2
+        #self.CCLF = float(data["static"]["CCLF"]) # Carbon Capture Loss Factor, gCO2/m^2
         self.PGIs = {
             datetime.strptime(entry["timestamp"], '%Y-%m-%dT%H:%M:%SZ'): PowerGridIndicator(
                 float(entry["carbon_intensity_forecast"]), # gCO2/kWh

@@ -185,6 +185,7 @@ class Trace:
     def get_csv_lines(self, o):
         csv_out = ""
         timestamps = self.simulation_time_range.get_timestamps()
+        print(self.datacenter)
         d = o.datacenters[self.datacenter]
         
         if self.migration_time_start:
