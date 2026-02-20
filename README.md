@@ -5,7 +5,7 @@
 
 
 
-This repository contains the code, data, and documentation required to reproduce the experiments and results presented in the paper: "Spatio-Temporal Shifting to Reduce Carbon, Water, and Land-Use Footprints of Cloud Workloads". [Read](https://arxiv.org/abs/2512.08725)
+This repository contains the code, data, and documentation required to reproduce the experiments and results presented in the paper: "Spatio-Temporal Shifting to Reduce Carbon, Water, and Land-Use Footprints of Cloud Workloads". Currently under review, [read here](https://arxiv.org/abs/2512.08725)
 The repository aims to make our analysis transparent and fully reproducible.
 
 
