@@ -50,7 +50,7 @@ def region_load_distribution_plot(df, path, provider):
     ax.legend(bbox_to_anchor=(0.5, -0.2), loc='lower center', ncol=len(region_names))
     ax.grid(axis='y', linestyle='--', alpha=0.5)
     plt.tight_layout()
-    plt.savefig(f"{path}/{provider}_region_distribution_RP_vs_L_winter_0.1.png", dpi=300)
+    plt.savefig(f"{path}/{provider}_region_distribution_RP_vs_L_winter_0.1.pdf", dpi=300)
 
 
 
@@ -123,7 +123,7 @@ def plot_all_algo_all_factors(
         ax.grid(axis='y', linestyle='--', alpha=0.5)
     fig.suptitle(f"Footprints Algorithm\nPeriod: {period_name.capitalize()}, MAE: {mae}")
     plt.tight_layout()
-    plt.savefig(f"{path}/all_algorithms_all_factors_mae{mae}_{period_name}{suffix}.png", dpi=300)
+    plt.savefig(f"{path}/all_algorithms_all_factors_mae{mae}_{period_name}{suffix}.pdf", dpi=300)
 
 
 def plot_intensity_boxplots(providers, mae, period, period_name, path="./"):
@@ -137,6 +137,7 @@ def plot_intensity_boxplots(providers, mae, period, period_name, path="./"):
             if region == "mean": continue 
             with open(os.path.join(datacenters_path(provider), file_name), 'r') as f:
                 static_data[provider][region] = json.load(f)
+
 
 
     datacenters_path = ("./experiments/in/profiles/{}/dynamic/"+f"{mae}/{period["start"]}-{period["end"]}").format
@@ -203,4 +204,4 @@ def plot_intensity_boxplots(providers, mae, period, period_name, path="./"):
 
         plt.tight_layout()
         plt.show()
-        fig.savefig(f"{path}{provider}_{mae}_{period_name}_intensity_boxplot.png", bbox_inches='tight')
+        fig.savefig(f"{path}/{provider}_{mae}_{period_name}_intensity_boxplot.pdf", bbox_inches='tight')
