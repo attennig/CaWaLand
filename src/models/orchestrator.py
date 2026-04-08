@@ -73,12 +73,12 @@ class Orchestrator:
                 if "n_nodes" in row: req_n_nodes = int(row["n_nodes"])
                 else: req_n_nodes = 1
                 if "deadline" in row: req_deadline = float(row["deadline"])
-                else: req_deadline = 0
+                else: req_deadline = float('nan')
                 arrival_time = self.simulation_time_range.get_timestamp(day, req_minute)
                 if arrival_time + timedelta(seconds=req_runtime) > self.simulation_time_range.end: continue
                 
                 if pd.isna(req_deadline):
-                    deadline = arrival_time + self.delay_tolerance
+                    deadline = arrival_time + self.delay_tolerance # TODO: 
                 else:
                     deadline = self.simulation_time_range.get_timestamp(day, req_deadline)
                 request = Request(

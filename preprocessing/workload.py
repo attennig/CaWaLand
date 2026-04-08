@@ -40,8 +40,8 @@ def get_spark(workload_name: str, seed: int, provider: str, periodic_ratio: floa
         for i, trace in traces.iterrows():
             
             #deadline = minute_of_day + (trace["runtime_sec"]/60)*3 if day < days-1 else min(max(minutes_per_day, minute_of_day + (trace["runtime_sec"]/60)), minute_of_day + (trace["runtime_sec"]/60)*3)
-            earliest_job_end_time = minute_of_day + (trace["runtime_sec"]/60)
-            if day == days-1 and earliest_job_end_time > minutes_per_day:
+            earliest_job_end_time = minute_of_day + (trace["runtime_sec"]/60) 
+            if day == days-1 and earliest_job_end_time > minutes_per_day: 
                 # Skip jobs that overflow the last day
                 print(f"Skipping job {trace['id']} that overflows the last day")
                 continue
@@ -69,13 +69,18 @@ def get_spark(workload_name: str, seed: int, provider: str, periodic_ratio: floa
             #index_minute = minutes.index(minute)
             minute_of_day = minute % minutes_per_day
             earliest_job_end_time = minute_of_day + (trace["runtime_sec"]/60)
-            deadline = minute_of_day + max(trace["runtime_sec"]/60, p)
-            if day == days-1: deadline = min(deadline, minutes_per_day)
+            deadline = minute_of_day + max(trace["runtime_sec"]/60, p) # > runtime or periodicity
+            
+            if day == days-1: deadline = min(deadline, minutes_per_day) #
+            # deadline = minutes_per_day < runtime ?
+                
             if day == days-1 and earliest_job_end_time > minutes_per_day:
                 print((minute, day, minute_of_day, trace["runtime_sec"]/60, earliest_job_end_time, minutes_per_day))
                 # Skip jobs that overflow the last day
                 print(f"Skipping job {trace['id']} that overflows the last day")
                 continue
+            
+            assert deadline > (trace["runtime_sec"]/60)
             requests[day].append({
                 "id": max_id,
                 "size": trace["input_size_bytes"],
